@@ -1,40 +1,48 @@
 package com.util;
 
-import java.util.Properties;
-import javax.mail.Authenticator;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Multipart;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
+import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Properties;
 
 public class SendMail {
+    private Session session;
+    private Message message;
+    private String yourmail, password;
+    private static SendMail instance = new SendMail();
 
-    Message message;
-    Session session;
+    private void getMail() {
+        try (BufferedReader br = new BufferedReader(new FileReader("mail.txt"))) {
+            this.yourmail = br.readLine().trim();
+            this.password = br.readLine().trim();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-    public static String yourmail="namuong354@gmail.com";
-    public static String password="rljkibndsmtwarmf";
+    public static SendMail getInstance() {
+        return instance;
+    }
 
-    public SendMail(String to) {
+    private SendMail() {
         Properties properties = new Properties();
         properties.put("mail.smtp.host", "smtp.gmail.com");
         properties.put("mail.smtp.port", "587");
         properties.put("mail.smtp.auth", "true");
         properties.put("mail.smtp.starttls.enable", "true");
-
+        getMail();
         this.session =
                 Session.getDefaultInstance(
                         properties,
                         new Authenticator() {
                             protected PasswordAuthentication getPasswordAuthentication() {
                                 return new PasswordAuthentication(
-                                    yourmail,password
+                                        yourmail, password
                                 );
                             }
                         }
@@ -47,46 +55,37 @@ public class SendMail {
 
             this.message.setRecipient(
                     Message.RecipientType.TO,
-                    new InternetAddress(to)
+                    new InternetAddress(this.yourmail)
             );
         } catch (MessagingException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
+
     }
 
-    public void sendText(String text) {
+    public void sendMail(String subject, String text, String file) {
         try {
-            this.message.setSubject(text);
+            this.message.setSubject(subject);
             MimeBodyPart filePart = new MimeBodyPart();
-            filePart.setText(text);
+            if (text != null)
+                filePart.setText(text);
+            if (file != null)
+                filePart.attachFile(file);
+
             Multipart multipart = new MimeMultipart();
             multipart.addBodyPart(filePart);
             this.message.setContent(multipart);
             Transport.send(message);
             System.out.println("Send mail file success!");
-        } catch (MessagingException e) {
-            e.printStackTrace();
+        } catch (MessagingException | IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
-    public void sendFile(String path) {
-        try {
-            this.message.setSubject("Response remote file");
-            MimeBodyPart filePart = new MimeBodyPart();
-            filePart.attachFile(path);
-            Multipart multipart = new MimeMultipart();
-            multipart.addBodyPart(filePart);
-            this.message.setContent(multipart);
-            Transport.send(message);
-            System.out.println("Send mail file success!");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+
     public static void main(String[] args) {
-        SendMail send = new SendMail("receivemail@gmail.com");
-        send.sendFile("Yourfile");
-        send.sendText("Your Text");
+        SendMail instance = SendMail.getInstance();
+        instance.sendMail("subject", "demo text", "mail.txt");
     }
 
 }
