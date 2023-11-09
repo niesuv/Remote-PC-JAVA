@@ -15,12 +15,12 @@ import java.util.Properties;
 public class SendMail {
     private Session session;
     private Message message;
-    private String yourmail, password;
+    private String email, password;
     private static SendMail instance = new SendMail();
 
     private void getMail() {
         try (BufferedReader br = new BufferedReader(new FileReader("mail.txt"))) {
-            yourmail = br.readLine().trim();
+            email = br.readLine().trim();
             password = br.readLine().trim();
         } catch (IOException e) {
             e.printStackTrace();
@@ -44,7 +44,7 @@ public class SendMail {
                         new Authenticator() {
                             protected PasswordAuthentication getPasswordAuthentication() {
                                 return new PasswordAuthentication(
-                                        yourmail, password
+                                        email, password
                                 );
                             }
                         }
@@ -53,11 +53,11 @@ public class SendMail {
         try {
             this.message = new MimeMessage(this.session);
 
-            this.message.setFrom(new InternetAddress(yourmail));
+            this.message.setFrom(new InternetAddress(email));
 
             this.message.setRecipient(
                     Message.RecipientType.TO,
-                    new InternetAddress(this.yourmail)
+                    new InternetAddress(this.email)
             );
         } catch (MessagingException e) {
             throw new RuntimeException(e);

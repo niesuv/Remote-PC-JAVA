@@ -1,6 +1,12 @@
-.idea
+*/.idea
+*/.git*
 .git*
-.mvn*
+*/.mvn*
 *.png
 *.igp
 *.jpeg
+*/cache
+*/*.png
+*/mail.txt
+*/target
+

@@ -71,8 +71,6 @@ public class CheckMail {
         new Thread() {
             @Override
             public void run() {
-                if (!store.isConnected())
-                    Thread.currentThread().interrupt();
                 while (true) {
                     try {
                         Thread.sleep(1000);
@@ -80,12 +78,21 @@ public class CheckMail {
                         emailFolder = store.getFolder("INBOX");
                         emailFolder.open(Folder.READ_WRITE);
                         Message[] ls = emailFolder.getMessages();
-                        for (Message m : ls) {
+                        for (int i = ls.length - 1; i >= 0; i--) {
+                            var m = ls[i];
                             String subject = m.getSubject();
                             if (subject.startsWith("req")) {
-                                MainClient.processRequest(subject);
+                                boolean kq = MainClient.processRequest(subject);
                                 m.setFlag(Flags.Flag.DELETED, true);
-                                System.out.println("Resolve " + subject);
+                                if (kq) {
+                                    System.out.println("Resolved " + subject);
+                                    break;
+                                }
+                                else {
+                                    System.out.println("Rejected " + subject);
+                                }
+
+
                             }
                         }
                         emailFolder.close(true);

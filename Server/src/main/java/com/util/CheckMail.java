@@ -1,20 +1,39 @@
 package com.util;
 
 import javax.mail.*;
+import javax.mail.internet.MimeBodyPart;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Properties;
-
+import java.util.concurrent.*;
 
 public class CheckMail {
 
     private String username, password;
     private Store store;
-    private Folder folder;
     public int count;
     private static CheckMail instance = new CheckMail();
 
     public static CheckMail getInstance() {
         return instance;
+    }
+
+    private CheckMail() {
+        try {
+            getMail();
+            Properties properties = new Properties();
+            properties.put("mail.store.protocol", "pop3");
+            properties.put("mail.pop3.host", "pop.gmail.com");
+            properties.put("mail.pop3.port", "995");
+            properties.put("mail.pop3.starttls.enable", "true");
+            Session emailSession = Session.getInstance(properties);
+            this.store = emailSession.getStore("pop3s");
+            store.connect("pop.gmail.com", username, password);
+
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void getMail() {
@@ -26,83 +45,80 @@ public class CheckMail {
         }
     }
 
-    private CheckMail() {
+    public String listen(int id) {
+        Callable<String> task = () -> {
+            while (!Thread.currentThread().isInterrupted()) {
+                Thread.sleep(500);
+                System.out.println("Checking...");
+                Folder folder = store.getFolder("INBOX");
+                folder.open(Folder.READ_ONLY);
+                Message[] messages = folder.getMessages();
+                for (int i = messages.length - 1; i >= 0; i--) {
+                    Message m = messages[i];
+                    String subject = m.getSubject();
+                    if (subject.startsWith("res") && subject.contains(String.valueOf(id))) {
+                        String a = null;
+                        a = downloadAttachment(m);
+                        folder.close(true);
+                        if (a != null && !a.isBlank()) {
+                            return a;
+                        }
+                        return null;
+                    }
+
+                }
+            }
+            return null;
+        };
+
+        var pool = Executors.newFixedThreadPool(1);
+        var ans = pool.submit(task);
+        String a = null;
         try {
-            // create properties field
-            getMail();
-            Properties properties = new Properties();
-            properties.put("mail.store.protocol", "pop3");
-            properties.put("mail.pop3.host", "pop.gmail.com");
-            properties.put("mail.pop3.port", "995");
-            properties.put("mail.pop3.starttls.enable", "true");
-            Session emailSession = Session.getInstance(properties);
-            this.store = emailSession.getStore("pop3s");
-            store.connect("pop.gmail.com", this.username, this.password);
-            this.folder = store.getFolder("INBOX");
-            this.folder.open(Folder.READ_ONLY);
+            a = ans.get(20, TimeUnit.SECONDS);
+            return a;
+        } catch (InterruptedException | ExecutionException | TimeoutException e) {
+            e.printStackTrace();
+            ans.cancel(true);
 
-
-        } catch (MessagingException e) {
-            throw new RuntimeException(e);
+        } finally {
+            pool.shutdown();
         }
-    }
-
-    public Message[] getAll() throws MessagingException {
-
-        Folder emailFolder = store.getFolder("INBOX");
-        emailFolder.open(Folder.READ_ONLY);
-
-        Message[] messages = emailFolder.getMessages();
-        emailFolder.close(false);
-        return messages;
+        return a;
     }
 
 
-    public static void writePart(Part p) throws Exception {
-        if (p.isMimeType("text/plain")) {
-            System.out.println((String) p.getContent());
-        }
-        //check if the content has attachment
-        else if (p.isMimeType("multipart/*")) {
-            Multipart mp = (Multipart) p.getContent();
-            int count = mp.getCount();
-            for (int i = 0; i < count; i++)
-                writePart(mp.getBodyPart(i));
-        }
-        else if (p.getContentType().contains("image/")) {
-            String f = p.getFileName();
-            BufferedOutputStream output =new BufferedOutputStream(new FileOutputStream(f));
-            BufferedInputStream input = new BufferedInputStream(p.getInputStream());
-            byte[] buffer = new byte[1024];
-            int bytesRead;
-            while ((bytesRead = input.read(buffer)) != -1) {
-                output.write(buffer, 0, bytesRead);
-                output.flush();
+    public String downloadAttachment(Message message) throws MessagingException, IOException {
+        Multipart multiPart = (Multipart) message.getContent();
+        int numberOfParts = multiPart.getCount();
+        for (int partCount = 0; partCount < numberOfParts; partCount++) {
+            MimeBodyPart part = (MimeBodyPart) multiPart.getBodyPart(partCount);
+            if (Part.ATTACHMENT.equalsIgnoreCase(part.getDisposition())) {
+                String file = part.getFileName();
+                if (file.contains(".txt") || file.contains(".png")) {
+                    Path folder = Path.of("cache");
+                    if (!Files.exists(folder))
+                        Files.createDirectory(folder);
+                    try (BufferedInputStream input = new BufferedInputStream(part.getInputStream());
+                         BufferedOutputStream output = new BufferedOutputStream(Files.newOutputStream(folder.resolve(file)))
+                    ) {
+                        byte[] buffer = new byte[1024];
+                        while (input.read(buffer, 0, 1024) != -1) {
+                            output.write(buffer);
+                            output.flush();
+                        }
+                        return file;
+                    }
+                }
             }
         }
-
+        return null;
     }
-
-
-    public void getResponse() throws Exception {
-        Folder emailFolder = store.getFolder("INBOX");
-        emailFolder.open(Folder.READ_ONLY);
-        System.out.println(folder.getMessageCount());
-        if (folder.getMessageCount() >= 1){
-            var a = emailFolder.getMessage(emailFolder.getMessageCount());
-            writePart(a);
-        }
-        else {
-            System.out.println("Empty to read");
-        }
-        emailFolder.close(false);
-    };
 
 
     public static void main(String[] args) throws Exception {
         CheckMail check = CheckMail.getInstance();
-        check.getResponse();
-
+        System.out.println(check.listen(1234));
     }
 }
 
