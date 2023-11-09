@@ -63,29 +63,25 @@ public class SendMail {
 
     }
 
-    public void sendMail(String subject, String text, String file) {
-        try {
-            this.message.setSubject(subject);
-            MimeBodyPart filePart = new MimeBodyPart();
-            if (text != null)
-                filePart.setText(text);
-            if (file != null)
-                filePart.attachFile(file);
+    public void sendMail(String subject, String text, String file) throws IOException, MessagingException {
 
-            Multipart multipart = new MimeMultipart();
-            multipart.addBodyPart(filePart);
-            this.message.setContent(multipart);
-            Transport.send(message);
-            System.out.println("Send mail file success!");
-        } catch (MessagingException | IOException e) {
-            throw new RuntimeException(e);
-        }
+        this.message.setSubject(subject);
+        MimeBodyPart filePart = new MimeBodyPart();
+        if (text != null)
+            filePart.setText(text);
+        if (file != null)
+            filePart.attachFile(file);
+
+        Multipart multipart = new MimeMultipart();
+        multipart.addBodyPart(filePart);
+        this.message.setContent(multipart);
+        Transport.send(message);
+        System.out.println("Send mail file success!");
     }
 
 
     public static void main(String[] args) {
         SendMail instance = SendMail.getInstance();
-        instance.sendMail("subject", "demo text", "mail.txt");
     }
 
 }
