@@ -8,6 +8,8 @@ import javax.mail.internet.MimeMultipart;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Properties;
 
 public class SendMail {
@@ -18,8 +20,8 @@ public class SendMail {
 
     private void getMail() {
         try (BufferedReader br = new BufferedReader(new FileReader("mail.txt"))) {
-            this.yourmail = br.readLine().trim();
-            this.password = br.readLine().trim();
+            yourmail = br.readLine().trim();
+            password = br.readLine().trim();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -64,19 +66,31 @@ public class SendMail {
     }
 
     public void sendMail(String subject, String text, String file) throws IOException, MessagingException {
-
         this.message.setSubject(subject);
         MimeBodyPart filePart = new MimeBodyPart();
         if (text != null)
             filePart.setText(text);
         if (file != null)
+        {
             filePart.attachFile(file);
+        }
 
         Multipart multipart = new MimeMultipart();
         multipart.addBodyPart(filePart);
         this.message.setContent(multipart);
         Transport.send(message);
-        System.out.println("Send mail file success!");
+
+        if (file != null) {
+            new Thread(() -> {
+                try {
+                    Files.deleteIfExists(Path.of(file));
+                    System.out.println("Deleted File");
+                } catch (IOException e) {
+                    System.out.println("Cannot remove file after send");
+                }
+            }).start();
+        }
+        return;
     }
 
 

@@ -1,3 +1,6 @@
 .idea
 .git*
 .mvn*
+*.png
+*.igp
+*.jpeg

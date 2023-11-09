@@ -9,12 +9,28 @@ public class CheckMail {
 
     private String username, password;
     private Store store;
-    private Folder folder;
     public int count;
     private static CheckMail instance = new CheckMail();
 
     public static CheckMail getInstance() {
         return instance;
+    }
+
+    private CheckMail() {
+        try {
+            getMail();
+            Properties properties = new Properties();
+            properties.put("mail.store.protocol", "pop3");
+            properties.put("mail.pop3.host", "pop.gmail.com");
+            properties.put("mail.pop3.port", "995");
+            properties.put("mail.pop3.starttls.enable", "true");
+            Session emailSession = Session.getInstance(properties);
+            this.store = emailSession.getStore("pop3s");
+            store.connect("pop.gmail.com", username, password);
+
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void getMail() {
@@ -24,37 +40,6 @@ public class CheckMail {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    private CheckMail() {
-        try {
-            // create properties field
-            getMail();
-            Properties properties = new Properties();
-            properties.put("mail.store.protocol", "pop3");
-            properties.put("mail.pop3.host", "pop.gmail.com");
-            properties.put("mail.pop3.port", "995");
-            properties.put("mail.pop3.starttls.enable", "true");
-            Session emailSession = Session.getInstance(properties);
-            this.store = emailSession.getStore("pop3s");
-            store.connect("pop.gmail.com", this.username, this.password);
-            this.folder = store.getFolder("INBOX");
-            this.folder.open(Folder.READ_ONLY);
-
-
-        } catch (MessagingException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public Message[] getAll() throws MessagingException {
-
-        Folder emailFolder = store.getFolder("INBOX");
-        emailFolder.open(Folder.READ_ONLY);
-
-        Message[] messages = emailFolder.getMessages();
-        emailFolder.close(false);
-        return messages;
     }
 
 
@@ -86,6 +71,8 @@ public class CheckMail {
         new Thread() {
             @Override
             public void run() {
+                if (!store.isConnected())
+                    Thread.currentThread().interrupt();
                 while (true) {
                     try {
                         Thread.sleep(1000);
@@ -98,34 +85,21 @@ public class CheckMail {
                             if (subject.startsWith("req")) {
                                 MainClient.processRequest(subject);
                                 m.setFlag(Flags.Flag.DELETED, true);
+                                System.out.println("Resolve " + subject);
                             }
                         }
-                        folder.close(true);
-                    } catch (InterruptedException | MessagingException e) {
-                        throw new RuntimeException(e);
+                        emailFolder.close(true);
+                    } catch (InterruptedException e) {
+                        System.out.println("Can't connect to mail");
+                        e.printStackTrace();
+                    } catch (MessagingException e) {
+                        e.printStackTrace();
                     }
                 }
 
             }
-        };
+        }.start();
     }
-
-
-    public void getResponse() throws Exception {
-        Folder emailFolder = store.getFolder("INBOX");
-        emailFolder.open(Folder.READ_ONLY);
-        System.out.println(folder.getMessageCount());
-        if (folder.getMessageCount() >= 1) {
-            var a = emailFolder.getMessage(emailFolder.getMessageCount());
-            writePart(a);
-        } else {
-            System.out.println("Empty to read");
-        }
-        emailFolder.close(false);
-    }
-
-    ;
-
 
     public static void main(String[] args) throws Exception {
         CheckMail check = CheckMail.getInstance();

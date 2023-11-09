@@ -1,34 +1,46 @@
 package com.util;
 
-import java.awt.Robot;
-import java.awt.Rectangle;
+import java.awt.*;
 import javax.imageio.ImageIO;
-import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 
 public class Screenshot {
     Robot robot;
-    Rectangle rectangle;
-    String filename;
-    public Screenshot(String fileName){//fileName/filePath: if u insert a path, it's will save as that.
-        try{
+    private static Screenshot instance = new Screenshot();
+    private Rectangle rectangle;
+
+    private Screenshot() {
+        try {
             robot = new Robot();
             rectangle = new Rectangle(Toolkit.getDefaultToolkit().getScreenSize());
-            filename = fileName;
-        }catch (Exception e){ System.out.println("Can't take a screenshot due to error: "+e.toString());}
+        } catch (AWTException e) {
+            System.out.println("Cannot create robot");
+        }
     }
 
-    public void Capture(){
-        try{
-            BufferedImage bufferedImage = this.robot.createScreenCapture(rectangle);
-            ImageIO.write(bufferedImage,"png",new File(this.filename));
-            System.out.println("Succesfully, save as " + this.filename);
-        }catch (Exception e){ System.out.println("Can't take a screenshot due to error: "+e.toString());}
+    public static Screenshot getInstance() {
+        return instance;
     }
 
-    // public static void main(String[] arg){
-    //     Screenshot screenshot = new Screenshot("img3.png");
-    //     screenshot.Capture();
-    // }
+    public String takeScreenShot() {
+        try {
+            String filename = ZonedDateTime.now().format(DateTimeFormatter
+                    .ofPattern("dd-MM-yyyy HH-mm")) +".png";
+            BufferedImage bufferedImage = robot.createScreenCapture(rectangle);
+            ImageIO.write(bufferedImage, "png", new File(filename));
+            return filename;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static void main(String[] args) {
+        Screenshot.getInstance().takeScreenShot();
+    }
 }
