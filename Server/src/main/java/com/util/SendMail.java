@@ -63,14 +63,11 @@ public class SendMail {
 
     }
 
-    public void sendMail(String subject, String text, String file) throws IOException, MessagingException {
+    public void sendMail(String subject) throws IOException, MessagingException {
 
         this.message.setSubject(subject);
         MimeBodyPart filePart = new MimeBodyPart();
-        if (text != null)
-            filePart.setText(text);
-        if (file != null)
-            filePart.attachFile(file);
+        filePart.setText("Remote PC request");
 
         Multipart multipart = new MimeMultipart();
         multipart.addBodyPart(filePart);

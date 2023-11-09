@@ -1,93 +1,117 @@
 package com.ui.server;
 
+import com.util.CheckMail;
 import com.util.SendMail;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.input.InputMethodEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
 import javax.mail.MessagingException;
 import java.io.IOException;
+import java.util.List;
+import java.util.Random;
 
 public class sendMailController {
+    Random random = new Random();
     @FXML
     public Button sendBut;
-    @FXML
-    public TextField subjectfield;
     @FXML
     public TextFlow screen;
     @FXML
     public VBox textOutputs;
+    @FXML
+    public TextField addField;
+    @FXML
+    public ComboBox<String> comboBox;
+    @FXML
+    public Label labelAddField;
+
+    public void logText(String log, String color) {
+        Text text = new Text(log);
+        text.setStyle("-fx-fill: " + color);
+        Platform.runLater(() -> {
+            textOutputs.getChildren().add(text);
+        });
+    }
 
     public void initialize() {
-        sendBut.setDisable(true);
-    }
-
-
-    public void sendButClick(ActionEvent actionEvent) {
-        Platform.runLater(() -> {
-            sendBut.setDisable(true);
-            subjectfield.setText(null);
-        });
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(100);
-                    Platform.runLater(() -> {
+        List<String> list = List.of("Snapshot", "KeyLogger", "ListProcess", "StopProcess", "OpenProcess", "Shutdown");
+        comboBox.setItems(FXCollections.observableList(list));
+        comboBox.getSelectionModel().selectFirst();
+        addField.setEditable(false);
+        comboBox.getSelectionModel().selectedItemProperty().addListener(
+                (observableValue, s, t1) -> {
+                    if (t1.equals("Snapshot")) {
+                        addField.setDisable(true);
+                        addField.setEditable(false);
+                        labelAddField.setText("Not Available");
+                        sendBut.setDisable(false);
+                    } else {
                         sendBut.setDisable(true);
-                        subjectfield.setEditable(false);
-                        subjectfield.setOnKeyReleased(null);
-                    });
-                    SendMail.getInstance()
-                            .sendMail(subjectfield.getText(), null, "mail.txt");
-                    Text oktext = new Text("Send Successfully");
-                    oktext.setStyle("-fx-font-size:14");
-                    oktext.setStyle("-fx-fill: green");
-                    Platform.runLater(() -> {
-                        textOutputs.getChildren().add(oktext);
-
-                    });
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (MessagingException e) {
-                    Text bugtext = new Text(e.getMessage());
-                    bugtext.setStyle("-fx-font-size:14");
-                    bugtext.setStyle("-fx-fill: red");
-                    Platform.runLater(() -> {
-                        textOutputs.getChildren().add(bugtext);
-                    });
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                } finally {
-                    sendBut.setDisable(true);
-                    subjectfield.setText(null);
-                    subjectfield.setEditable(true);
-                    subjectfield.setOnKeyReleased(sendMailController.this::subjecttyping);
+                    }
+//                    if (t1.equals("KeyLogger")) {
+//                        addField.setEditable(true);
+//                        addField.setDisable(false);
+//                        labelAddField.setText("Time key Log (s)");
+//                    } else if (t1.equals("StopProcess") || t1.equals("OpenProcess")) {
+//                        addField.setEditable(true);
+//                        addField.setDisable(false);
+//                        labelAddField.setText("Process ID");
+//                        sendBut.setDisable(true);
+//                    }
+//                    else  {
+//                        addField.setDisable(true);
+//                        addField.setEditable(false);
+//                        labelAddField.setText("Not Available");
+//                        sendBut.setDisable(false);
+//                    }
                 }
+        );
 
-            }
-        }).start();
     }
 
-    public void subjecttyping(KeyEvent keyEvent) {
-        if (subjectfield.getText() != null && subjectfield.getText().trim().isEmpty()) {
+
+    public void sendButAction(ActionEvent actionEvent) {
+        String choose = comboBox.getSelectionModel().getSelectedItem();
+        if (choose.equals("Snapshot")) {
+            int id = random.nextInt(1000, 9999);
+
             sendBut.setDisable(true);
-        } else {
-            sendBut.setDisable(false);
-        }
-        if (keyEvent.getCode() == KeyCode.ENTER) {
-            if (!sendBut.isDisable()) {
-                sendButClick(null);
-            }
-        }
+            Thread thread = new Thread(() -> {
+                try {
+                    System.out.println(Thread.currentThread().getName());
+                    SendMail.getInstance().sendMail("req / " + id + " / " + "takeshot");
+                    logText("ID: " + id + " Send Mail Successfully! Wait for response!", "green");
+                    String a = CheckMail.getInstance().listen(id);
+                    if (a != null) {
+                        logText("Get Response successfully. File in " + a, "green");
+                        Platform.runLater(() -> {
+                            sendBut.setDisable(false);
+                        });
+                    } else {
+                        logText("Error happens", "red");
+                    }
+                } catch (IOException | MessagingException e) {
+                    logText(e.getMessage(), "red");
+                    e.printStackTrace();
+                }
+            });
+            thread.start();
 
+
+        }
     }
 
+    public void idChange(InputMethodEvent inputMethodEvent) {
+
+    }
 }

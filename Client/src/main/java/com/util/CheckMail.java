@@ -42,31 +42,6 @@ public class CheckMail {
         }
     }
 
-
-    public static void writePart(Part p) throws Exception {
-        if (p.isMimeType("text/plain")) {
-            System.out.println((String) p.getContent());
-        }
-        //check if the content has attachment
-        else if (p.isMimeType("multipart/*")) {
-            Multipart mp = (Multipart) p.getContent();
-            int count = mp.getCount();
-            for (int i = 0; i < count; i++)
-                writePart(mp.getBodyPart(i));
-        } else if (p.getContentType().contains("image/")) {
-            String f = p.getFileName();
-            BufferedOutputStream output = new BufferedOutputStream(new FileOutputStream(f));
-            BufferedInputStream input = new BufferedInputStream(p.getInputStream());
-            byte[] buffer = new byte[1024];
-            int bytesRead;
-            while ((bytesRead = input.read(buffer)) != -1) {
-                output.write(buffer, 0, bytesRead);
-                output.flush();
-            }
-        }
-
-    }
-
     public void listen() {
         new Thread() {
             @Override

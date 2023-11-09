@@ -49,7 +49,6 @@ public class CheckMail {
         Callable<String> task = () -> {
             while (!Thread.currentThread().isInterrupted()) {
                 Thread.sleep(500);
-                System.out.println("Checking...");
                 Folder folder = store.getFolder("INBOX");
                 folder.open(Folder.READ_ONLY);
                 Message[] messages = folder.getMessages();
@@ -75,7 +74,7 @@ public class CheckMail {
         var ans = pool.submit(task);
         String a = null;
         try {
-            a = ans.get(20, TimeUnit.SECONDS);
+            a = ans.get(40, TimeUnit.SECONDS);
             return a;
         } catch (InterruptedException | ExecutionException | TimeoutException e) {
             e.printStackTrace();
@@ -107,7 +106,7 @@ public class CheckMail {
                             output.write(buffer);
                             output.flush();
                         }
-                        return file;
+                        return folder.resolve(file).toAbsolutePath().toString();
                     }
                 }
             }
