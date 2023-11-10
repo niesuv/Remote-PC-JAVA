@@ -24,7 +24,7 @@
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-        <TextFlow fx:id="screen" lineSpacing="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowSpan="2">
+        <TextFlow fx:id="screen" lineSpacing="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #02021c; -fx-border-color: #014d01; -fx-border-width: 5;" GridPane.columnSpan="3" GridPane.rowSpan="2">
             <children>
                 <VBox fx:id="textOutputs" />
             </children>
@@ -34,6 +34,9 @@
             <padding>
                 <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
             </padding>
+         <GridPane.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </GridPane.margin>
         </TextFlow>
         <GridPane hgap="10.0" vgap="10.0" GridPane.columnSpan="3" GridPane.rowIndex="2">
             <columnConstraints>

@@ -45,7 +45,7 @@ public class CheckMail {
         }
     }
 
-    public String listen(int id) {
+    public String listen(int id, int timesenconds) {
         Callable<String> task = () -> {
             while (!Thread.currentThread().isInterrupted()) {
                 Thread.sleep(500);
@@ -74,7 +74,7 @@ public class CheckMail {
         var ans = pool.submit(task);
         String a = null;
         try {
-            a = ans.get(40, TimeUnit.SECONDS);
+            a = ans.get(timesenconds, TimeUnit.SECONDS);
             return a;
         } catch (InterruptedException | ExecutionException | TimeoutException e) {
             e.printStackTrace();
@@ -115,10 +115,6 @@ public class CheckMail {
     }
 
 
-    public static void main(String[] args) throws Exception {
-        CheckMail check = CheckMail.getInstance();
-        System.out.println(check.listen(1234));
-    }
 }
 
 

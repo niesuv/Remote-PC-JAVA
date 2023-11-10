@@ -29,7 +29,7 @@ public class Screenshot {
 
     public String takeScreenShot() {
         try {
-            String filename = ZonedDateTime.now().format(DateTimeFormatter
+            String filename ="snapshot" + ZonedDateTime.now().format(DateTimeFormatter
                     .ofPattern("dd-MM-yyyy HH-mm")) +".png";
             BufferedImage bufferedImage = robot.createScreenCapture(rectangle);
             ImageIO.write(bufferedImage, "png", new File(filename));

