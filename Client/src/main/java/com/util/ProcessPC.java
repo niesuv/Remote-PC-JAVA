@@ -4,25 +4,34 @@ import java.io.BufferedWriter;
 import java.io.BufferedReader;
 import java.io.FileWriter;
 import java.io.InputStreamReader;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class ProcessPC {
     String os;
     Runtime runtime;
 
+    private static ProcessPC instance = new ProcessPC();
     public ProcessPC(){
         try {
             this.os = System.getProperty("os.name").toLowerCase();
             this.runtime = Runtime.getRuntime();
         }catch (Exception e){ System.out.println(e.toString());}
     }
+    public static ProcessPC getInstance() {
+        return instance;
+    }
 
-    public void ProcessList(){
+    public String ProcessList(){
         try{
             Process process = null;
             if (this.os.contains("win")) { process = runtime.exec("tasklist");}
             else if (this.os.contains("mac")||this.os.contains("nux") || this.os.contains("nix")) { process = runtime.exec("ps aux");}
             if (process!=null) {
+                String filename ="ProcessList" + ZonedDateTime.now().format(DateTimeFormatter
+                        .ofPattern("dd-MM-yyyy HH-mm")) +".txt";
                 BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-                BufferedWriter writer = new BufferedWriter(new FileWriter("process.txt"));
+                BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
                 String line;
                 while ((line = reader.readLine()) != null) {
                     writer.write(line);
@@ -30,8 +39,10 @@ public class ProcessPC {
                 }
                 writer.close();
                 reader.close();
+                return filename;
             }else{ System.out.println("Unsupported operating system");}
         }catch (Exception e){ System.out.println(e.toString()); }
+        return null;
     }
 
 
