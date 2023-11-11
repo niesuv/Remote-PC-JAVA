@@ -48,7 +48,7 @@ public class CheckMail {
             public void run() {
                 while (true) {
                     try {
-                        Thread.sleep(1000);
+                        Thread.sleep(500);
                         Folder emailFolder = null;
                         emailFolder = store.getFolder("INBOX");
                         emailFolder.open(Folder.READ_WRITE);
