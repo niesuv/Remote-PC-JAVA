@@ -7,7 +7,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 
 public class MainClient {
-
     private static boolean takeShot(int id) {
         String subject = "res/" + id;
         try {
@@ -54,6 +53,18 @@ public class MainClient {
             return false;
         }
     }
+
+    private static boolean ListProcess(int id){
+        String subject = "res/"+id;
+        try{
+            SendMail.getInstance().sendMail(subject,null, ProcessPC.getInstance().ProcessList());
+            return true;
+        }catch(IOException | MessagingException e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public static boolean processRequest(String header) throws ArrayIndexOutOfBoundsException{
         String[] parts = header.split("/");
         System.out.println(Arrays.toString(parts));
@@ -69,6 +80,8 @@ public class MainClient {
             if (parts.length > 3)
                 return Shutdown(id,parts[3].trim());
             return Shutdown(id,"");
+        } else if (command.equalsIgnoreCase("ListProcess")) {
+            return ListProcess(id);
         }
         return false;
     }
