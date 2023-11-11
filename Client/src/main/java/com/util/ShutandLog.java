@@ -7,7 +7,8 @@ import java.io.InputStreamReader;
 public class ShutandLog {
     Runtime runtime;
     String os; //The Server's Operating system
-
+    private static ShutandLog instance = new ShutandLog();
+    public static ShutandLog getInstance(){return instance;}
     public void Responde(int exitcode){
         if (exitcode == 0) {
             System.out.println("Shut down successfully");
@@ -89,8 +90,8 @@ public class ShutandLog {
 
     }
 
-//    public static void main(String[] arg){
-//        ShutandLog shutandLog = new ShutandLog();
-//        shutandLog.Logout("UrPassWord");
-//    }
+    public static void main(String[] arg){
+        ShutandLog shutandLog = new ShutandLog();
+        shutandLog.Logout("");
+    }
 }
