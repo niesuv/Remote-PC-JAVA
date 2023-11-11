@@ -1,15 +1,11 @@
 package com.util;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.InputStreamReader;
 public class ShutandLog {
     Runtime runtime;
     String os; //The Server's Operating system
     private static ShutandLog instance = new ShutandLog();
     public static ShutandLog getInstance(){return instance;}
-    public void Responde(int exitcode){
+    public void Respond(int exitcode){
         if (exitcode == 0) {
             System.out.println("Shut down successfully");
         }else if(exitcode == -1){
@@ -40,7 +36,7 @@ public class ShutandLog {
                 exitcode = process.waitFor();
             }
 
-            Responde(exitcode);
+            Respond(exitcode);
 
         }catch (Exception e){
             System.out.println(e.toString());
@@ -61,7 +57,7 @@ public class ShutandLog {
                 exitcode = process.waitFor();
             }
 
-            Responde(exitcode);
+            Respond(exitcode);
 
         }catch (Exception e){
             System.out.println(e.toString());
@@ -82,7 +78,7 @@ public class ShutandLog {
                 exitcode = process.waitFor();
             }
 
-            Responde(exitcode);
+            Respond(exitcode);
 
         }catch (Exception e){
             System.out.println(e.toString());

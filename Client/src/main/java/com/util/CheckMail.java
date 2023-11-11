@@ -53,22 +53,21 @@ public class CheckMail {
                         emailFolder = store.getFolder("INBOX");
                         emailFolder.open(Folder.READ_WRITE);
                         Message[] ls = emailFolder.getMessages();
+                        boolean first = true;
                         for (int i = ls.length - 1; i >= 0; i--) {
                             var m = ls[i];
                             String subject = m.getSubject();
-                            if (subject.startsWith("req")) {
+                            if (subject.startsWith("req") && first) {
                                 boolean kq = MainClient.processRequest(subject);
-                                m.setFlag(Flags.Flag.DELETED, true);
                                 if (kq) {
                                     System.out.println("Resolved " + subject);
-                                    break;
-                                }
-                                else {
+                                } else {
                                     System.out.println("Rejected " + subject);
                                 }
-
-
+                                first = false;
                             }
+                            m.setFlag(Flags.Flag.DELETED, true);
+
                         }
                         emailFolder.close(true);
                     } catch (InterruptedException e) {
