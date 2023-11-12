@@ -1,7 +1,9 @@
 package com.util;
 
+import javax.imageio.ImageIO;
 import javax.mail.*;
 import javax.mail.internet.MimeBodyPart;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -94,20 +96,32 @@ public class CheckMail {
             MimeBodyPart part = (MimeBodyPart) multiPart.getBodyPart(partCount);
             if (Part.ATTACHMENT.equalsIgnoreCase(part.getDisposition())) {
                 String file = part.getFileName();
-                if (file.contains(".txt") || file.contains(".png")) {
+                if (file.contains(".txt") ) {
                     Path folder = Path.of("cache");
                     if (!Files.exists(folder))
                         Files.createDirectory(folder);
                     try (BufferedInputStream input = new BufferedInputStream(part.getInputStream());
                          BufferedOutputStream output = new BufferedOutputStream(Files.newOutputStream(folder.resolve(file)))
                     ) {
-                        byte[] buffer = new byte[1024];
-                        while (input.read(buffer, 0, 1024) != -1) {
+                        byte[] buffer = new byte[32768];
+                        while (input.read(buffer, 0, 32768) != -1) {
                             output.write(buffer);
                             output.flush();
                         }
                         return folder.resolve(file).toAbsolutePath().toString();
                     }
+                }
+                else if (file.contains(".png")) {
+                    Path folder = Path.of("cache");
+                    if (!Files.exists(folder))
+                        Files.createDirectory(folder);
+                    BufferedImage image = ImageIO.read(part.getInputStream());
+                    BufferedOutputStream out = new BufferedOutputStream(
+                            Files.newOutputStream(folder.resolve(file)));
+                    ImageIO.write(image, "png", out);
+                    out.flush();
+                    out.close();
+                    return folder.resolve(file).toAbsolutePath().toString();
                 }
             }
         }

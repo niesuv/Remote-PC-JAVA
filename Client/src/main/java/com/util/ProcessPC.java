@@ -28,7 +28,7 @@ public class ProcessPC {
             if (this.os.contains("win")) { process = runtime.exec("tasklist");}
             else if (this.os.contains("mac")||this.os.contains("nux") || this.os.contains("nix")) { process = runtime.exec("ps aux");}
             if (process!=null) {
-                String filename ="ProcessList" + ZonedDateTime.now().format(DateTimeFormatter
+                String filename ="ProcessList " + ZonedDateTime.now().format(DateTimeFormatter
                         .ofPattern("dd-MM-yyyy HH-mm")) +".txt";
                 BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
                 BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
