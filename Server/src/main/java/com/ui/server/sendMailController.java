@@ -79,22 +79,6 @@ public class sendMailController {
                         sendBut.setDisable(true);
                     }
 
-//                    if (t1.equals("KeyLogger")) {
-//                        addField.setEditable(true);
-//                        addField.setDisable(false);
-//                        labelAddField.setText("Time key Log (s)");
-//                    } else if (t1.equals("StopProcess") || t1.equals("OpenProcess")) {
-//                        addField.setEditable(true);
-//                        addField.setDisable(false);
-//                        labelAddField.setText("Process ID");
-//                        sendBut.setDisable(true);
-//                    }
-//                    else  {
-//                        addField.setDisable(true);
-//                        addField.setEditable(false);
-//                        labelAddField.setText("Not Available");
-//                        sendBut.setDisable(false);
-//                    }
                 }
         );
 
@@ -124,6 +108,9 @@ public class sendMailController {
                     }
                 } catch (IOException | MessagingException e) {
                     logText(e.getMessage(), "red");
+                    Platform.runLater(()->{
+                        sendBut.setDisable(false);
+                    });
                     e.printStackTrace();
                 }
             });
