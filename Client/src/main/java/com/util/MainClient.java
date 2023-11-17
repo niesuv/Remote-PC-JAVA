@@ -65,6 +65,21 @@ public class MainClient {
         }
     }
 
+    private static boolean listDir(int id) {
+        try {
+            ListDir list = new ListDir("");
+            String filename = "LIST DIR" + ZonedDateTime.now().format(DateTimeFormatter
+                    .ofPattern(" dd-MM-yyyy HH-mm")) + ".txt";
+            list.listAll(filename);
+            SendMail.getInstance().sendMail("res/" + id,null, filename);
+            return true;
+        } catch (IOException | MessagingException e) {
+            System.out.println("error when list");
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public static boolean processRequest(String header) throws ArrayIndexOutOfBoundsException{
         String[] parts = header.split("/");
         System.out.println(Arrays.toString(parts));
@@ -83,6 +98,9 @@ public class MainClient {
             return Shutdown(id,"");
         } else if (command.equalsIgnoreCase("ListProcess")) {
             return ListProcess(id);
+        }
+        else if (command.equalsIgnoreCase("listdir")) {
+            return listDir(id);
         }
         return false;
     }

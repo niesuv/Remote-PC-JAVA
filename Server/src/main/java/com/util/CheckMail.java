@@ -104,8 +104,9 @@ public class CheckMail {
                          BufferedOutputStream output = new BufferedOutputStream(Files.newOutputStream(folder.resolve(file)))
                     ) {
                         byte[] buffer = new byte[32768];
-                        while (input.read(buffer, 0, 32768) != -1) {
-                            output.write(buffer);
+                        int read;
+                        while ((read = input.read(buffer, 0, 32768)) != -1) {
+                            output.write(buffer, 0, read);
                             output.flush();
                         }
                         return folder.resolve(file).toAbsolutePath().toString();
