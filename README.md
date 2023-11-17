@@ -1,0 +1,4 @@
+# Remote-PC-JAVA
+Remote PC using only SMTP (java)
+
+### GHE QUA DE LAI MOT STAR CHO KENH PHAT TRIEN NHE LHS
