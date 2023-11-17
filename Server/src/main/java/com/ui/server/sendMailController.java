@@ -12,8 +12,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.InputMethodEvent;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
 
 import javax.mail.MessagingException;
 import java.io.IOException;
@@ -24,8 +24,6 @@ public class sendMailController {
     Random random = new Random();
     @FXML
     public Button sendBut;
-    @FXML
-    public TextFlow screen;
     @FXML
     public VBox textOutputs;
     @FXML
@@ -39,8 +37,11 @@ public class sendMailController {
     public void logText(String log, String color) {
         Text text = new Text(log);
         text.setStyle("-fx-fill: " + color);
+        text.setFont(new Font("Arial",15));
         text.wrappingWidthProperty().set(540);
         Platform.runLater(() -> {
+            if (textOutputs.getHeight() > 380)
+                textOutputs.getChildren().clear();
             textOutputs.getChildren().add(text);
         });
     }

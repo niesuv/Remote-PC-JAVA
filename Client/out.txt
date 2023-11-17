@@ -1828,6 +1828,13 @@ C:\Users\huusa
 │   │   │   │   │      ├───micrometer-commons-1.11.5.pom
 │   │   │   │   │      ├───micrometer-commons-1.11.5.pom.sha1
 │   │   │   │   │      └───_remote.repositories
+│   │   │   │   ├───micrometer-core
+│   │   │   │   │   └───1.11.5
+│   │   │   │   │      ├───micrometer-core-1.11.5.jar
+│   │   │   │   │      ├───micrometer-core-1.11.5.jar.sha1
+│   │   │   │   │      ├───micrometer-core-1.11.5.pom
+│   │   │   │   │      ├───micrometer-core-1.11.5.pom.sha1
+│   │   │   │   │      └───_remote.repositories
 │   │   │   │   ├───micrometer-observation
 │   │   │   │   │   └───1.11.5
 │   │   │   │   │      ├───micrometer-observation-1.11.5.jar
@@ -3906,6 +3913,13 @@ C:\Users\huusa
 │   │   │   │   │   │         ├───maven-shared-utils-3.3.4.pom.sha1
 │   │   │   │   │   │         └───_remote.repositories
 │   │   │   │   │   ├───surefire
+│   │   │   │   │   │   ├───common-java5
+│   │   │   │   │   │   │   └───3.0.0
+│   │   │   │   │   │   │      ├───common-java5-3.0.0.jar
+│   │   │   │   │   │   │      ├───common-java5-3.0.0.jar.sha1
+│   │   │   │   │   │   │      ├───common-java5-3.0.0.pom
+│   │   │   │   │   │   │      ├───common-java5-3.0.0.pom.sha1
+│   │   │   │   │   │   │      └───_remote.repositories
 │   │   │   │   │   │   ├───maven-surefire-common
 │   │   │   │   │   │   │   ├───2.22.2
 │   │   │   │   │   │   │   │   ├───maven-surefire-common-2.22.2.jar
@@ -4002,6 +4016,13 @@ C:\Users\huusa
 │   │   │   │   │   │   │      ├───surefire-extensions-spi-3.1.2.pom
 │   │   │   │   │   │   │      ├───surefire-extensions-spi-3.1.2.pom.sha1
 │   │   │   │   │   │   │      └───_remote.repositories
+│   │   │   │   │   │   ├───surefire-junit-platform
+│   │   │   │   │   │   │   └───3.0.0
+│   │   │   │   │   │   │      ├───surefire-junit-platform-3.0.0.jar
+│   │   │   │   │   │   │      ├───surefire-junit-platform-3.0.0.jar.sha1
+│   │   │   │   │   │   │      ├───surefire-junit-platform-3.0.0.pom
+│   │   │   │   │   │   │      ├───surefire-junit-platform-3.0.0.pom.sha1
+│   │   │   │   │   │   │      └───_remote.repositories
 │   │   │   │   │   │   ├───surefire-logger-api
 │   │   │   │   │   │   │   ├───2.22.2
 │   │   │   │   │   │   │   │   ├───surefire-logger-api-2.22.2.jar
@@ -4020,6 +4041,11 @@ C:\Users\huusa
 │   │   │   │   │   │   │      ├───surefire-logger-api-3.1.2.jar.sha1
 │   │   │   │   │   │   │      ├───surefire-logger-api-3.1.2.pom
 │   │   │   │   │   │   │      ├───surefire-logger-api-3.1.2.pom.sha1
+│   │   │   │   │   │   │      └───_remote.repositories
+│   │   │   │   │   │   ├───surefire-providers
+│   │   │   │   │   │   │   └───3.0.0
+│   │   │   │   │   │   │      ├───surefire-providers-3.0.0.pom
+│   │   │   │   │   │   │      ├───surefire-providers-3.0.0.pom.sha1
 │   │   │   │   │   │   │      └───_remote.repositories
 │   │   │   │   │   │   └───surefire-shared-utils
 │   │   │   │   │   │      ├───3.0.0
@@ -4171,6 +4197,12 @@ C:\Users\huusa
 │   │   │   │            └───_remote.repositories
 │   │   │   ├───apiguardian
 │   │   │   │   └───apiguardian-api
+│   │   │   │      ├───1.0.0
+│   │   │   │      │   ├───apiguardian-api-1.0.0.jar
+│   │   │   │      │   ├───apiguardian-api-1.0.0.jar.sha1
+│   │   │   │      │   ├───apiguardian-api-1.0.0.pom
+│   │   │   │      │   ├───apiguardian-api-1.0.0.pom.sha1
+│   │   │   │      │   └───_remote.repositories
 │   │   │   │      ├───1.1.0
 │   │   │   │      │   ├───apiguardian-api-1.1.0.jar
 │   │   │   │      │   ├───apiguardian-api-1.1.0.jar.sha1
@@ -5256,6 +5288,14 @@ C:\Users\huusa
 │   │   │   │         ├───hamcrest-parent-1.3.pom
 │   │   │   │         ├───hamcrest-parent-1.3.pom.sha1
 │   │   │   │         └───_remote.repositories
+│   │   │   ├───hdrhistogram
+│   │   │   │   └───HdrHistogram
+│   │   │   │      └───2.1.12
+│   │   │   │         ├───HdrHistogram-2.1.12.jar
+│   │   │   │         ├───HdrHistogram-2.1.12.jar.sha1
+│   │   │   │         ├───HdrHistogram-2.1.12.pom
+│   │   │   │         ├───HdrHistogram-2.1.12.pom.sha1
+│   │   │   │         └───_remote.repositories
 │   │   │   ├───infinispan
 │   │   │   │   ├───infinispan-bom
 │   │   │   │   │   ├───11.0.15.Final
@@ -5466,6 +5506,12 @@ C:\Users\huusa
 │   │   │   │   │         └───_remote.repositories
 │   │   │   │   └───platform
 │   │   │   │      ├───junit-platform-commons
+│   │   │   │      │   ├───1.3.2
+│   │   │   │      │   │   ├───junit-platform-commons-1.3.2.jar
+│   │   │   │      │   │   ├───junit-platform-commons-1.3.2.jar.sha1
+│   │   │   │      │   │   ├───junit-platform-commons-1.3.2.pom
+│   │   │   │      │   │   ├───junit-platform-commons-1.3.2.pom.sha1
+│   │   │   │      │   │   └───_remote.repositories
 │   │   │   │      │   ├───1.7.2
 │   │   │   │      │   │   ├───junit-platform-commons-1.7.2.jar
 │   │   │   │      │   │   ├───junit-platform-commons-1.7.2.jar.sha1
@@ -5484,25 +5530,52 @@ C:\Users\huusa
 │   │   │   │      │      ├───junit-platform-commons-1.9.3.pom
 │   │   │   │      │      ├───junit-platform-commons-1.9.3.pom.sha1
 │   │   │   │      │      └───_remote.repositories
-│   │   │   │      └───junit-platform-engine
-│   │   │   │         ├───1.7.2
-│   │   │   │         │   ├───junit-platform-engine-1.7.2.jar
-│   │   │   │         │   ├───junit-platform-engine-1.7.2.jar.sha1
-│   │   │   │         │   ├───junit-platform-engine-1.7.2.pom
-│   │   │   │         │   ├───junit-platform-engine-1.7.2.pom.sha1
-│   │   │   │         │   └───_remote.repositories
-│   │   │   │         ├───1.9.2
-│   │   │   │         │   ├───junit-platform-engine-1.9.2.jar
-│   │   │   │         │   ├───junit-platform-engine-1.9.2.jar.sha1
-│   │   │   │         │   ├───junit-platform-engine-1.9.2.pom
-│   │   │   │         │   ├───junit-platform-engine-1.9.2.pom.sha1
+│   │   │   │      ├───junit-platform-engine
+│   │   │   │      │   ├───1.3.2
+│   │   │   │      │   │   ├───junit-platform-engine-1.3.2.jar
+│   │   │   │      │   │   ├───junit-platform-engine-1.3.2.jar.sha1
+│   │   │   │      │   │   ├───junit-platform-engine-1.3.2.pom
+│   │   │   │      │   │   ├───junit-platform-engine-1.3.2.pom.sha1
+│   │   │   │      │   │   └───_remote.repositories
+│   │   │   │      │   ├───1.7.2
+│   │   │   │      │   │   ├───junit-platform-engine-1.7.2.jar
+│   │   │   │      │   │   ├───junit-platform-engine-1.7.2.jar.sha1
+│   │   │   │      │   │   ├───junit-platform-engine-1.7.2.pom
+│   │   │   │      │   │   ├───junit-platform-engine-1.7.2.pom.sha1
+│   │   │   │      │   │   └───_remote.repositories
+│   │   │   │      │   ├───1.9.2
+│   │   │   │      │   │   ├───junit-platform-engine-1.9.2.jar
+│   │   │   │      │   │   ├───junit-platform-engine-1.9.2.jar.sha1
+│   │   │   │      │   │   ├───junit-platform-engine-1.9.2.pom
+│   │   │   │      │   │   ├───junit-platform-engine-1.9.2.pom.sha1
+│   │   │   │      │   │   └───_remote.repositories
+│   │   │   │      │   └───1.9.3
+│   │   │   │      │      ├───junit-platform-engine-1.9.3.jar
+│   │   │   │      │      ├───junit-platform-engine-1.9.3.jar.sha1
+│   │   │   │      │      ├───junit-platform-engine-1.9.3.pom
+│   │   │   │      │      ├───junit-platform-engine-1.9.3.pom.sha1
+│   │   │   │      │      └───_remote.repositories
+│   │   │   │      └───junit-platform-launcher
+│   │   │   │         ├───1.3.2
+│   │   │   │         │   ├───junit-platform-launcher-1.3.2.jar
+│   │   │   │         │   ├───junit-platform-launcher-1.3.2.jar.sha1
+│   │   │   │         │   ├───junit-platform-launcher-1.3.2.pom
+│   │   │   │         │   ├───junit-platform-launcher-1.3.2.pom.sha1
 │   │   │   │         │   └───_remote.repositories
 │   │   │   │         └───1.9.3
-│   │   │   │            ├───junit-platform-engine-1.9.3.jar
-│   │   │   │            ├───junit-platform-engine-1.9.3.jar.sha1
-│   │   │   │            ├───junit-platform-engine-1.9.3.pom
-│   │   │   │            ├───junit-platform-engine-1.9.3.pom.sha1
+│   │   │   │            ├───junit-platform-launcher-1.9.3.jar
+│   │   │   │            ├───junit-platform-launcher-1.9.3.jar.sha1
+│   │   │   │            ├───junit-platform-launcher-1.9.3.pom
+│   │   │   │            ├───junit-platform-launcher-1.9.3.pom.sha1
 │   │   │   │            └───_remote.repositories
+│   │   │   ├───latencyutils
+│   │   │   │   └───LatencyUtils
+│   │   │   │      └───2.0.3
+│   │   │   │         ├───LatencyUtils-2.0.3.jar
+│   │   │   │         ├───LatencyUtils-2.0.3.jar.sha1
+│   │   │   │         ├───LatencyUtils-2.0.3.pom
+│   │   │   │         ├───LatencyUtils-2.0.3.pom.sha1
+│   │   │   │         └───_remote.repositories
 │   │   │   ├───mockito
 │   │   │   │   ├───mockito-bom
 │   │   │   │   │   ├───4.11.0
@@ -5768,6 +5841,12 @@ C:\Users\huusa
 │   │   │   │         └───_remote.repositories
 │   │   │   ├───opentest4j
 │   │   │   │   └───opentest4j
+│   │   │   │      ├───1.1.1
+│   │   │   │      │   ├───opentest4j-1.1.1.jar
+│   │   │   │      │   ├───opentest4j-1.1.1.jar.sha1
+│   │   │   │      │   ├───opentest4j-1.1.1.pom
+│   │   │   │      │   ├───opentest4j-1.1.1.pom.sha1
+│   │   │   │      │   └───_remote.repositories
 │   │   │   │      └───1.2.0
 │   │   │   │         ├───opentest4j-1.2.0.jar
 │   │   │   │         ├───opentest4j-1.2.0.jar.sha1
@@ -6270,6 +6349,20 @@ C:\Users\huusa
 │   │   │   │   │   │      ├───spring-boot-3.1.5.pom
 │   │   │   │   │   │      ├───spring-boot-3.1.5.pom.sha1
 │   │   │   │   │   │      └───_remote.repositories
+│   │   │   │   │   ├───spring-boot-actuator
+│   │   │   │   │   │   └───3.1.5
+│   │   │   │   │   │      ├───spring-boot-actuator-3.1.5.jar
+│   │   │   │   │   │      ├───spring-boot-actuator-3.1.5.jar.sha1
+│   │   │   │   │   │      ├───spring-boot-actuator-3.1.5.pom
+│   │   │   │   │   │      ├───spring-boot-actuator-3.1.5.pom.sha1
+│   │   │   │   │   │      └───_remote.repositories
+│   │   │   │   │   ├───spring-boot-actuator-autoconfigure
+│   │   │   │   │   │   └───3.1.5
+│   │   │   │   │   │      ├───spring-boot-actuator-autoconfigure-3.1.5.jar
+│   │   │   │   │   │      ├───spring-boot-actuator-autoconfigure-3.1.5.jar.sha1
+│   │   │   │   │   │      ├───spring-boot-actuator-autoconfigure-3.1.5.pom
+│   │   │   │   │   │      ├───spring-boot-actuator-autoconfigure-3.1.5.pom.sha1
+│   │   │   │   │   │      └───_remote.repositories
 │   │   │   │   │   ├───spring-boot-autoconfigure
 │   │   │   │   │   │   ├───2.5.2
 │   │   │   │   │   │   │   ├───spring-boot-autoconfigure-2.5.2.jar
@@ -6304,6 +6397,13 @@ C:\Users\huusa
 │   │   │   │   │   │   └───3.1.5
 │   │   │   │   │   │      ├───spring-boot-dependencies-3.1.5.pom
 │   │   │   │   │   │      ├───spring-boot-dependencies-3.1.5.pom.sha1
+│   │   │   │   │   │      └───_remote.repositories
+│   │   │   │   │   ├───spring-boot-devtools
+│   │   │   │   │   │   └───3.1.5
+│   │   │   │   │   │      ├───spring-boot-devtools-3.1.5.jar
+│   │   │   │   │   │      ├───spring-boot-devtools-3.1.5.jar.sha1
+│   │   │   │   │   │      ├───spring-boot-devtools-3.1.5.pom
+│   │   │   │   │   │      ├───spring-boot-devtools-3.1.5.pom.sha1
 │   │   │   │   │   │      └───_remote.repositories
 │   │   │   │   │   ├───spring-boot-loader-tools
 │   │   │   │   │   │   ├───2.5.2
@@ -6344,6 +6444,13 @@ C:\Users\huusa
 │   │   │   │   │   │      ├───spring-boot-starter-3.1.5.pom
 │   │   │   │   │   │      ├───spring-boot-starter-3.1.5.pom.sha1
 │   │   │   │   │   │      └───_remote.repositories
+│   │   │   │   │   ├───spring-boot-starter-actuator
+│   │   │   │   │   │   └───3.1.5
+│   │   │   │   │   │      ├───spring-boot-starter-actuator-3.1.5.jar
+│   │   │   │   │   │      ├───spring-boot-starter-actuator-3.1.5.jar.sha1
+│   │   │   │   │   │      ├───spring-boot-starter-actuator-3.1.5.pom
+│   │   │   │   │   │      ├───spring-boot-starter-actuator-3.1.5.pom.sha1
+│   │   │   │   │   │      └───_remote.repositories
 │   │   │   │   │   ├───spring-boot-starter-json
 │   │   │   │   │   │   └───3.1.5
 │   │   │   │   │   │      ├───spring-boot-starter-json-3.1.5.jar
@@ -6379,6 +6486,13 @@ C:\Users\huusa
 │   │   │   │   │   │   └───3.1.5
 │   │   │   │   │   │      ├───spring-boot-starter-parent-3.1.5.pom
 │   │   │   │   │   │      ├───spring-boot-starter-parent-3.1.5.pom.sha1
+│   │   │   │   │   │      └───_remote.repositories
+│   │   │   │   │   ├───spring-boot-starter-security
+│   │   │   │   │   │   └───3.1.5
+│   │   │   │   │   │      ├───spring-boot-starter-security-3.1.5.jar
+│   │   │   │   │   │      ├───spring-boot-starter-security-3.1.5.jar.sha1
+│   │   │   │   │   │      ├───spring-boot-starter-security-3.1.5.pom
+│   │   │   │   │   │      ├───spring-boot-starter-security-3.1.5.pom.sha1
 │   │   │   │   │   │      └───_remote.repositories
 │   │   │   │   │   ├───spring-boot-starter-test
 │   │   │   │   │   │   ├───2.5.2
@@ -6460,14 +6574,42 @@ C:\Users\huusa
 │   │   │   │   │         ├───spring-restdocs-bom-3.0.0.pom.sha1
 │   │   │   │   │         └───_remote.repositories
 │   │   │   │   ├───security
-│   │   │   │   │   └───spring-security-bom
-│   │   │   │   │      ├───5.5.1
-│   │   │   │   │      │   ├───spring-security-bom-5.5.1.pom
-│   │   │   │   │      │   ├───spring-security-bom-5.5.1.pom.sha1
-│   │   │   │   │      │   └───_remote.repositories
+│   │   │   │   │   ├───spring-security-bom
+│   │   │   │   │   │   ├───5.5.1
+│   │   │   │   │   │   │   ├───spring-security-bom-5.5.1.pom
+│   │   │   │   │   │   │   ├───spring-security-bom-5.5.1.pom.sha1
+│   │   │   │   │   │   │   └───_remote.repositories
+│   │   │   │   │   │   └───6.1.5
+│   │   │   │   │   │      ├───spring-security-bom-6.1.5.pom
+│   │   │   │   │   │      ├───spring-security-bom-6.1.5.pom.sha1
+│   │   │   │   │   │      └───_remote.repositories
+│   │   │   │   │   ├───spring-security-config
+│   │   │   │   │   │   └───6.1.5
+│   │   │   │   │   │      ├───spring-security-config-6.1.5.jar
+│   │   │   │   │   │      ├───spring-security-config-6.1.5.jar.sha1
+│   │   │   │   │   │      ├───spring-security-config-6.1.5.pom
+│   │   │   │   │   │      ├───spring-security-config-6.1.5.pom.sha1
+│   │   │   │   │   │      └───_remote.repositories
+│   │   │   │   │   ├───spring-security-core
+│   │   │   │   │   │   └───6.1.5
+│   │   │   │   │   │      ├───spring-security-core-6.1.5.jar
+│   │   │   │   │   │      ├───spring-security-core-6.1.5.jar.sha1
+│   │   │   │   │   │      ├───spring-security-core-6.1.5.pom
+│   │   │   │   │   │      ├───spring-security-core-6.1.5.pom.sha1
+│   │   │   │   │   │      └───_remote.repositories
+│   │   │   │   │   ├───spring-security-crypto
+│   │   │   │   │   │   └───6.1.5
+│   │   │   │   │   │      ├───spring-security-crypto-6.1.5.jar
+│   │   │   │   │   │      ├───spring-security-crypto-6.1.5.jar.sha1
+│   │   │   │   │   │      ├───spring-security-crypto-6.1.5.pom
+│   │   │   │   │   │      ├───spring-security-crypto-6.1.5.pom.sha1
+│   │   │   │   │   │      └───_remote.repositories
+│   │   │   │   │   └───spring-security-web
 │   │   │   │   │      └───6.1.5
-│   │   │   │   │         ├───spring-security-bom-6.1.5.pom
-│   │   │   │   │         ├───spring-security-bom-6.1.5.pom.sha1
+│   │   │   │   │         ├───spring-security-web-6.1.5.jar
+│   │   │   │   │         ├───spring-security-web-6.1.5.jar.sha1
+│   │   │   │   │         ├───spring-security-web-6.1.5.pom
+│   │   │   │   │         ├───spring-security-web-6.1.5.pom.sha1
 │   │   │   │   │         └───_remote.repositories
 │   │   │   │   ├───session
 │   │   │   │   │   └───spring-session-bom
@@ -7510,7 +7652,7 @@ C:\Users\huusa
 │      │      ├───light-default.json
 │      │      ├───light-high-contrast.json
 │      │      └───light.json
-│      ├───ms-azuretools.vscode-docker-1.27.0
+│      ├───ms-azuretools.vscode-docker-1.28.0
 │      │   ├───.vsixmanifest
 │      │   ├───CHANGELOG.md
 │      │   ├───dist
@@ -11626,7 +11768,7 @@ C:\Users\huusa
 │      │   ├───telemetry.json
 │      │   ├───ThirdPartyNotices-Repository.txt
 │      │   └───ThirdPartyNotices.txt
-│      ├───ms-python.vscode-pylance-2023.11.12
+│      ├───ms-python.vscode-pylance-2023.11.13
 │      │   ├───.vsixmanifest
 │      │   ├───CHANGELOG.md
 │      │   ├───dist
@@ -14470,7 +14612,9 @@ C:\Users\huusa
 │      │   │   │   │   │   ├───resources
 │      │   │   │   │   │   │   ├───abc.pyi
 │      │   │   │   │   │   │   ├───readers.pyi
+│      │   │   │   │   │   │   ├───simple.pyi
 │      │   │   │   │   │   │   └───__init__.pyi
+│      │   │   │   │   │   ├───simple.pyi
 │      │   │   │   │   │   ├───util.pyi
 │      │   │   │   │   │   └───__init__.pyi
 │      │   │   │   │   ├───inspect.pyi
@@ -14603,6 +14747,7 @@ C:\Users\huusa
 │      │   │   │   │   ├───netrc.pyi
 │      │   │   │   │   ├───nis.pyi
 │      │   │   │   │   ├───nntplib.pyi
+│      │   │   │   │   ├───nt.pyi
 │      │   │   │   │   ├───ntpath.pyi
 │      │   │   │   │   ├───nturl2path.pyi
 │      │   │   │   │   ├───numbers.pyi
@@ -16120,36 +16265,6 @@ C:\Users\huusa
 │      │   │   │      │   │   └───stubtest_allowlist.txt
 │      │   │   │      │   ├───inifile.pyi
 │      │   │   │      │   └───METADATA.toml
-│      │   │   │      ├───invoke
-│      │   │   │      │   ├───@tests
-│      │   │   │      │   │   ├───stubtest_allowlist.txt
-│      │   │   │      │   │   └───test_cases
-│      │   │   │      │   │      └───check_task.py
-│      │   │   │      │   ├───invoke
-│      │   │   │      │   │   ├───collection.pyi
-│      │   │   │      │   │   ├───completion
-│      │   │   │      │   │   │   ├───complete.pyi
-│      │   │   │      │   │   │   └───__init__.pyi
-│      │   │   │      │   │   ├───config.pyi
-│      │   │   │      │   │   ├───context.pyi
-│      │   │   │      │   │   ├───env.pyi
-│      │   │   │      │   │   ├───exceptions.pyi
-│      │   │   │      │   │   ├───executor.pyi
-│      │   │   │      │   │   ├───loader.pyi
-│      │   │   │      │   │   ├───main.pyi
-│      │   │   │      │   │   ├───parser
-│      │   │   │      │   │   │   ├───argument.pyi
-│      │   │   │      │   │   │   ├───context.pyi
-│      │   │   │      │   │   │   ├───parser.pyi
-│      │   │   │      │   │   │   └───__init__.pyi
-│      │   │   │      │   │   ├───program.pyi
-│      │   │   │      │   │   ├───runners.pyi
-│      │   │   │      │   │   ├───tasks.pyi
-│      │   │   │      │   │   ├───terminals.pyi
-│      │   │   │      │   │   ├───util.pyi
-│      │   │   │      │   │   ├───watchers.pyi
-│      │   │   │      │   │   └───__init__.pyi
-│      │   │   │      │   └───METADATA.toml
 │      │   │   │      ├───JACK-Client
 │      │   │   │      │   ├───jack
 │      │   │   │      │   │   └───__init__.pyi
@@ -17099,6 +17214,9 @@ C:\Users\huusa
 │      │   │   │      ├───polib
 │      │   │   │      │   ├───METADATA.toml
 │      │   │   │      │   └───polib.pyi
+│      │   │   │      ├───portpicker
+│      │   │   │      │   ├───METADATA.toml
+│      │   │   │      │   └───portpicker.pyi
 │      │   │   │      ├───protobuf
 │      │   │   │      │   ├───@tests
 │      │   │   │      │   │   ├───stubtest_allowlist.txt
@@ -17626,22 +17744,6 @@ C:\Users\huusa
 │      │   │   │      │      ├───tzfile.pyi
 │      │   │   │      │      ├───tzinfo.pyi
 │      │   │   │      │      └───__init__.pyi
-│      │   │   │      ├───pyvmomi
-│      │   │   │      │   ├───@tests
-│      │   │   │      │   │   └───stubtest_allowlist.txt
-│      │   │   │      │   ├───METADATA.toml
-│      │   │   │      │   └───pyVmomi
-│      │   │   │      │      ├───vim
-│      │   │   │      │      │   ├───event.pyi
-│      │   │   │      │      │   ├───fault.pyi
-│      │   │   │      │      │   ├───option.pyi
-│      │   │   │      │      │   ├───view.pyi
-│      │   │   │      │      │   └───__init__.pyi
-│      │   │   │      │      ├───vmodl
-│      │   │   │      │      │   ├───fault.pyi
-│      │   │   │      │      │   ├───query.pyi
-│      │   │   │      │      │   └───__init__.pyi
-│      │   │   │      │      └───__init__.pyi
 │      │   │   │      ├───pywin32
 │      │   │   │      │   ├───@tests
 │      │   │   │      │   │   └───stubtest_allowlist_win32.txt
@@ -17927,6 +18029,22 @@ C:\Users\huusa
 │      │   │   │      │   ├───winxpgui.pyi
 │      │   │   │      │   ├───winxptheme.pyi
 │      │   │   │      │   └───_win32typing.pyi
+│      │   │   │      ├───pyxdg
+│      │   │   │      │   ├───METADATA.toml
+│      │   │   │      │   └───xdg
+│      │   │   │      │      ├───BaseDirectory.pyi
+│      │   │   │      │      ├───Config.pyi
+│      │   │   │      │      ├───DesktopEntry.pyi
+│      │   │   │      │      ├───Exceptions.pyi
+│      │   │   │      │      ├───IconTheme.pyi
+│      │   │   │      │      ├───IniFile.pyi
+│      │   │   │      │      ├───Locale.pyi
+│      │   │   │      │      ├───Menu.pyi
+│      │   │   │      │      ├───MenuEditor.pyi
+│      │   │   │      │      ├───Mime.pyi
+│      │   │   │      │      ├───RecentFiles.pyi
+│      │   │   │      │      ├───util.pyi
+│      │   │   │      │      └───__init__.pyi
 │      │   │   │      ├───PyYAML
 │      │   │   │      │   ├───@tests
 │      │   │   │      │   │   └───stubtest_allowlist.txt
@@ -18117,6 +18235,63 @@ C:\Users\huusa
 │      │   │   │      │      ├───score_pb2.pyi
 │      │   │   │      │      ├───spatial_pb2.pyi
 │      │   │   │      │      └───ui_pb2.pyi
+│      │   │   │      ├───seaborn
+│      │   │   │      │   ├───METADATA.toml
+│      │   │   │      │   └───seaborn
+│      │   │   │      │      ├───algorithms.pyi
+│      │   │   │      │      ├───axisgrid.pyi
+│      │   │   │      │      ├───categorical.pyi
+│      │   │   │      │      ├───cm.pyi
+│      │   │   │      │      ├───colors
+│      │   │   │      │      │   ├───crayons.pyi
+│      │   │   │      │      │   ├───xkcd_rgb.pyi
+│      │   │   │      │      │   └───__init__.pyi
+│      │   │   │      │      ├───distributions.pyi
+│      │   │   │      │      ├───external
+│      │   │   │      │      │   ├───appdirs.pyi
+│      │   │   │      │      │   ├───docscrape.pyi
+│      │   │   │      │      │   ├───husl.pyi
+│      │   │   │      │      │   ├───kde.pyi
+│      │   │   │      │      │   ├───version.pyi
+│      │   │   │      │      │   └───__init__.pyi
+│      │   │   │      │      ├───matrix.pyi
+│      │   │   │      │      ├───miscplot.pyi
+│      │   │   │      │      ├───objects.pyi
+│      │   │   │      │      ├───palettes.pyi
+│      │   │   │      │      ├───rcmod.pyi
+│      │   │   │      │      ├───regression.pyi
+│      │   │   │      │      ├───relational.pyi
+│      │   │   │      │      ├───utils.pyi
+│      │   │   │      │      ├───widgets.pyi
+│      │   │   │      │      ├───_core
+│      │   │   │      │      │   ├───data.pyi
+│      │   │   │      │      │   ├───exceptions.pyi
+│      │   │   │      │      │   ├───groupby.pyi
+│      │   │   │      │      │   ├───moves.pyi
+│      │   │   │      │      │   ├───plot.pyi
+│      │   │   │      │      │   ├───properties.pyi
+│      │   │   │      │      │   ├───rules.pyi
+│      │   │   │      │      │   ├───scales.pyi
+│      │   │   │      │      │   ├───subplots.pyi
+│      │   │   │      │      │   ├───typing.pyi
+│      │   │   │      │      │   └───__init__.pyi
+│      │   │   │      │      ├───_marks
+│      │   │   │      │      │   ├───area.pyi
+│      │   │   │      │      │   ├───bar.pyi
+│      │   │   │      │      │   ├───base.pyi
+│      │   │   │      │      │   ├───dot.pyi
+│      │   │   │      │      │   ├───line.pyi
+│      │   │   │      │      │   ├───text.pyi
+│      │   │   │      │      │   └───__init__.pyi
+│      │   │   │      │      ├───_stats
+│      │   │   │      │      │   ├───aggregation.pyi
+│      │   │   │      │      │   ├───base.pyi
+│      │   │   │      │      │   ├───counting.pyi
+│      │   │   │      │      │   ├───density.pyi
+│      │   │   │      │      │   ├───order.pyi
+│      │   │   │      │      │   ├───regression.pyi
+│      │   │   │      │      │   └───__init__.pyi
+│      │   │   │      │      └───__init__.pyi
 │      │   │   │      ├───Send2Trash
 │      │   │   │      │   ├───METADATA.toml
 │      │   │   │      │   └───send2trash
@@ -18844,7 +19019,7 @@ C:\Users\huusa
 │      │   ├───package.nls.zh-cn.json
 │      │   ├───package.nls.zh-tw.json
 │      │   └───README.md
-│      ├───ms-toolsai.jupyter-2023.10.1003070148-win32-x64
+│      ├───ms-toolsai.jupyter-2023.10.1100000000-win32-x64
 │      │   ├───.vsixmanifest
 │      │   ├───api
 │      │   │   ├───.gitignore
@@ -19050,10 +19225,6 @@ C:\Users\huusa
 │      │   ├───SECURITY.md
 │      │   ├───snippets
 │      │   │   └───python.json
-│      │   ├───telemetry.json
-│      │   ├───temp
-│      │   │   └───jupyter
-│      │   │      └───kernels
 │      │   └───ThirdPartyNotices.txt
 │      ├───ms-toolsai.jupyter-keymap-1.1.2
 │      │   ├───.vsixmanifest
@@ -19418,7 +19589,7 @@ C:\Users\huusa
 │      │   ├───SECURITY.md
 │      │   ├───telemetry.json
 │      │   └───ThirdPartyNotices.txt
-│      ├───ms-vscode.cmake-tools-1.15.31
+│      ├───ms-vscode.cmake-tools-1.16.30
 │      │   ├───.vsixmanifest
 │      │   ├───CHANGELOG.md
 │      │   ├───dist
@@ -19556,6 +19727,10 @@ C:\Users\huusa
 │      │   │      ├───config.nls.metadata.json
 │      │   │      ├───cpptools.nls.metadata.json
 │      │   │      ├───ctest.nls.metadata.json
+│      │   │      ├───debug
+│      │   │      │   ├───debugAdapterNamedPipeServerDescriptorFactory.nls.metadata.json
+│      │   │      │   ├───debugConfigurationProvider.nls.metadata.json
+│      │   │      │   └───debuggerScriptDriver.nls.metadata.json
 │      │   │      ├───debugger.nls.metadata.json
 │      │   │      ├───drivers
 │      │   │      │   ├───cmakeDriver.nls.metadata.json
@@ -19570,6 +19745,7 @@ C:\Users\huusa
 │      │   │      │   └───visualStudio.nls.metadata.json
 │      │   │      ├───kit.nls.metadata.json
 │      │   │      ├───kitsController.nls.metadata.json
+│      │   │      ├───logging.nls.metadata.json
 │      │   │      ├───pr.nls.metadata.json
 │      │   │      ├───preset.nls.metadata.json
 │      │   │      ├───presetsController.nls.metadata.json
@@ -19605,12 +19781,20 @@ C:\Users\huusa
 │      │   │   ├───cmake-view-icon2.svg
 │      │   │   ├───dark
 │      │   │   │   ├───build-icon.svg
-│      │   │   │   └───configure-icon.svg
+│      │   │   │   ├───clean-configure-icon.svg
+│      │   │   │   ├───clean-icon.svg
+│      │   │   │   ├───configure-icon.svg
+│      │   │   │   ├───json-icon.svg
+│      │   │   │   └───settings-icon.svg
 │      │   │   ├───icon_190.svg
 │      │   │   ├───icon_64.png
 │      │   │   ├───light
 │      │   │   │   ├───build-icon.svg
-│      │   │   │   └───configure-icon.svg
+│      │   │   │   ├───clean-configure-icon.svg
+│      │   │   │   ├───clean-icon.svg
+│      │   │   │   ├───configure-icon.svg
+│      │   │   │   ├───json-icon.svg
+│      │   │   │   └───settings-icon.svg
 │      │   │   ├───logo.png
 │      │   │   ├───logo.svg
 │      │   │   └───vswhere.exe
@@ -19623,7 +19807,7 @@ C:\Users\huusa
 │      │   │   └───variants-schema.json
 │      │   ├───SECURITY.md
 │      │   └───THIRD.md
-│      ├───ms-vscode.cpptools-1.17.5-win32-x64
+│      ├───ms-vscode.cpptools-1.18.4-win32-x64
 │      │   ├───.eslintignore
 │      │   ├───.vsixmanifest
 │      │   ├───assets
@@ -19999,9 +20183,11 @@ C:\Users\huusa
 │      │   │      │   │   ├───vsdebugeng.impl.resources.dll
 │      │   │      │   │   └───vsdebugui.dll
 │      │   │      │   ├───api-ms-win-core-console-l1-1-0.dll
+│      │   │      │   ├───api-ms-win-core-console-l1-2-0.dll
 │      │   │      │   ├───api-ms-win-core-datetime-l1-1-0.dll
 │      │   │      │   ├───api-ms-win-core-debug-l1-1-0.dll
 │      │   │      │   ├───api-ms-win-core-errorhandling-l1-1-0.dll
+│      │   │      │   ├───api-ms-win-core-fibers-l1-1-0.dll
 │      │   │      │   ├───api-ms-win-core-file-l1-1-0.dll
 │      │   │      │   ├───api-ms-win-core-file-l1-2-0.dll
 │      │   │      │   ├───api-ms-win-core-file-l2-1-0.dll
@@ -20059,9 +20245,11 @@ C:\Users\huusa
 │      │   │      │   │      │   ├───msdbgui.dll
 │      │   │      │   │      │   └───vsdebugeng.impl.resources.dll
 │      │   │      │   │      ├───api-ms-win-core-console-l1-1-0.dll
+│      │   │      │   │      ├───api-ms-win-core-console-l1-2-0.dll
 │      │   │      │   │      ├───api-ms-win-core-datetime-l1-1-0.dll
 │      │   │      │   │      ├───api-ms-win-core-debug-l1-1-0.dll
 │      │   │      │   │      ├───api-ms-win-core-errorhandling-l1-1-0.dll
+│      │   │      │   │      ├───api-ms-win-core-fibers-l1-1-0.dll
 │      │   │      │   │      ├───api-ms-win-core-file-l1-1-0.dll
 │      │   │      │   │      ├───api-ms-win-core-file-l1-2-0.dll
 │      │   │      │   │      ├───api-ms-win-core-file-l2-1-0.dll
@@ -20083,6 +20271,7 @@ C:\Users\huusa
 │      │   │      │   │      ├───api-ms-win-core-sysinfo-l1-1-0.dll
 │      │   │      │   │      ├───api-ms-win-core-timezone-l1-1-0.dll
 │      │   │      │   │      ├───api-ms-win-core-util-l1-1-0.dll
+│      │   │      │   │      ├───api-ms-win-core-xstate-l2-1-0.dll
 │      │   │      │   │      ├───api-ms-win-crt-conio-l1-1-0.dll
 │      │   │      │   │      ├───api-ms-win-crt-convert-l1-1-0.dll
 │      │   │      │   │      ├───api-ms-win-crt-environment-l1-1-0.dll
@@ -20152,8 +20341,6 @@ C:\Users\huusa
 │      │   │      │            └───JustMyCode.xsd
 │      │   │      └───cpp-license.txt
 │      │   ├───dist
-│      │   │   ├───317.main.js
-│      │   │   ├───326.main.js
 │      │   │   ├───html
 │      │   │   │   ├───cs
 │      │   │   │   │   ├───Reinstalling the Extension.md
@@ -20207,7 +20394,6 @@ C:\Users\huusa
 │      │   │   │      ├───Reinstalling the Extension.md
 │      │   │   │      └───ui
 │      │   │   │         └───settings.html
-│      │   │   ├───main.js
 │      │   │   ├───nls.bundle.cs.json
 │      │   │   ├───nls.bundle.de.json
 │      │   │   ├───nls.bundle.es.json
@@ -20251,6 +20437,8 @@ C:\Users\huusa
 │      │   │   │   └───zh-tw
 │      │   │   │      └───c_cpp_properties.schema.json
 │      │   │   ├───src
+│      │   │   │   ├───317.main.js
+│      │   │   │   ├───326.main.js
 │      │   │   │   ├───common.nls.metadata.json
 │      │   │   │   ├───cppTools.nls.metadata.json
 │      │   │   │   ├───Debugger
@@ -20272,6 +20460,7 @@ C:\Users\huusa
 │      │   │   │   │   ├───languageConfig.nls.metadata.json
 │      │   │   │   │   ├───localization.nls.metadata.json
 │      │   │   │   │   ├───Providers
+│      │   │   │   │   │   ├───codeActionProvider.nls.metadata.json
 │      │   │   │   │   │   └───renameProvider.nls.metadata.json
 │      │   │   │   │   ├───references.nls.metadata.json
 │      │   │   │   │   ├───referencesTreeDataProvider.nls.metadata.json
@@ -20279,6 +20468,7 @@ C:\Users\huusa
 │      │   │   │   │   ├───settingsPanel.nls.metadata.json
 │      │   │   │   │   └───ui.nls.metadata.json
 │      │   │   │   ├───logger.nls.metadata.json
+│      │   │   │   ├───main.js
 │      │   │   │   ├───main.nls.metadata.json
 │      │   │   │   ├───nativeStrings.nls.metadata.json
 │      │   │   │   ├───platform.nls.metadata.json
@@ -20290,6 +20480,8 @@ C:\Users\huusa
 │      │   │   │      └───TargetsView
 │      │   │   │         ├───sshTargetsProvider.nls.metadata.json
 │      │   │   │         └───targetNodes.nls.metadata.json
+│      │   │   ├───ui
+│      │   │   │   └───settings.js
 │      │   │   └───walkthrough
 │      │   │      ├───debugconfig
 │      │   │      │   ├───run-and-debug-project-linux.nls.cs.md
@@ -20383,6 +20575,34 @@ C:\Users\huusa
 │      │   │         ├───install-compiler-windows.nls.tr.md
 │      │   │         ├───install-compiler-windows.nls.zh-cn.md
 │      │   │         ├───install-compiler-windows.nls.zh-tw.md
+│      │   │         ├───install-compiler-windows10.nls.cs.md
+│      │   │         ├───install-compiler-windows10.nls.de.md
+│      │   │         ├───install-compiler-windows10.nls.en.md
+│      │   │         ├───install-compiler-windows10.nls.es.md
+│      │   │         ├───install-compiler-windows10.nls.fr.md
+│      │   │         ├───install-compiler-windows10.nls.it.md
+│      │   │         ├───install-compiler-windows10.nls.ja.md
+│      │   │         ├───install-compiler-windows10.nls.ko.md
+│      │   │         ├───install-compiler-windows10.nls.pl.md
+│      │   │         ├───install-compiler-windows10.nls.pt-br.md
+│      │   │         ├───install-compiler-windows10.nls.ru.md
+│      │   │         ├───install-compiler-windows10.nls.tr.md
+│      │   │         ├───install-compiler-windows10.nls.zh-cn.md
+│      │   │         ├───install-compiler-windows10.nls.zh-tw.md
+│      │   │         ├───install-compiler-windows11.nls.cs.md
+│      │   │         ├───install-compiler-windows11.nls.de.md
+│      │   │         ├───install-compiler-windows11.nls.en.md
+│      │   │         ├───install-compiler-windows11.nls.es.md
+│      │   │         ├───install-compiler-windows11.nls.fr.md
+│      │   │         ├───install-compiler-windows11.nls.it.md
+│      │   │         ├───install-compiler-windows11.nls.ja.md
+│      │   │         ├───install-compiler-windows11.nls.ko.md
+│      │   │         ├───install-compiler-windows11.nls.pl.md
+│      │   │         ├───install-compiler-windows11.nls.pt-br.md
+│      │   │         ├───install-compiler-windows11.nls.ru.md
+│      │   │         ├───install-compiler-windows11.nls.tr.md
+│      │   │         ├───install-compiler-windows11.nls.zh-cn.md
+│      │   │         ├───install-compiler-windows11.nls.zh-tw.md
 │      │   │         ├───install-gcc-linux.nls.cs.md
 │      │   │         ├───install-gcc-linux.nls.de.md
 │      │   │         ├───install-gcc-linux.nls.en.md
@@ -20403,9 +20623,6 @@ C:\Users\huusa
 │      │   │   └───bin
 │      │   │      ├───clang-format.exe
 │      │   │      └───clang-tidy.exe
-│      │   ├───out
-│      │   │   └───ui
-│      │   │      └───settings.js
 │      │   ├───package.json
 │      │   ├───package.nls.cs.json
 │      │   ├───package.nls.de.json
@@ -20421,12 +20638,12 @@ C:\Users\huusa
 │      │   ├───package.nls.tr.json
 │      │   ├───package.nls.zh-cn.json
 │      │   ├───package.nls.zh-tw.json
+│      │   ├───readme.developer.md
 │      │   ├───README.md
 │      │   ├───Reinstalling the Extension.md
 │      │   ├───release.flag
 │      │   ├───ThirdPartyNotices.txt
 │      │   ├───ui
-│      │   │   ├───.eslintrc.js
 │      │   │   └───settings.html
 │      │   ├───VCPkgHeadersDatabase.zip
 │      │   ├───vscode.d.ts
@@ -20446,6 +20663,8 @@ C:\Users\huusa
 │      │      └───installcompiler
 │      │         ├───install-clang-macos.md
 │      │         ├───install-compiler-windows.md
+│      │         ├───install-compiler-windows10.md
+│      │         ├───install-compiler-windows11.md
 │      │         └───install-gcc-linux.md
 │      ├───ms-vscode.cpptools-extension-pack-1.3.0
 │      │   ├───.vsixmanifest
