@@ -2,11 +2,10 @@
 */.git*
 .git*
 */.mvn*
-*.png
 *.igp
 *.jpeg
 */cache
-*/*.png
+*/cache/*
 */mail.txt
 */target
 */log*
