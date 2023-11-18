@@ -8,42 +8,33 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Executors;
 
 public class MainController {
     private Parent sendMailView;
     @FXML
     public BorderPane mainPane;
     @FXML
-    public Button but1;
+    public Button but1, but4;
+
+    private Parent sendmailPane, aboutPane;
 
     public void initialize() {
-        var pool = Executors.newFixedThreadPool(1);
-        var a = pool.submit(new Callable<Parent>() {
-            @Override
-            public Parent call() {
-                try {
-                    return FXMLLoader.load(getClass().getResource("sendMail.fxml"));
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        });
-
         try {
-            this.sendMailView = a.get();
-            System.out.println("Get Successfully");
-        } catch (InterruptedException | ExecutionException e) {
+            sendmailPane = FXMLLoader.load(getClass().getResource("sendMail.fxml"));
+            aboutPane = FXMLLoader.load(getClass().getResource("about.fxml"));
+            System.out.println("success");
+        } catch (IOException e) {
             throw new RuntimeException(e);
-        } finally {
-            pool.shutdown();
         }
     }
 
     public void but1click(ActionEvent actionEvent) {
-        mainPane.setCenter(sendMailView);
-        System.out.println("1");
+        //mainPane.setStyle("-fx-background-color: transparent");
+        mainPane.setCenter(sendmailPane);
+    }
+
+    public void but4click(ActionEvent actionEvent) {
+        //mainPane.setStyle("-fx-background-color: transparent");
+        mainPane.setCenter(aboutPane);
     }
 }

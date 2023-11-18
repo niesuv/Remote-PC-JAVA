@@ -36,7 +36,7 @@
                <font>
                   <Font name="Arial Bold" size="20.0" />
                </font></Label>
-            <TextField fx:id="addField" disable="true" editable="false" onInputMethodTextChanged="#idChange" prefHeight="55.0" prefWidth="290.0" style="-fx-background-color: transparent;" styleClass="input" stylesheets="@css/css.css" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2">
+            <TextField fx:id="addField" disable="true" editable="false" prefHeight="55.0" prefWidth="290.0" style="-fx-background-color: transparent;" styleClass="input" stylesheets="@css/css.css" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2">
                <font>
                   <Font size="20.0" />
                </font></TextField>

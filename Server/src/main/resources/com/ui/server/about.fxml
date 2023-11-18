@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="531.0" prefWidth="886.0" style="-fx-background-color: #FDF0F0; -fx-background-radius: 20;" stylesheets="@css/css.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ui.server.aboutController">
+   <center>
+      <HBox alignment="CENTER" prefHeight="413.0" prefWidth="886.0" spacing="25.0" stylesheets="@css/css.css" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="223.0" fitWidth="210.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@img/sang.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="233.0" fitWidth="230.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@img/nam.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="224.0" fitWidth="220.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@img/tri.png" />
+               </image>
+            </ImageView>
+         </children>
+         <padding>
+            <Insets bottom="50.0" left="50.0" right="50.0" />
+         </padding>
+         <BorderPane.margin>
+            <Insets bottom="100.0" />
+         </BorderPane.margin>
+      </HBox>
+   </center>
+   <top>
+      <ImageView fitHeight="172.0" fitWidth="486.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+         <image>
+            <Image url="@img/contributor.png" />
+         </image>
+         <BorderPane.margin>
+            <Insets top="20.0" />
+         </BorderPane.margin>
+      </ImageView>
+   </top>
+</BorderPane>
