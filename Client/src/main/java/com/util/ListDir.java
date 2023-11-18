@@ -13,7 +13,6 @@ public class ListDir {
 
     public ListDir(String r) throws IOException {
         root = Path.of(r).toAbsolutePath().toRealPath();
-
     }
 
     public void listAll(String out) throws IOException {

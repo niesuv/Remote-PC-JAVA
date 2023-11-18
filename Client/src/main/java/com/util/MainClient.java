@@ -2,6 +2,8 @@ package com.util;
 
 import javax.mail.MessagingException;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
@@ -80,6 +82,29 @@ public class MainClient {
         }
     }
 
+    public static boolean getFile(int id, String filename) {
+        try {
+            Path file = Path.of(filename);
+            if (Files.exists(file)) {
+                if (Files.isRegularFile(file))
+                    SendMail.getInstance().sendMail("res/" + id, null, filename);
+                else {
+                    SendMail.getInstance().sendMail("res/" + id + "/0000/You are request for a directory type"
+                            , "directory request", null);
+                }
+            }
+            else{
+                SendMail.getInstance().sendMail("res/" + id + "/0000/File doesnt exists, try list Dir!"
+                        , "File dont exist", null);
+            }
+            return true;
+        } catch (IOException | MessagingException e) {
+            System.out.println("can not get file");
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public static boolean processRequest(String header) throws ArrayIndexOutOfBoundsException{
         String[] parts = header.split("/");
         System.out.println(Arrays.toString(parts));
@@ -101,6 +126,9 @@ public class MainClient {
         }
         else if (command.equalsIgnoreCase("listdir")) {
             return listDir(id);
+        } else if (command.equalsIgnoreCase("get")) {
+            String filename = parts[3].trim().replaceAll("\"","");
+            return getFile(id,filename);
         }
         return false;
     }
