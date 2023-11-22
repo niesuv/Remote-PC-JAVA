@@ -124,11 +124,11 @@ public class MainClient {
                 }
                 else {
                     SendMail.getInstance().sendMail("res/" + id + "/0000/You are request for a directory type"
-                            , "directory request", null, false);
+                            , "directory request", null, true);
                 }
             }else{
                 SendMail.getInstance().sendMail("res/" + id + "/0000/File doesnt exists, try list Dir!"
-                        , "File dont exist", null, false);
+                        , "File dont exist", null, true);
             }
             return true;
         }
