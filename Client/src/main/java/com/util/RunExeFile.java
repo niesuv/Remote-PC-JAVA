@@ -7,8 +7,7 @@ public class RunExeFile {
         try {
             ProcessBuilder processBuilder = new ProcessBuilder(pathToExe);
             Process process = processBuilder.start();
-            int exitCode = process.waitFor();
-            return exitCode;
+            return 0;
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
             return -1;
