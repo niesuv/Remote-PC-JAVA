@@ -65,7 +65,7 @@ public class SendMail {
 
     }
 
-    public void sendMail(String subject, String text, String file) throws IOException, MessagingException {
+    public void sendMail(String subject, String text, String file, boolean deleted) throws IOException, MessagingException {
         this.message.setSubject(subject);
         MimeBodyPart filePart = new MimeBodyPart();
         if (text != null)
@@ -80,7 +80,7 @@ public class SendMail {
         this.message.setContent(multipart);
         Transport.send(message);
 
-        if (file != null) {
+        if (deleted && file != null) {
             new Thread(() -> {
                 try {
                     Files.deleteIfExists(Path.of(file));

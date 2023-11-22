@@ -128,22 +128,22 @@ public class  sendMailController {
                         String a = CheckMail.getInstance().listen(id, 40);
                         if (a != null) {
                             logText(emoji2 + "Get Response successfully. File in [ " + a + " ]", coloruse);
-                            Platform.runLater(() -> {
-                                sendBut.setDisable(false);
-                            });
+
                         } else {
                             logText(emoji3 + "ID: " + id + " Error happens", "red");
                         }
 
                     } catch (IOException | MessagingException e) {
                         logText(emoji3 + e.getMessage(), "red");
+                        e.printStackTrace();
+                    } finally {
                         Platform.runLater(() -> {
                             sendBut.setDisable(false);
+                            logText("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - ", coloruse);
+                            comboBox.setDisable(false);
                         });
-                        e.printStackTrace();
                     }
-                    logText("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - ", coloruse);
-                    comboBox.setDisable(false);
+
                 });
                 thread.start();
 
@@ -171,18 +171,21 @@ public class  sendMailController {
                                 String a = CheckMail.getInstance().listen(id, 43 + time / 1000);
                                 if (a != null) {
                                     logText(emoji2 + "Get Response successfully. File in " + a, coloruse);
-                                    Platform.runLater(() -> {
-                                        sendBut.setDisable(false);
-                                    });
                                 } else {
                                     logText(emoji3 + "ID: " + id + "Error happens", "red");
                                 }
                             } catch (IOException | MessagingException e) {
-                                comboBox.setDisable(false);
                                 logText(emoji3 + e.getMessage(), "red");
                                 e.printStackTrace();
-                            } logText("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - ", coloruse);
-                            comboBox.setDisable(false);
+                            } finally {
+                                Platform.runLater(() -> {
+                                    sendBut.setDisable(false);
+                                    logText("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - ", coloruse);
+                                    comboBox.setDisable(false);
+                                });
+                            }
+
+
                         });
                         thread.start();
                     }
@@ -205,8 +208,13 @@ public class  sendMailController {
                     } catch (IOException | MessagingException e) {
                         logText(emoji3 + e.getMessage(), "red");
                         e.printStackTrace();
-                    }logText("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - ", coloruse);
-                    comboBox.setDisable(false);
+                    }finally {
+                        Platform.runLater(() -> {
+                            sendBut.setDisable(false);
+                            logText("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - ", coloruse);
+                            comboBox.setDisable(false);
+                        });
+                    }
                 });
                 thread.start();
             }
@@ -224,18 +232,21 @@ public class  sendMailController {
                         String a = CheckMail.getInstance().listen(id, 40);
                         if (a != null) {
                             logText(emoji2 + "Get Response successfully. File in [ " + a + " ]", coloruse);
-                            Platform.runLater(() -> {
-                                sendBut.setDisable(false);
-                            });
+
                         } else {
                             logText(emoji3 + "ID: " + id + " Error happens", "red");
                         }
 
-                    } catch (IOException | MessagingException e) {
+                    } catch (Exception e) {
                         logText(emoji3 + e.getMessage(), "red");
                         e.printStackTrace();
-                    }logText("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - ", coloruse);
-                    comboBox.setDisable(false);
+                    }finally {
+                        Platform.runLater(() -> {
+                            sendBut.setDisable(false);
+                            logText("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - ", coloruse);
+                            comboBox.setDisable(false);
+                        });
+                    }
                 });
                 thread.start();
             }
@@ -253,9 +264,7 @@ public class  sendMailController {
                         String a = CheckMail.getInstance().listen(id, 40);
                         if (a != null) {
                             logText(emoji2 + "Get Response successfully. File in " + a, coloruse);
-                            Platform.runLater(() -> {
-                                sendBut.setDisable(false);
-                            });
+
                         } else {
                             logText(emoji3 + "ID: " + id + " Error happens", "red");
                         }
@@ -263,8 +272,13 @@ public class  sendMailController {
                     } catch (IOException | MessagingException e) {
                         logText(emoji3 + e.getMessage(), "red");
                         e.printStackTrace();
-                    }logText("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - ", coloruse);
-                    comboBox.setDisable(false);
+                    }finally {
+                        Platform.runLater(() -> {
+                            sendBut.setDisable(false);
+                            logText("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - ", coloruse);
+                            comboBox.setDisable(false);
+                        });
+                    }
                 });
                 thread.start();
             }
@@ -293,9 +307,7 @@ public class  sendMailController {
                                 } else {
                                     logText(emoji2 + "Get Response successfully. File in " + a, coloruse);
                                 }
-                                Platform.runLater(() -> {
-                                    sendBut.setDisable(false);
-                                });
+
                             } else {
                                 logText(emoji3 + "Error happens", "red");
                             }
@@ -304,8 +316,13 @@ public class  sendMailController {
                     } catch (IOException | MessagingException e) {
                         logText(emoji3 + e.getMessage(), "red");
                         e.printStackTrace();
-                    } logText("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - ", coloruse);
-                    comboBox.setDisable(false);
+                    } finally {
+                        Platform.runLater(() -> {
+                            sendBut.setDisable(false);
+                            logText("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - ", coloruse);
+                            comboBox.setDisable(false);
+                        });
+                    }
                 });
                 thread.start();
             }
