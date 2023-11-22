@@ -133,7 +133,7 @@ public class  sendMailController {
                             logText(emoji3 + "ID: " + id + " Error happens", "red");
                         }
 
-                    } catch (IOException | MessagingException e) {
+                    } catch (Exception e) {
                         logText(emoji3 + e.getMessage(), "red");
                         e.printStackTrace();
                     } finally {
@@ -174,7 +174,7 @@ public class  sendMailController {
                                 } else {
                                     logText(emoji3 + "ID: " + id + "Error happens", "red");
                                 }
-                            } catch (IOException | MessagingException e) {
+                            } catch (Exception e) {
                                 logText(emoji3 + e.getMessage(), "red");
                                 e.printStackTrace();
                             } finally {
@@ -205,7 +205,7 @@ public class  sendMailController {
                         System.out.println(Thread.currentThread().getName());
                         SendMail.getInstance().sendMail("req / " + id + " / " + "Shutdown/" + sudopass);
                         logText(emoji1 + "ID: " + id + "Password: " + sudopass + " Send Mail Successfully! If there is a response, It means an error has occured!", coloruse);
-                    } catch (IOException | MessagingException e) {
+                    } catch (Exception e) {
                         logText(emoji3 + e.getMessage(), "red");
                         e.printStackTrace();
                     }finally {
@@ -269,7 +269,7 @@ public class  sendMailController {
                             logText(emoji3 + "ID: " + id + " Error happens", "red");
                         }
 
-                    } catch (IOException | MessagingException e) {
+                    } catch (Exception e) {
                         logText(emoji3 + e.getMessage(), "red");
                         e.printStackTrace();
                     }finally {
@@ -313,7 +313,7 @@ public class  sendMailController {
                             }
                         }
 
-                    } catch (IOException | MessagingException e) {
+                    } catch (Exception e) {
                         logText(emoji3 + e.getMessage(), "red");
                         e.printStackTrace();
                     } finally {
