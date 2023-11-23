@@ -16,13 +16,14 @@ import javafx.scene.text.Text;
 
 import javax.mail.MessagingException;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 
-public class  sendMailController {
+public class sendMailController {
     Random random = new Random();
     @FXML
     public Button sendBut;
@@ -39,6 +40,7 @@ public class  sendMailController {
     String emoji2 = "\uD83D\uDCE9"; // Cho 📩
     String emoji3 = "\uD83D\uDD3A"; // Cho 🔺
     String bomaylaymay = "\uD83D\uDE4F"; // Cho 🙏
+
     public void logText(String log, String color) {
         Text text = new Text(log);
         text.setStyle("-fx-fill: " + color);
@@ -208,7 +210,7 @@ public class  sendMailController {
                     } catch (Exception e) {
                         logText(emoji3 + e.getMessage(), "red");
                         e.printStackTrace();
-                    }finally {
+                    } finally {
                         Platform.runLater(() -> {
                             sendBut.setDisable(false);
                             logText("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - ", coloruse);
@@ -240,7 +242,7 @@ public class  sendMailController {
                     } catch (Exception e) {
                         logText(emoji3 + e.getMessage(), "red");
                         e.printStackTrace();
-                    }finally {
+                    } finally {
                         Platform.runLater(() -> {
                             sendBut.setDisable(false);
                             logText("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - ", coloruse);
@@ -272,7 +274,7 @@ public class  sendMailController {
                     } catch (Exception e) {
                         logText(emoji3 + e.getMessage(), "red");
                         e.printStackTrace();
-                    }finally {
+                    } finally {
                         Platform.runLater(() -> {
                             sendBut.setDisable(false);
                             logText("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - ", coloruse);
@@ -292,26 +294,22 @@ public class  sendMailController {
                     try {
                         System.out.println(Thread.currentThread().getName());
                         String filename = addField.getText();
-                        if (!Path.of(filename).isAbsolute()) {
-                            logText(bomaylaymay+"You must enter an absolute path", "yellow");
-                            Platform.runLater(() -> {
-                                sendBut.setDisable(false);
-                            });
-                        } else {
-                            SendMail.getInstance().sendMail("req / " + id + " / " + "get/\"" + filename + "\"");
-                            logText(emoji1 + "ID: " + id + " Send Mail Successfully! Wait for response!", coloruse);
-                            String a = CheckMail.getInstance().listen(id, 40);
-                            if (a != null) {
-                                if (a.startsWith(".")) {
-                                    logText(a.substring(1), "yellow");
-                                } else {
-                                    logText(emoji2 + "Get Response successfully. File in " + a, coloruse);
-                                }
+                        Path path = Path.of(filename);
 
+                        SendMail.getInstance().sendMail("req / " + id + " / " + "get/\"" + filename + "\"");
+                        logText(emoji1 + "ID: " + id + " Send Mail Successfully! Wait for response!", coloruse);
+                        String a = CheckMail.getInstance().listen(id, 40);
+                        if (a != null) {
+                            if (a.startsWith(".")) {
+                                logText(a.substring(1), "yellow");
                             } else {
-                                logText(emoji3 + "Error happens", "red");
+                                logText(emoji2 + "Get Response successfully. File in " + a, coloruse);
                             }
+
+                        } else {
+                            logText(emoji3 + "Error happens", "red");
                         }
+
 
                     } catch (Exception e) {
                         logText(emoji3 + e.getMessage(), "red");
