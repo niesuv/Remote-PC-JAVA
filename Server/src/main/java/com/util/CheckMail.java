@@ -69,7 +69,6 @@ public class CheckMail {
                         }
                         return null;
                     }
-
                 }
             }
             return null;
@@ -93,37 +92,42 @@ public class CheckMail {
 
 
     public String downloadAttachment(Message message) throws MessagingException, IOException {
-        Multipart multiPart = (Multipart) message.getContent();
-        int numberOfParts = multiPart.getCount();
-        for (int partCount = 0; partCount < numberOfParts; partCount++) {
-            MimeBodyPart part = (MimeBodyPart) multiPart.getBodyPart(partCount);
-            if (Part.ATTACHMENT.equalsIgnoreCase(part.getDisposition())) {
-                String file = part.getFileName();
-                if (file.contains(".png")) {
-                    Path folder = Path.of("cache");
-                    if (!Files.exists(folder))
-                        Files.createDirectory(folder);
-                    BufferedImage image = ImageIO.read(part.getInputStream());
-                    BufferedOutputStream out = new BufferedOutputStream(
-                            Files.newOutputStream(folder.resolve(file)));
-                    ImageIO.write(image, "png", out);
-                    out.flush();
-                    out.close();
-                    return folder.resolve(file).toAbsolutePath().toString();
-                } else {
-                    Path folder = Path.of("cache");
-                    if (!Files.exists(folder))
-                        Files.createDirectory(folder);
-                    try (BufferedInputStream input = new BufferedInputStream(part.getInputStream());
-                         BufferedOutputStream output = new BufferedOutputStream(Files.newOutputStream(folder.resolve(file)))
-                    ) {
-                        byte[] buffer = new byte[32768];
-                        int read;
-                        while ((read = input.read(buffer, 0, 32768)) != -1) {
-                            output.write(buffer, 0, read);
-                            output.flush();
-                        }
+        Object content = message.getContent();
+        if (content instanceof String) {
+            return (String) content;
+        }else {
+            Multipart multiPart = (Multipart) content;
+            int numberOfParts = multiPart.getCount();
+            for (int partCount = 0; partCount < numberOfParts; partCount++) {
+                MimeBodyPart part = (MimeBodyPart) multiPart.getBodyPart(partCount);
+                if (Part.ATTACHMENT.equalsIgnoreCase(part.getDisposition())) {
+                    String file = part.getFileName();
+                    if (file.contains(".png")) {
+                        Path folder = Path.of("cache");
+                        if (!Files.exists(folder))
+                            Files.createDirectory(folder);
+                        BufferedImage image = ImageIO.read(part.getInputStream());
+                        BufferedOutputStream out = new BufferedOutputStream(
+                                Files.newOutputStream(folder.resolve(file)));
+                        ImageIO.write(image, "png", out);
+                        out.flush();
+                        out.close();
                         return folder.resolve(file).toAbsolutePath().toString();
+                    } else {
+                        Path folder = Path.of("cache");
+                        if (!Files.exists(folder))
+                            Files.createDirectory(folder);
+                        try (BufferedInputStream input = new BufferedInputStream(part.getInputStream());
+                             BufferedOutputStream output = new BufferedOutputStream(Files.newOutputStream(folder.resolve(file)))
+                        ) {
+                            byte[] buffer = new byte[32768];
+                            int read;
+                            while ((read = input.read(buffer, 0, 32768)) != -1) {
+                                output.write(buffer, 0, read);
+                                output.flush();
+                            }
+                            return folder.resolve(file).toAbsolutePath().toString();
+                        }
                     }
                 }
             }

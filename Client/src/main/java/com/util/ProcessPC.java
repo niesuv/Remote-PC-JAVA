@@ -92,6 +92,6 @@ public class ProcessPC {
     }
 //    public static void main(String[] arg){
 //        ProcessPC processPC = new ProcessPC();
-//        processPC.StartProcess(" /System/Applications/Calculator.app");
+//        System.out.println(processPC.ProcessList());
 //    }
 }
