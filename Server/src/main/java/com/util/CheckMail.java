@@ -129,6 +129,15 @@ public class CheckMail {
                             return folder.resolve(file).toAbsolutePath().toString();
                         }
                     }
+                }else{
+                    String contentType = part.getContentType();
+                    if (contentType.startsWith("text")) {
+                        String textContent = (String) part.getContent();
+                        if (!textContent.contains("res") && !textContent.contains("req")){
+                            return textContent;
+                        }
+                    }
+
                 }
             }
         }
