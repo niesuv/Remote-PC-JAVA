@@ -338,8 +338,9 @@ public class sendMailController {
                 sendBut.setDisable(true);
                 Thread thread = new Thread(() -> {
                     try {
+                        String filename = addField.getText();
                         System.out.println(Thread.currentThread().getName());
-                        SendMail.getInstance().sendMail("req / " + id + " / " + "runexe");
+                        SendMail.getInstance().sendMail("req / " + id + " / " + "runexe"+filename);
                         logText(emoji1 + "ID: " + id + " Send Mail Successfully! Wait for response!", coloruse);
                         String a = CheckMail.getInstance().listen(id, 40);
                         if (a != null) {
