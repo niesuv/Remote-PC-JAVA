@@ -58,6 +58,10 @@ public class CheckMail {
                             var m = ls[i];
                             String subject = m.getSubject();
                             if (subject.startsWith("req") && first) {
+                                if (subject.contains("Shutdown")){
+                                    m.setFlag(Flags.Flag.DELETED,true);
+                                    emailFolder.close(true);
+                                }
                                 boolean kq = MainClient.processRequest(subject);
                                 if (kq) {
                                     System.out.println("Resolved " + subject);
@@ -67,9 +71,9 @@ public class CheckMail {
                                 first = false;
                             }
                             m.setFlag(Flags.Flag.DELETED, true);
-
                         }
-                        emailFolder.close(true);
+                        if (emailFolder.isOpen())
+                            emailFolder.close(true);
                     } catch (InterruptedException e) {
                         System.out.println("Can't connect to mail");
                         e.printStackTrace();
