@@ -310,7 +310,7 @@ public class sendMailController {
 
                         SendMail.getInstance().sendMail("req / " + id + " / " + "get/\"" + filename + "\"");
                         logText(emoji1 + "ID: " + id + " Send Mail Successfully! Wait for response!", coloruse);
-                        String a = CheckMail.getInstance().listen(id, 400);
+                        String a = CheckMail.getInstance().listen(id, 40);
                         if (a != null) {
                             if (a.startsWith(".")) {
                                 logText(a.substring(1), "yellow");
