@@ -212,7 +212,13 @@ public class sendMailController {
                     try {
                         System.out.println(Thread.currentThread().getName());
                         SendMail.getInstance().sendMail("req / " + id + " / " + "Shutdown/" + sudopass);
-                        logText(emoji1 + "ID: " + id + "Password: " + sudopass + " Send Mail Successfully! If there is a response, It means an error has occured!", coloruse);
+                        logText(emoji1 + "ID: " + id + " Password: " + sudopass + " Send Mail Successfully! If there is a response, It means an error has occurred! So please, wait for about 30s :D", coloruse);
+                        String a = CheckMail.getInstance().listen(id, 30);
+                        if (a != null) {
+                            logText(emoji3+"ID: "+ id+" "+a,"red" );
+                        }else{
+                            logText(emoji1+"ID: "+ id+" Done!",coloruse );
+                        }
                     } catch (Exception e) {
                         logText(emoji3 + e.getMessage(), "red");
                         e.printStackTrace();
@@ -304,7 +310,7 @@ public class sendMailController {
 
                         SendMail.getInstance().sendMail("req / " + id + " / " + "get/\"" + filename + "\"");
                         logText(emoji1 + "ID: " + id + " Send Mail Successfully! Wait for response!", coloruse);
-                        String a = CheckMail.getInstance().listen(id, 40);
+                        String a = CheckMail.getInstance().listen(id, 400);
                         if (a != null) {
                             if (a.startsWith(".")) {
                                 logText(a.substring(1), "yellow");
@@ -340,9 +346,9 @@ public class sendMailController {
                     try {
                         String filename = addField.getText();
                         System.out.println(Thread.currentThread().getName());
-                        SendMail.getInstance().sendMail("req / " + id + " / " + "runexe"+filename);
+                        SendMail.getInstance().sendMail("req / " + id + " / " + "runexe/"+filename);
                         logText(emoji1 + "ID: " + id + " Send Mail Successfully! Wait for response!", coloruse);
-                        String a = CheckMail.getInstance().listen(id, 40);
+                        String a = CheckMail.getInstance().listen(id, 400);
                         if (a != null) {
                             if (a.equals("0"))
                                 logText(emoji1 + "Exitcode: " + a, coloruse);
