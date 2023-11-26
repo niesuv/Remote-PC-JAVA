@@ -8,7 +8,7 @@ public class RunExeFile {
             ProcessBuilder processBuilder = new ProcessBuilder(pathToExe);
             Process process = processBuilder.start();
             return 0;
-        } catch (IOException | InterruptedException e) {
+        } catch (IOException e) {
             e.printStackTrace();
             return -1;
         }
