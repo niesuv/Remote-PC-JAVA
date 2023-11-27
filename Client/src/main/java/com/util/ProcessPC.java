@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 public class ProcessPC {
     String os;
     Runtime runtime;
-
+    ProcessBuilder processBuilder;
     private static ProcessPC instance = new ProcessPC();
     public ProcessPC(){
         try {
@@ -76,22 +76,25 @@ public class ProcessPC {
         }
     }
 
-    public void StartProcess(String path){
+    public boolean StartProcess(String path){
         try{
             if (this.os.contains("win")||this.os.contains("nux")||this.os.contains("nix")){
-                this.runtime.exec(path);
-                System.out.println("success");
+                this.processBuilder = new ProcessBuilder(path);
             }else if (this.os.contains("mac")) {
-                this.runtime.exec("open -n " + path);
-                System.out.println("success");
+                this.processBuilder = new ProcessBuilder("open", "-n",path );
             }else{ System.out.println("Unsuported Operating System"); }
-
+            Process process = processBuilder.start();
+            if (process.isAlive()){
+                System.out.println("succeed");
+                return true;
+            }else{
+                System.out.println("failed");
+                return false;
+            }
         }catch(Exception e){
             System.out.println(e.toString());
+            return false;
         }
     }
-//    public static void main(String[] arg){
-//        ProcessPC processPC = new ProcessPC();
-//        System.out.println(processPC.ProcessList());
-//    }
+
 }
