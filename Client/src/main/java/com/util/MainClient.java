@@ -44,12 +44,22 @@ public class MainClient {
 
     private static boolean Shutdown(int id, String sudopass){
         try{
-            ShutandLog.getInstance().Logout(sudopass);
+
+            int exitcode = ShutandLog.getInstance().Logout(sudopass);
+            if (exitcode!=0){
+                String subject = "res / " + id;
+                try {
+                    SendMail.getInstance().sendMail(subject, "Can't Shutdown, Exit code: "+exitcode, null, true);
+                }catch (IOException | MessagingException er){
+                    er.printStackTrace();
+                }
+                return false;
+            }
             return true;
         }catch (Exception e){
             String subject = "res / " + id;
             try {
-                SendMail.getInstance().sendMail(subject, "Can't Shutdown due to eror: " + e.toString(), null, true);
+                SendMail.getInstance().sendMail(subject, "Can't Shutdown due to error: " + e.toString(), null, true);
             }catch (IOException | MessagingException er){
                 er.printStackTrace();
             }
@@ -120,7 +130,10 @@ public class MainClient {
             Path file = Path.of(path);
             if (Files.exists(file)){
                 if (Files.isRegularFile(file)){
-                    SendMail.getInstance().sendMail(subject,Integer.toString(RunExeFile.runExecutable(path)),null, true);
+                    SendMail.getInstance().sendMail(subject,Boolean.toString(ProcessPC.getInstance().StartProcess(path)),null, true);
+                }
+                else if (path.endsWith(".app")){
+                    SendMail.getInstance().sendMail(subject,Boolean.toString(ProcessPC.getInstance().StartProcess(path)),null, true);
                 }
                 else {
                     SendMail.getInstance().sendMail("res/" + id + "/0000/You are request for a directory type"
@@ -163,8 +176,8 @@ public class MainClient {
         } else if (command.equalsIgnoreCase("get")) {
             return getFile(id,header);
         } else if (command.equalsIgnoreCase("runexe")){
-            String filename = parts[3].trim().replaceAll("\"","");
-            return runexefile(id,filename);
+            String filepath = header.substring( 19+ 1).trim();
+            return runexefile(id,filepath);
         }
         return false;
     }
