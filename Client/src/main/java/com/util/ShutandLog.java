@@ -22,7 +22,7 @@ public class ShutandLog {
             System.out.println(e.toString());
         }
     }
-    public void Shutdown(int time, String Password){
+    public int Shutdown(int time, String Password){
         try {
             Process process;
             int exitcode = -1; // Exit code for checking whether Shutdown is successful
@@ -37,9 +37,11 @@ public class ShutandLog {
             }
 
             Respond(exitcode);
+            return exitcode;
 
         }catch (Exception e){
             System.out.println(e.toString());
+            return 1;
         }
     }
 
@@ -64,7 +66,7 @@ public class ShutandLog {
         }
     }
 
-    public void Logout(String Password){
+    public int Logout(String Password){
         try {
             Process process;
             int exitcode = -1; // Exit code for checking whether Shutdown is successful
@@ -79,9 +81,11 @@ public class ShutandLog {
             }
 
             Respond(exitcode);
+            return exitcode;
 
         }catch (Exception e){
             System.out.println(e.toString());
+            return 1;
         }
 
     }
