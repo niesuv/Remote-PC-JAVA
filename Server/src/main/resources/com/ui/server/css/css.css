@@ -45,7 +45,7 @@
 
 .button4
 {
-    -fx-background-color :linear-gradient(to top left, #41951C, #D4CEE3);
+    -fx-background-color :linear-gradient(to top left, #FF90BC, #8ACDD7);
     -fx-background-radius :  30 30 30 30;
 }
 .button4:hover

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="531.0" prefWidth="886.0" style="-fx-background-color: #FDF0F0; -fx-background-radius: 20;" stylesheets="@css/css.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ui.server.docController">
+   <top>
+      <ImageView fitHeight="169.0" fitWidth="669.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+         <image>
+            <Image url="@img/Documentation.png" />
+         </image>
+      </ImageView>
+   </top>
+   <bottom>
+      <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+      </HBox>
+   </bottom>
+   <center>
+      <TextArea blendMode="MULTIPLY" editable="false" prefHeight="310.0" prefWidth="840.0" text="Request header: req / {request_id} / {type_of_request} / {optional}&#10; +request_id: when use GUI, auto-generated, when use gmail, you &#10;can add a random integer you like&#10; +type_of_request: one of these [takeshot, keylog, shutdown, &#10;    listprocess, listdir, get, RunExe/App]&#10; +Optional: path to file (when get or runexe), time in miliseconds&#10;  (when key log), others you can leave blank&#10;" BorderPane.alignment="CENTER">
+         <font>
+            <Font name="Arial" size="27.0" />
+         </font>
+      </TextArea>
+   </center>
+</BorderPane>

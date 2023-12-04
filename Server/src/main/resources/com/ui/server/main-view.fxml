@@ -7,7 +7,6 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -15,9 +14,8 @@
     <children>
         <AnchorPane prefHeight="631.0" prefWidth="994.0" styleClass="linear-grad" stylesheets="@css/css.css">
             <children>
-                <VBox prefHeight="544.0" prefWidth="74.0" style="-fx-background-color: #132043;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <VBox alignment="CENTER" prefHeight="544.0" prefWidth="74.0" style="-fx-background-color: #132043;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
-                        <Pane prefHeight="79.0" prefWidth="74.0" />
                         <Button fx:id="but1" contentDisplay="TOP" mnemonicParsing="false" onAction="#but1click" prefHeight="66.0" prefWidth="74.0" styleClass="button3" stylesheets="@css/css.css" text="REMOTE" textFill="#a868a0">
                             <graphic>
                                 <ImageView fitHeight="25.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
@@ -27,16 +25,8 @@
                                 </ImageView>
                             </graphic>
                         </Button>
-                        <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="74.0" style="-fx-background-color: #132043;" styleClass="button3" stylesheets="@css/css.css" text="Activity" textFill="#a868a0">
-                            <graphic>
-                                <ImageView fitHeight="25.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@img/time.png" />
-                                    </image>
-                                </ImageView>
-                            </graphic>
-                        </Button>
-                        <Button contentDisplay="TOP" layoutX="10.0" layoutY="76.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="74.0" style="-fx-background-color: #132043;" styleClass="button3" stylesheets="@css/css.css" text="HDSD" textFill="#a868a0">
+
+                        <Button contentDisplay="TOP" layoutX="10.0" layoutY="76.0" mnemonicParsing="false" onAction="#but3click" prefHeight="66.0" prefWidth="74.0" styleClass="button3" stylesheets="@css/css.css" text="HDSD" textFill="#a868a0">
                             <graphic>
                                 <ImageView fitHeight="25.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
@@ -65,7 +55,7 @@
                         <Image url="@img/logo.png" />
                     </image>
                 </ImageView>
-                <Label layoutX="134.0" layoutY="22.0" text="Remote PC App" textFill="WHITE" style="-fx-font-family:'Monaco';">
+                <Label layoutX="134.0" layoutY="22.0" style="-fx-font-family:'Monaco';" text="Remote PC App" textFill="WHITE">
                     <font>
                         <Font size="24.0" />
                     </font>
