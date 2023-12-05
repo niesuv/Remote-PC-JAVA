@@ -55,17 +55,17 @@ public class SendMail {
 
             this.message.setFrom(new InternetAddress(email));
 
-            this.message.setRecipient(
-                    Message.RecipientType.TO,
-                    new InternetAddress(this.email)
-            );
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
 
     }
 
-    public void sendMail(String subject, String text, String file, boolean deleted) throws IOException, MessagingException {
+    public void sendMail(String subject, String text, String file, boolean deleted, String recepient) throws IOException, MessagingException {
+        this.message.setRecipient(
+                Message.RecipientType.TO,
+                new InternetAddress(recepient)
+        );
         this.message.setSubject(subject);
         MimeBodyPart filePart = new MimeBodyPart();
         if (text != null)

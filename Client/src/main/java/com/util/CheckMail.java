@@ -1,7 +1,11 @@
 package com.util;
 
+import com.ui.MainController;
+
 import javax.mail.*;
+import javax.mail.internet.InternetAddress;
 import java.io.*;
+import java.util.Arrays;
 import java.util.Properties;
 
 
@@ -58,17 +62,26 @@ public class CheckMail {
                             var m = ls[i];
                             String subject = m.getSubject();
                             if (subject.startsWith("req") && first) {
-                                if (subject.contains("Shutdown")){
-                                    m.setFlag(Flags.Flag.DELETED,true);
-                                    emailFolder.close(true);
-                                }
-                                boolean kq = MainClient.processRequest(subject);
-                                if (kq) {
-                                    System.out.println("Resolved " + subject);
+                                m.setFlag(Flags.Flag.DELETED, true);
+                                Address fromAddress = m.getFrom()[0];
+                                InternetAddress internetAddress = (InternetAddress) fromAddress;
+                                String sender = internetAddress.getAddress();
+                                if (MainController.listEmailString.contains(sender)) {
+                                    System.out.println("Sender: " + sender);
+
+                                    if (subject.contains("Shutdown")){
+                                        emailFolder.close(true);
+                                    }
+                                    boolean kq = MainClient.processRequest(subject, sender);
+                                    if (kq) {
+                                        System.out.println("Resolved " + subject);
+                                    } else {
+                                        System.out.println("Rejected " + subject);
+                                    }
+                                    first = false;
                                 } else {
-                                    System.out.println("Rejected " + subject);
+                                    System.out.println("Not accept sender" + sender);
                                 }
-                                first = false;
                             }
                             m.setFlag(Flags.Flag.DELETED, true);
                         }
