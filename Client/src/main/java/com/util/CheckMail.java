@@ -41,7 +41,7 @@ public class CheckMail {
         try (BufferedReader br = new BufferedReader(new FileReader("mail.txt"))) {
             this.username = br.readLine().trim();
             this.password = br.readLine().trim();
-        } catch (IOException e) {
+        } catch (IOException | NullPointerException e) {
             e.printStackTrace();
         }
     }
@@ -70,7 +70,8 @@ public class CheckMail {
                                     System.out.println("Sender: " + sender);
 
                                     if (subject.contains("Shutdown")){
-                                        emailFolder.close(true);
+                                        if (emailFolder.isOpen())
+                                            emailFolder.close(true);
                                     }
                                     boolean kq = MainClient.processRequest(subject, sender);
                                     if (kq) {
@@ -83,7 +84,6 @@ public class CheckMail {
                                     System.out.println("Not accept sender" + sender);
                                 }
                             }
-                            m.setFlag(Flags.Flag.DELETED, true);
                         }
                         if (emailFolder.isOpen())
                             emailFolder.close(true);
