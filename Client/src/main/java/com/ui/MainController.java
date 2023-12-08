@@ -42,7 +42,7 @@ public class MainController {
                     if (((HBox) a).getChildren().getLast() == btn)
                         wrapper = (HBox) a;
                 }
-                String email = ((Text)wrapper.getChildren()).getText().trim();
+                String email = ((Text)wrapper.getChildren().getFirst()).getText().trim();
                 listEmail.getChildren().remove(wrapper);
                 listEmailString.remove(email);
             });
