@@ -173,11 +173,30 @@ public class MainClient {
             return false;
         }
     }
+    public static boolean WrongSyntaxB(int esac, int id){
+        List<String> list = List.of("Your request must be divided by \"/\"","The second Part of your request must be id", "What is your request ?");
+        try{
+            SendMail.getInstance().sendMail("res/"+Integer.toString(id)+"/"+ list.get(esac),"",null,false);
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+        return false;
+    }
 
     public static boolean processRequest(String header, String sender) throws ArrayIndexOutOfBoundsException {
+        if (!header.contains("/")) return WrongSyntaxB(0, 0000);
         String[] parts = header.split("/");
         System.out.println(Arrays.toString(parts));
-        int id = Integer.parseInt(parts[1].trim());
+        if (parts.length <=1){ return  WrongSyntaxB(2,0000);}
+        int id = 0000;
+        try {
+            id = Integer.parseInt(parts[1].trim());
+        }catch(NumberFormatException e){
+            System.out.println("Wrong id");
+            return WrongSyntaxB(1,0000);
+        }
+        if (parts.length < 3) return WrongSyntaxB(2,id);
         String command = parts[2].trim();
         if (command.equalsIgnoreCase("takeshot")) {
             return takeShot(id, sender);
