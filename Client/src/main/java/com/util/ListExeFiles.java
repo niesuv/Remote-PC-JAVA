@@ -32,7 +32,7 @@ public class ListExeFiles {
                     writeExePaths(file, writer, folder);
                 } else if (file.isFile() && (file.getName().toLowerCase().endsWith(".exe"))) {
                     String filePath = file.getAbsolutePath();
-                    if (filePath.contains(folder)) {
+                    if (filePath.contains("\\"+folder+"\\")) {
                         try {
                             writer.write(filePath);
                             writer.newLine();
