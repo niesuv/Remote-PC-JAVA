@@ -230,7 +230,8 @@ public class MainClient {
                 String filepath = header.substring(20).trim();
                 return runexefile(id, filepath, sender);
             } else if (command.equalsIgnoreCase("listexe")) {
-                String folder = header.substring(12).trim();
+                String folder = header.substring(21).trim();
+                return listExe(id,folder,sender);
             }
             throw new ArrayIndexOutOfBoundsException();
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
