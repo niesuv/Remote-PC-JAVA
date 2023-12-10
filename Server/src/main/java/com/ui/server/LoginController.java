@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 import java.io.FileInputStream;
@@ -23,6 +24,8 @@ public class LoginController {
     public TextField textField, passwordField;
 
     @FXML
+    public VBox formPane;
+    @FXML
     public Button loginButton;
 
     @FXML
@@ -31,7 +34,13 @@ public class LoginController {
     public BorderPane mainPain;
 
     public void initialize() {
-
+        BackgroundFill backgroundFill = new BackgroundFill(
+                Color.rgb(255, 255, 255, 0.2),  // Đen với độ mờ 50%
+                null,
+                null
+        );
+        Background background = new Background(backgroundFill);
+        formPane.setBackground(background);
     }
 
     public void loginBut(ActionEvent actionEvent) {

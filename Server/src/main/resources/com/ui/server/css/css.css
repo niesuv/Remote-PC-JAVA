@@ -113,6 +113,15 @@
     -fx-border-color: black;
 }
 
+.backgr2 {
+
+    -fx-background-image: url("../img/back.jpg");
+    -fx-background-size: 100%;
+    -fx-border-color: black;
+    -fx-border-width: 4;
+}
+
+
 .logoutbut:hover {
     -fx-opacity: 0.8;
     -fx-border-color: black;
@@ -206,7 +215,7 @@
 }
 .linear-grad
 {
-    -fx-background-color: linear-gradient(to bottom left, #F1B4BB, #1F4172);
+    -fx-background-color: linear-gradient(to bottom right, #F4F27E, #9bdbff);
 }
 
 
