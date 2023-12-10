@@ -52,7 +52,7 @@ public class SendMailController {
 
     public void initialize() {
         List<String> list = List.of("Snapshot", "KeyLogger", "GetFile",
-                "ListDirectory", "ListProcess", "StopProcess", "OpenProcess", "Shutdown", "RunExe/App");
+                "ListDirectory", "ListProcess", "StopProcess", "OpenProcess", "Shutdown", "ListExe/App","RunExe/App");
         comboBox.setItems(FXCollections.observableList(list));
         comboBox.getSelectionModel().selectFirst();
         addField.setEditable(false);
@@ -99,6 +99,12 @@ public class SendMailController {
                             addField.setDisable(false);
                             addField.setEditable(true);
                             labelAddField.setText("File/App's path");
+                            sendBut.setDisable(false);
+                        }
+                        case "ListExe/App"->{
+                            addField.setDisable(false);
+                            addField.setEditable(true);
+                            labelAddField.setText("Folder's Path");
                             sendBut.setDisable(false);
                         }
                         default -> sendBut.setDisable(true);
@@ -317,7 +323,6 @@ public class SendMailController {
                             logText(emoji3 + "Error happens", "red");
                         }
 
-
                     } catch (Exception e) {
                         logText(emoji3 + e.getMessage(), "red");
                         e.printStackTrace();
@@ -357,6 +362,41 @@ public class SendMailController {
                         logText(emoji3 + e.getMessage(), "red");
                         e.printStackTrace();
                     }finally {
+                        Platform.runLater(() -> {
+                            sendBut.setDisable(false);
+                            logText("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - ", coloruse);
+                            comboBox.setDisable(false);
+                        });
+                    }
+                });
+                thread.start();
+            }
+            case "ListExe/App"->{
+                int id = random.nextInt(1000, 9999);
+                int tmp = id % 1000 % 100 % 10;
+                while (tmp > 3) tmp -= 3;
+                String coloruse = colorList.get(tmp);
+                sendBut.setDisable(true);
+                Thread thread = new Thread(() -> {
+                    try {
+                        String filename = addField.getText();
+                        System.out.println(Thread.currentThread().getName());
+                        SendMail.getInstance().sendMail("req / " + id + " / " + "listexe/"+filename);
+                        logText(emoji1 + "ID: " + id + " Send Mail Successfully! Wait for response!", coloruse);
+                        String a = CheckMail.getInstance().listen(id, 40);
+                        if (a != null) {
+                            if (a.startsWith(".")) {
+                                logText(a.substring(1), "yellow");
+                            } else {
+                                logText(emoji2 + "Get Response successfully. File in " + a, coloruse);
+                            }
+                        } else {
+                            logText(emoji3 + "Error happens", "red");
+                        }
+                    }catch (Exception e) {
+                        logText(emoji3 + e.getMessage(), "red");
+                        e.printStackTrace();}
+                    finally {
                         Platform.runLater(() -> {
                             sendBut.setDisable(false);
                             logText("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - ", coloruse);
