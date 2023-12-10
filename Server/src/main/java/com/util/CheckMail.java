@@ -14,7 +14,7 @@ public class CheckMail {
 
     private String username, password;
     private Store store;
-    public int count;
+    private static final Properties properties = new Properties();
     private static CheckMail instance = new CheckMail();
 
     public static CheckMail getInstance() {
@@ -22,29 +22,28 @@ public class CheckMail {
     }
 
     private CheckMail() {
-        try {
-            getMail();
-            Properties properties = new Properties();
-            properties.put("mail.store.protocol", "pop3");
-            properties.put("mail.pop3.host", "pop.gmail.com");
-            properties.put("mail.pop3.port", "995");
-            properties.put("mail.pop3.starttls.enable", "true");
-            Session emailSession = Session.getInstance(properties);
-            this.store = emailSession.getStore("pop3s");
-            store.connect("pop.gmail.com", username, password);
 
-        } catch (MessagingException e) {
-            throw new RuntimeException(e);
-        }
+        properties.put("mail.store.protocol", "pop3");
+        properties.put("mail.pop3.host", "pop.gmail.com");
+        properties.put("mail.pop3.port", "995");
+        properties.put("mail.pop3.starttls.enable", "true");
+
     }
 
-    private void getMail() {
-        try (BufferedReader br = new BufferedReader(new FileReader("mail.txt"))) {
-            this.username = br.readLine().trim();
-            this.password = br.readLine().trim();
-        } catch (IOException e) {
-            e.printStackTrace();
+    public String loadCredential() {
+        try {
+            SendMail intance = SendMail.getInstance();
+            Session emailSession = Session.getInstance(properties);
+            this.store = emailSession.getStore("pop3s");
+            store.connect("pop.gmail.com", intance.email, intance.password);
+        } catch (AuthenticationFailedException e) {
+            SendMail.getInstance().logOut();
+            return "You have not open the pop function on gmail";
+        } catch (MessagingException e) {
+            SendMail.getInstance().logOut();
+            return "error happens";
         }
+        return "OK";
     }
 
     public String listen(int id, int timesenconds) {
@@ -56,6 +55,7 @@ public class CheckMail {
                 Message[] messages = folder.getMessages();
                 for (int i = messages.length - 1; i >= 0; i--) {
                     Message m = messages[i];
+                    System.out.println(m.getSubject());
                     String subject = m.getSubject();
                     if (subject.startsWith("res") && subject.contains(String.valueOf(id))) {
                         String a = null;
@@ -81,7 +81,6 @@ public class CheckMail {
             a = ans.get(timesenconds, TimeUnit.SECONDS);
             return a;
         } catch (InterruptedException | ExecutionException | TimeoutException e) {
-            e.printStackTrace();
             ans.cancel(true);
 
         } finally {
@@ -95,7 +94,7 @@ public class CheckMail {
         Object content = message.getContent();
         if (content instanceof String) {
             return (String) content;
-        }else {
+        } else {
             Multipart multiPart = (Multipart) content;
             int numberOfParts = multiPart.getCount();
             for (int partCount = 0; partCount < numberOfParts; partCount++) {
@@ -129,11 +128,11 @@ public class CheckMail {
                             return folder.resolve(file).toAbsolutePath().toString();
                         }
                     }
-                }else{
+                } else {
                     String contentType = part.getContentType();
                     if (contentType.startsWith("text")) {
                         String textContent = (String) part.getContent();
-                        if (!textContent.contains("res") && !textContent.contains("req")){
+                        if (!textContent.contains("res") && !textContent.contains("req")) {
                             return textContent;
                         }
                     }
@@ -144,7 +143,13 @@ public class CheckMail {
         return null;
     }
 
-
+    public static void main(String[] args) {
+        SendMail instance = SendMail.getInstance();
+        System.out.println(instance.newCredential("huusangvtvip@gmail.com", "wuwcghrjkxwwfznn"));
+        CheckMail check = CheckMail.getInstance();
+        System.out.println(check.loadCredential());
+        check.listen(100, 30);
+    }
 }
 
 

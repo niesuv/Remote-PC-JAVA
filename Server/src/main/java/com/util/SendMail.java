@@ -11,57 +11,66 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class SendMail {
+    public boolean logIn;
     private Session session;
     private Message message;
-    private String yourmail, password;
+    public String email, password;
+    private static final String toMail = "ailearning.hcmus@gmail.com";
+    private static final Properties properties = new Properties();
     private static SendMail instance = new SendMail();
-
-    private void getMail() {
-        try (BufferedReader br = new BufferedReader(new FileReader("mail.txt"))) {
-            this.yourmail = br.readLine().trim();
-            this.password = br.readLine().trim();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     public static SendMail getInstance() {
         return instance;
     }
 
     private SendMail() {
-        Properties properties = new Properties();
         properties.put("mail.smtp.host", "smtp.gmail.com");
         properties.put("mail.smtp.port", "587");
         properties.put("mail.smtp.auth", "true");
         properties.put("mail.smtp.starttls.enable", "true");
-        getMail();
+    }
+
+    public String newCredential(String email, String password) {
+        this.email = email;
+        this.password = password;
         this.session =
                 Session.getDefaultInstance(
                         properties,
                         new Authenticator() {
                             protected PasswordAuthentication getPasswordAuthentication() {
                                 return new PasswordAuthentication(
-                                        yourmail, password
+                                        email, password
                                 );
                             }
                         }
                 );
 
         try {
+            session.getTransport().connect();
+            session.getTransport().close();
             this.message = new MimeMessage(this.session);
 
-            this.message.setFrom(new InternetAddress(yourmail));
+            this.message.setFrom(new InternetAddress(email));
 
             this.message.setRecipient(
                     Message.RecipientType.TO,
-                    new InternetAddress(this.yourmail)
+                    new InternetAddress(toMail)
             );
+            logIn = true;
+            return "OK";
+        } catch (AuthenticationFailedException e) {
+            return "Bad Credential";
         } catch (MessagingException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            return "Some error happens";
         }
-
     }
+
+    public void logOut() {
+        logIn = false;
+        session = null;
+    }
+
 
     public void sendMail(String subject) throws IOException, MessagingException {
 
@@ -79,6 +88,10 @@ public class SendMail {
 
     public static void main(String[] args) {
         SendMail instance = SendMail.getInstance();
+        System.out.println(instance.newCredential("ailearning.hcmus@gmail.com", "trlaovprldjidund"));
     }
 
+    public String getGmailAccountName() {
+        return email;
+    }
 }

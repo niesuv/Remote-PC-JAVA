@@ -14,16 +14,13 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-import javax.mail.MessagingException;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 
-public class sendMailController {
+public class SendMailController {
     Random random = new Random();
     @FXML
     public Button sendBut;
@@ -156,8 +153,6 @@ public class sendMailController {
                 thread.start();
 
             }
-
-            //key log task
             case "KeyLogger" -> {
                 try {
                     int time = Integer.parseInt(addField.getText());

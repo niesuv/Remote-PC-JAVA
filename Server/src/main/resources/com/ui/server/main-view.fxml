@@ -16,6 +16,15 @@
             <children>
                 <VBox alignment="CENTER" prefHeight="544.0" prefWidth="74.0" style="-fx-background-color: #132043;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
+                  <Button fx:id="but11" contentDisplay="TOP" mnemonicParsing="false" onAction="#but2click" prefHeight="66.0" prefWidth="74.0" styleClass="button3" stylesheets="@css/css.css" text="LOGIN" textFill="#a868a0">
+                     <graphic>
+                        <ImageView fitHeight="25.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@img/user.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
                         <Button fx:id="but1" contentDisplay="TOP" mnemonicParsing="false" onAction="#but1click" prefHeight="66.0" prefWidth="74.0" styleClass="button3" stylesheets="@css/css.css" text="REMOTE" textFill="#a868a0">
                             <graphic>
                                 <ImageView fitHeight="25.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
@@ -26,7 +35,7 @@
                             </graphic>
                         </Button>
 
-                        <Button contentDisplay="TOP" layoutX="10.0" layoutY="76.0" mnemonicParsing="false" onAction="#but3click" prefHeight="66.0" prefWidth="74.0" styleClass="button3" stylesheets="@css/css.css" text="HDSD" textFill="#a868a0">
+                        <Button contentDisplay="TOP" layoutX="10.0" layoutY="76.0" mnemonicParsing="false" fx:id="but3" onAction="#but3click" prefHeight="66.0" prefWidth="74.0" styleClass="button3" stylesheets="@css/css.css" text="HDSD" textFill="#a868a0">
                             <graphic>
                                 <ImageView fitHeight="25.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
@@ -46,7 +55,8 @@
                         </Button>
                     </children>
                 </VBox>
-                <BorderPane fx:id="mainPane" layoutX="83.0" layoutY="70.0" prefHeight="544.0" prefWidth="886.0" style="-fx-background-color: #FDF0F0; -fx-background-radius: 10;" stylesheets="@css/css.css">
+                <BorderPane  fx:id="mainPane" layoutX="83.0" layoutY="70.0" prefHeight="544.0" prefWidth="886.0"
+                             style="-fx-background-color: #FDF0F0; -fx-background-radius: 10;" stylesheets="@css/css.css">
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding></BorderPane>

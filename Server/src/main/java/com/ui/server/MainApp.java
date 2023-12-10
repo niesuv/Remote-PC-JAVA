@@ -21,6 +21,10 @@ public class MainApp extends Application {
     public void init() throws Exception {
     }
 
+    @Override
+    public void stop() throws Exception {
+        System.exit(0);
+    }
     public static void main(String[] args) {
         launch();
     }

@@ -91,6 +91,34 @@
     -fx-border-radius: 30;
 }
 
+
+.input2
+{
+    -fx-background-color: transparent;
+
+}
+
+.buttonnew {
+    -fx-background-color: lightgreen;
+    -fx-opacity: 0.7;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-border-color: black;
+}
+
+.buttonnew:hover {
+    -fx-opacity: 1;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-border-color: black;
+}
+
+.logoutbut:hover {
+    -fx-opacity: 0.8;
+    -fx-border-color: black;
+}
+
+
 .input:hover
 {
     -fx-background-color : #141124;
@@ -179,4 +207,10 @@
 .linear-grad
 {
     -fx-background-color: linear-gradient(to bottom left, #F1B4BB, #1F4172);
+}
+
+
+.linear-grad2
+{
+    -fx-background-color: linear-gradient(to bottom left, #918cfa, #1F4172);
 }

@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="531.0" prefWidth="886.0" style="-fx-background-color: #1F4172; -fx-background-radius: 20;" stylesheets="@css/css.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ui.server.sendMailController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="531.0" prefWidth="886.0" style="-fx-background-color: #1F4172; -fx-background-radius: 20;" stylesheets="@css/css.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ui.server.SendMailController">
    <top>
       <VBox fx:id="textOutputs" prefHeight="374.0" prefWidth="765.0" spacing="5.0" style="-fx-background-color: #1b1b1c; -fx-border-color: black; -fx-border-width: 10; -fx-border-radius: 10; -fx-background-radius: 10;" stylesheets="@css/css.css" BorderPane.alignment="CENTER">
          <padding>
