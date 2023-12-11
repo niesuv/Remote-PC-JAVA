@@ -100,6 +100,7 @@ public class CheckMail {
     }
 
     public static void main(String[] args) throws Exception {
+        SendMail instance = SendMail.getInstance();
         CheckMail check = CheckMail.getInstance();
         check.listen();
     }

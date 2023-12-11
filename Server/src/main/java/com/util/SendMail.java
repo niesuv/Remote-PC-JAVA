@@ -30,10 +30,10 @@ public class SendMail {
         properties.put("mail.smtp.starttls.enable", "true");
     }
 
-    public String newCredential(String email, String password) {
-        this.email = email;
-        this.password = password;
-        this.session =
+    public String newCredential(String _email, String _password) {
+        this.email = _email;
+        this.password = _password;
+        session =
                 Session.getDefaultInstance(
                         properties,
                         new Authenticator() {
@@ -89,9 +89,13 @@ public class SendMail {
     public static void main(String[] args) {
         SendMail instance = SendMail.getInstance();
         System.out.println(instance.newCredential("ailearning.hcmus@gmail.com", "trlaovprldjidund"));
+        System.out.println(instance.newCredential("ailearning.hcmus@gmail.com", "trlaovprldjidunds"));
+
     }
 
     public String getGmailAccountName() {
         return email;
     }
+
+
 }

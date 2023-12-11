@@ -56,12 +56,14 @@ public class LoginController {
                 log.setStyle("-fx-fill: blue");
             });
                String a = SendMail.getInstance().newCredential(_email, _password);
+                System.out.println("step 1: " + a);
                if (a.equals("OK")) {
                    a = CheckMail.getInstance().loadCredential();
-                   System.out.println(a);
+                   System.out.println("step 2: " + a);
                    if (a.equals("OK")) {
                        Platform.runLater(() -> {
                            log.setText(null);
+                           loginButton.setDisable(false);
                            mainController.loadUserPane();
                            mainController.enableBut();
                            mainController.but2click(null);
@@ -77,9 +79,8 @@ public class LoginController {
                        });
                    }
                } else {
-                   String logText = a;
                    Platform.runLater(() -> {
-                       log.setText(logText);
+                       log.setText("Invalid Credentials");
                        loginButton.setDisable(false);
                        log.setStyle("-fx-fill: red");
                    });
