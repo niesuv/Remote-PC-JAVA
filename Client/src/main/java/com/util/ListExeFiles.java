@@ -3,10 +3,16 @@ package com.util;
 import java.io.*;
 
 public class ListExeFiles {
+
+    private static ListExeFiles instance = new ListExeFiles();
+
+    public static ListExeFiles getInstance() {
+        return instance;
+    }
     private static String[] AllprogramFilesPath = {System.getenv("ProgramFiles"), System.getenv("ProgramFiles(x86)")};
    
     public static String[] cmd = new String[]{"/bin/bash", "-c", "system_profiler SPApplicationsDataType"};
-    private static void writeExePathsToFile(String outputPath, String folder) {
+    public static void writeExePathsToFile(String outputPath, String folder) {
         String os = System.getProperty("os.name").toLowerCase();
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputPath))) {
             if (os.contains("win")) {
@@ -23,16 +29,15 @@ public class ListExeFiles {
         }
     }
 
-    private static void writeExePaths(File directory, BufferedWriter writer, String folder) throws IOException {
+    public static void writeExePaths(File directory, BufferedWriter writer, String folder) throws IOException {
         File[] files = directory.listFiles();
-
         if (files != null) {
             for (File file : files) {
                 if (file.isDirectory()) {
                     writeExePaths(file, writer, folder);
                 } else if (file.isFile() && (file.getName().toLowerCase().endsWith(".exe"))) {
                     String filePath = file.getAbsolutePath();
-                    if (filePath.contains(folder)) {
+                    if (filePath.contains("\\"+folder+"\\")) {
                         try {
                             writer.write(filePath);
                             writer.newLine();
@@ -43,7 +48,7 @@ public class ListExeFiles {
         }
     }
 
-    private static void writeAppPaths( BufferedWriter writer) throws IOException, InterruptedException {
+    public static void writeAppPaths( BufferedWriter writer) throws IOException, InterruptedException {
         try {
             Process p = Runtime.getRuntime().exec(cmd);
             BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
