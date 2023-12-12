@@ -167,6 +167,21 @@
     -fx-background-color: transparent;
 }
 
+
+.hover {
+    -fx-opacity: 0.7;
+}
+
+.hover:hover {
+    -fx-opacity: 1;
+}
+
+
+
+.backgr {
+    -fx-background-image: url('../img/back.jpg');
+}
+
 .chart {
     -fx-padding: 10px;
     -fx-background-color: transparent;
