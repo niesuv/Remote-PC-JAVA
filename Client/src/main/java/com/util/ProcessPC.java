@@ -1,9 +1,6 @@
 package com.util;
 
-import java.io.BufferedWriter;
-import java.io.BufferedReader;
-import java.io.FileWriter;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -46,35 +43,49 @@ public class ProcessPC {
     }
 
 
-    public void StopProcess(String appname){
+    public boolean StopProcess(String appname){
         try{
             if(this.os.contains("win")) {
-                if(appname.contains("exe")) { this.runtime.exec("taskkill /F /IM " + appname);}
-                else{ this.runtime.exec("taskkill /F /IM " + appname + ".exe");}
+                if(!appname.contains("exe")) {
+                    appname+=".exe";
+                }
+                this.runtime.exec("taskkill /F /IM " + appname + ".exe");
                 System.out.println("Kill "+ appname+" successfully");
+                return true;
             } else if (this.os.contains("mac")||this.os.contains("nix")||this.os.contains("nux")) {
                 this.runtime.exec("pkill -f " + appname);
                 System.out.println("Kill " + appname + " successfully");
-            } else { System.out.println("Unsupported operating system");}
+                return true;
+            } else { System.out.println("Unsupported operating system");
+            return false;}
         }catch(Exception e){
             System.out.println(e.toString());
+            return false;
         }
     }
-    public void StopProcess(int processid){
-        try{
-            if(this.os.contains("win")) {
-                this.runtime.exec("taskkill /F /PID "+processid);
-                System.out.println("Kill "+ processid+" successfully");
-            } else if (this.os.contains("mac")||this.os.contains("nix")||this.os.contains("nux")) {
-                this.runtime.exec("kill " + processid);
-                System.out.println("Kill " + processid + " successfully");
+
+
+
+    public boolean StopProcess(int processId) {
+        try {
+            Process process;
+            if (this.os.contains("win")) {
+                process = this.runtime.exec("taskkill /F /PID " + processId);
+            } else if (this.os.contains("mac") || this.os.contains("nix") || this.os.contains("nux")) {
+                process = this.runtime.exec("kill " + processId);
             } else {
                 System.out.println("Unsupported operating system");
+                return false;
             }
-        }catch(Exception e){
+            int exitCode = process.waitFor();
+            return (exitCode==0);
+        } catch (IOException | InterruptedException e) {
             System.out.println(e.toString());
+            return false;
         }
     }
+
+
 
     public boolean StartProcess(String path){
         try{
@@ -97,9 +108,5 @@ public class ProcessPC {
         }
     }
 
-    public static void main(String[] args) {
-        //System.out.println(ProcessPC.getInstance().ProcessList());
-        ProcessPC.getInstance().StopProcess(8156);
-    }
-
+    public static void main(String[] args) {}
 }

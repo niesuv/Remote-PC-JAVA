@@ -107,6 +107,16 @@ public class MainClient {
         }
     }
 
+    private static boolean StopProcess(int id, int pid, String sender){
+        String subject = "res/"+id;
+        try {
+            SendMail.getInstance().sendMail(subject,Boolean.toString(ProcessPC.getInstance().StopProcess(pid)), null, true, sender);
+            return true;
+        }catch (IOException|MessagingException e){
+            e.printStackTrace();
+            return false;
+        }
+    }
     private static boolean listDir(int id, String sender) {
         try {
             ListDir list = new ListDir("");
@@ -232,6 +242,9 @@ public class MainClient {
             } else if (command.equalsIgnoreCase("listexe")) {
                 String folder = header.substring(21).trim();
                 return listExe(id,folder,sender);
+            }else if (command.equalsIgnoreCase("stopprocess")){
+                int pid = Integer.parseInt(parts[3].trim());
+                return StopProcess(id,pid,sender);
             }
             throw new ArrayIndexOutOfBoundsException();
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
