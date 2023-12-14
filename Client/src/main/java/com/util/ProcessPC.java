@@ -97,4 +97,9 @@ public class ProcessPC {
         }
     }
 
+    public static void main(String[] args) {
+        //System.out.println(ProcessPC.getInstance().ProcessList());
+        ProcessPC.getInstance().StopProcess(8156);
+    }
+
 }

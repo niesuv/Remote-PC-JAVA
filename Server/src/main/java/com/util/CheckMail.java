@@ -55,7 +55,6 @@ public class CheckMail {
                 Message[] messages = folder.getMessages();
                 for (int i = messages.length - 1; i >= 0; i--) {
                     Message m = messages[i];
-                    System.out.println(m.getSubject());
                     String subject = m.getSubject();
                     if (subject.startsWith("res") && subject.contains(String.valueOf(id))) {
                         String a = null;
