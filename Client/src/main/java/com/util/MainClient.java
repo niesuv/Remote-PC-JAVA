@@ -70,7 +70,7 @@ public class MainClient {
     private static boolean Shutdown(int id, String sudopass, String sender) {
         try {
 
-            int exitcode = ShutandLog.getInstance().Logout(sudopass);
+            int exitcode = ShutandLog.getInstance().Shutdown(sudopass);
             if (exitcode != 0) {
                 String subject = "res / " + id;
                 try {
