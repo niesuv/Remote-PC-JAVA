@@ -22,16 +22,16 @@ public class ShutandLog {
             System.out.println(e.toString());
         }
     }
-    public int Shutdown(int time, String Password){
+    public int Shutdown(String Password){
         try {
             Process process;
             int exitcode = -1; // Exit code for checking whether Shutdown is successful
             if(this.os.contains("win")) {
-                process = this.runtime.exec("shutdown /s /f /t " + Integer.toString(time));
+                process = this.runtime.exec("shutdown -s -f -t 0");
                 exitcode = process.waitFor();
             }
             else if(this.os.contains("nux")||this.os.contains("nix")||this.os.contains("mac")){
-                String command = "echo '" + Password + "' | sudo -S shutdown -h "+Integer.toString(time);
+                String command = "echo '" + Password + "' | sudo -S shutdown -h now";
                 process = Runtime.getRuntime().exec(new String[] { "/bin/bash","-c", command });
                 exitcode = process.waitFor();
             }
