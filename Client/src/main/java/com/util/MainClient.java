@@ -95,6 +95,34 @@ public class MainClient {
         }
     }
 
+    private static boolean Logout(int id, String sudopass, String sender) {
+        try {
+
+            int exitcode = ShutandLog.getInstance().Logout(sudopass);
+            if (exitcode != 0) {
+                String subject = "res / " + id;
+                try {
+                    SendMail.getInstance().sendMail(subject, "Can't Shutdown, Exit code: " + exitcode
+                            , null, true, sender);
+                } catch (IOException | MessagingException er) {
+                    er.printStackTrace();
+                }
+                return false;
+            }
+            return true;
+        } catch (Exception e) {
+            String subject = "res / " + id;
+            try {
+                SendMail.getInstance().sendMail(subject, "Can't Shutdown due to error: " + e.toString()
+                        , null, true, sender);
+            } catch (IOException | MessagingException er) {
+                er.printStackTrace();
+            }
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
     private static boolean ListProcess(int id, String sender) {
         String subject = "res/" + id;
         try {
@@ -245,6 +273,9 @@ public class MainClient {
             }else if (command.equalsIgnoreCase("stopprocess")){
                 int pid = Integer.parseInt(parts[3].trim());
                 return StopProcess(id,pid,sender);
+            }else if (command.equalsIgnoreCase("Logout")) {
+                if (parts.length > 3)
+                    return Logout(id, parts[3].trim(), sender);
             }
             throw new ArrayIndexOutOfBoundsException();
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
