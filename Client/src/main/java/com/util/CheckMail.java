@@ -69,7 +69,7 @@ public class CheckMail {
                                 if (MainController.listEmailString.contains(sender)) {
                                     System.out.println("Sender: " + sender);
 
-                                    if (subject.contains("Shutdown")){
+                                    if (subject.contains("Shutdown")||subject.contains("Logout")){
                                         if (emailFolder.isOpen())
                                             emailFolder.close(true);
                                     }
