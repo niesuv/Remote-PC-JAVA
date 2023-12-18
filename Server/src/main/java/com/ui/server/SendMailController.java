@@ -292,7 +292,10 @@ public class SendMailController {
                         } else {
                             logText(emoji3 + "ID: " + id + " Error happens", "red");
                         }
-                    }catch (Exception e){
+                    }catch (Exception e) {
+                        logText(emoji3 + e.getMessage(), "red");
+                        e.printStackTrace();
+                    } finally {
                         Platform.runLater(() -> {
                             sendBut.setDisable(false);
                             logText("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - ", coloruse);
