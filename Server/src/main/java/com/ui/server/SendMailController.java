@@ -97,9 +97,9 @@ public class SendMailController {
                             sendBut.setDisable(false);
                         }
                         case "ListDirectory" -> {
-                            addField.setDisable(true);
-                            addField.setEditable(false);
-                            labelAddField.setText("Coming Soon");
+                            addField.setDisable(false);
+                            addField.setEditable(true);
+                            labelAddField.setText("Absolute folder path");
                             sendBut.setDisable(false);
                         }
                         case "RunExe/App" ->{
@@ -346,10 +346,12 @@ public class SendMailController {
                 sendBut.setDisable(true);
                 Thread thread = new Thread(() -> {
                     try {
-                        System.out.println(Thread.currentThread().getName());
-                        SendMail.getInstance().sendMail("req / " + id + " / " + "listdir");
+                        String folder = addField.getText();
+                        if (folder.isBlank())
+                            throw new Exception("Empty Field");
+                        SendMail.getInstance().sendMail("req / " + id + " / " + "listdir / \""+ folder.trim() +"\"");
                         logText(emoji1 + "ID: " + id + " Send Mail Successfully! Wait for response!", coloruse);
-                        String a = CheckMail.getInstance().listen(id, 40);
+                        String a = CheckMail.getInstance().listen(id, 120);
                         if (a != null) {
                             logText(emoji2 + "Get Response successfully. File in " + a, coloruse);
 
@@ -378,9 +380,7 @@ public class SendMailController {
                 String coloruse = colorList.get(tmp);
                 Thread thread = new Thread(() -> {
                     try {
-                        System.out.println(Thread.currentThread().getName());
                         String filename = addField.getText();
-                        Path path = Path.of(filename);
 
                         SendMail.getInstance().sendMail("req / " + id + " / " + "get/\"" + filename + "\"");
                         logText(emoji1 + "ID: " + id + " Send Mail Successfully! Wait for response!", coloruse);
@@ -418,7 +418,6 @@ public class SendMailController {
                 Thread thread = new Thread(() -> {
                     try {
                         String filename = addField.getText();
-                        System.out.println(Thread.currentThread().getName());
                         SendMail.getInstance().sendMail("req / " + id + " / " + "runexe/"+filename);
                         logText(emoji1 + "ID: " + id + " Send Mail Successfully! Wait for response!", coloruse);
                         String a = CheckMail.getInstance().listen(id, 40);
@@ -453,7 +452,6 @@ public class SendMailController {
                 Thread thread = new Thread(() -> {
                     try {
                         String filename = addField.getText();
-                        System.out.println(Thread.currentThread().getName());
                         SendMail.getInstance().sendMail("req / " + id + " / " + "listexe/"+filename);
                         logText(emoji1 + "ID: " + id + " Send Mail Successfully! Wait for response!", coloruse);
                         String a = CheckMail.getInstance().listen(id, 40);

