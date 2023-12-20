@@ -5,42 +5,98 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <BorderPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="531.0" prefWidth="886.0" style="-fx-background-radius: 20;" stylesheets="@css/css.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ui.server.AboutController">
    <center>
-      <HBox alignment="CENTER" prefHeight="413.0" prefWidth="886.0" spacing="25.0" stylesheets="@css/css.css" BorderPane.alignment="CENTER">
-         <children>
-            <ImageView fitHeight="223.0" fitWidth="210.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@img/sang.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="233.0" fitWidth="230.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@img/nam.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="224.0" fitWidth="220.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@img/tri.png" />
-               </image>
-            </ImageView>
-         </children>
-         <padding>
-            <Insets bottom="50.0" left="50.0" right="50.0" />
-         </padding>
+      <VBox BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets bottom="100.0" />
          </BorderPane.margin>
-      </HBox>
+         <children>
+            <HBox alignment="CENTER" prefHeight="413.0" prefWidth="886.0" spacing="25.0" stylesheets="@css/css.css">
+               <children>
+                  <ImageView fitHeight="223.0" fitWidth="210.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/sang.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="233.0" fitWidth="230.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/nam.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="224.0" fitWidth="220.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/tri.png" />
+                     </image>
+                  </ImageView>
+               </children>
+               <padding>
+                  <Insets bottom="50.0" left="50.0" right="50.0" top="25.0" />
+               </padding>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="15.0">
+               <children>
+                  <VBox style="-fx-background-radius: 20; -fx-border-color: black; -fx-border-radius: 20;" styleClass="linear-grad" stylesheets="@css/css.css">
+                     <children>
+                        <Text fill="#840aff" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="LÊ HỮU SANG " textAlignment="CENTER" wrappingWidth="228.53673934936523">
+                           <font>
+                              <Font name="Arial" size="19.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#840aff" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="22120310" textAlignment="CENTER" wrappingWidth="228.53673934936523">
+                           <font>
+                              <Font name="Arial" size="19.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </VBox>
+                  <VBox style="-fx-background-radius: 20; -fx-border-color: black; -fx-border-radius: 20;" styleClass="linear-grad" stylesheets="@css/css.css">
+                     <children>
+                        <Text fill="#840aff" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Uông nhật Nam" textAlignment="CENTER" wrappingWidth="228.53673934936523">
+                           <font>
+                              <Font name="Arial" size="19.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#840aff" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="22120221" textAlignment="CENTER" wrappingWidth="228.53673934936523">
+                           <font>
+                              <Font name="Arial" size="19.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </VBox>
+                  <VBox style="-fx-background-radius: 20; -fx-border-color: black; -fx-border-radius: 20;" styleClass="linear-grad" stylesheets="@css/css.css">
+                     <children>
+                        <Text fill="#840aff" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Vũ Châu Minh Trí" textAlignment="CENTER" wrappingWidth="228.53673934936523">
+                           <font>
+                              <Font name="Arial" size="19.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#840aff" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="22120456" textAlignment="CENTER" wrappingWidth="228.53673934936523">
+                           <font>
+                              <Font name="Arial" size="19.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets left="90.0" />
+               </padding>
+            </HBox>
+         </children>
+      </VBox>
    </center>
    <top>
-      <ImageView fitHeight="172.0" fitWidth="486.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+      <ImageView fitHeight="160.0" fitWidth="738.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
          <image>
             <Image url="@img/contributor.png" />
          </image>
          <BorderPane.margin>
-            <Insets top="20.0" />
+            <Insets />
          </BorderPane.margin>
       </ImageView>
    </top>
