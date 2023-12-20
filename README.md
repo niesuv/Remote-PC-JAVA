@@ -29,9 +29,10 @@ java -jar Server.jar
 3. Enjoy Wonderful Application!
 
 ## Contributors
-1. Le Huu Sang
-2. Uong Nhat Nam
-3. Vu Chau Minh Tri
-(Talented students in VNU-HCMUS schools)
+1. Le Huu Sang 22120310
+2. Uong Nhat Nam 22120221
+3. Vu Chau Minh Tri 22120456
+
+(Normal students in VNU-HCMUS schools)
 
 
