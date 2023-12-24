@@ -154,7 +154,7 @@ public class MainClient {
                 folder = matcher.group(1);
                 System.out.println(folder);
             }
-            Path file = Path.of(folder);
+            Path file = Path.of(folder);cd
             if (Files.exists(file)) {
                 if (Files.isDirectory(file)) {
                     ListDir list = new ListDir(folder);

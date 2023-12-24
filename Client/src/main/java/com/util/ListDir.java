@@ -1,5 +1,6 @@
 package com.util;
 
+import java.awt.*;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -66,7 +67,7 @@ public class ListDir {
 
     public static void main(String[] args) {
         try {
-            ListDir list = new ListDir("C:\\Program Files\\Google\\Chrome\\Application\\chrome.VisualElementsManifest.xml");
+            ListDir list = new ListDir("C:\\Users\\huusa\\Desktop");
             list.listAll("out.txt");
         } catch (IOException e) {
             System.out.println("err");

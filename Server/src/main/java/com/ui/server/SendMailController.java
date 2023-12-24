@@ -207,6 +207,11 @@ public class SendMailController {
                     }
                 } catch (NumberFormatException e) {
                     logText(bomaylaymay + "Please enter an valid time!", "red");
+                } finally {
+                    Platform.runLater(() -> {
+                        sendBut.setDisable(false);
+                        comboBox.setDisable(false);
+                    });
                 }
             }
             case "Shutdown" -> {

@@ -28,6 +28,13 @@ public class SendMail {
         properties.put("mail.smtp.starttls.enable", "true");
     }
 
+    /**
+     * Kiểm tra thông tin đăng nhập
+     *
+     * @param _email
+     * @param _password
+     * @return "ok" nếu đăng nhập thành công, "Bad Credebtials" nếu thất bại
+     */
     public String newCredential(String _email, String _password) {
         this.email = _email;
         this.password = _password;
